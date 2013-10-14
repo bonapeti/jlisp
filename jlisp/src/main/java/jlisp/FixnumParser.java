@@ -17,26 +17,14 @@ public class FixnumParser implements Parser {
                     return true;
                 }
             }
-        }, new CharacterProcessor() {
-            
-            @Override
-            public void process(char c) {
-                sb.append(c);
-            }
-        });
+        }, sb);
         charIterator.advanceUntil(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {
                 return Character.isDigit(c);
             }
-        }, new CharacterProcessor() {
-            
-            @Override
-            public void process(char c) {
-                sb.append(c);
-            }
-        });
+        }, sb);
         stack.push(new Fixnum(Integer.parseInt(sb.toString())));
     }
 }

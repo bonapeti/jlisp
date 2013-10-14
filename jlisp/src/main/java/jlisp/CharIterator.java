@@ -35,8 +35,18 @@ public class CharIterator {
         advanceUntil(charPredicate, CharacterProcessor.DO_NOTHING);
     }
     
+    public void advanceUntil(CharPredicate charPredicate, final StringBuilder stringBuilder) {
+        advanceUntil(charPredicate, new CharacterProcessor() {
+            
+            @Override
+            public void process(char c) {
+                stringBuilder.append(c);
+            }
+        });
+    }
+    
     public void advanceUntil(CharPredicate charPredicate, CharacterProcessor charProcessor) {
-        while (index < text.length()) {
+        while (hasMore()) {
             char c = text.charAt(index);
             if (charPredicate.assertCharacter(c)) {
                 charProcessor.process(c);
@@ -45,6 +55,16 @@ public class CharIterator {
                 break;
             }
         }
+    }
+    
+    public void expect(CharPredicate charPredicate, final StringBuilder stringBuilder) throws ParseException {
+        expect(charPredicate, new CharacterProcessor() {
+            
+            @Override
+            public void process(char c) {
+                stringBuilder.append(c);
+            }
+        });
     }
     
     public void expect(CharPredicate charPredicate, CharacterProcessor charProcessor) throws ParseException {

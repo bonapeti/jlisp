@@ -1,24 +1,16 @@
 package jlisp;
 
-public class Fixnum implements Expression {
+public class LispString implements Expression {
 
-    private Integer value = null;
+    private String value = null;
     
-    public Fixnum(Integer value) {
+    public LispString(String value) {
         this.value = value;
-    }
-    
-    public Object evaluate() {
-        return value;
     }
 
     @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Fixnum [value=");
-        builder.append(value);
-        builder.append("]");
-        return builder.toString();
+    public Object evaluate() {
+        return value;
     }
 
     @Override
@@ -37,7 +29,7 @@ public class Fixnum implements Expression {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Fixnum other = (Fixnum) obj;
+        LispString other = (LispString) obj;
         if (value == null) {
             if (other.value != null)
                 return false;
@@ -45,8 +37,6 @@ public class Fixnum implements Expression {
             return false;
         return true;
     }
-
-    
 
     
 }
