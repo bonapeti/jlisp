@@ -14,11 +14,7 @@ public class Fixnum implements Expression {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Fixnum [value=");
-        builder.append(value);
-        builder.append("]");
-        return builder.toString();
+        return "fixnum";
     }
 
     @Override
@@ -45,8 +41,4 @@ public class Fixnum implements Expression {
             return false;
         return true;
     }
-
-    
-
-    
 }

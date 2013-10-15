@@ -17,4 +17,8 @@ public class Spaces implements Parser {
 
     }
 
+    @Override
+    public String toString() {
+        return "S";
+    }
 }

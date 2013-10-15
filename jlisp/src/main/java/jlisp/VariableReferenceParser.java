@@ -21,4 +21,8 @@ public class VariableReferenceParser implements Parser {
         stack.push(new VariableReference(sb.toString()));
     }
 
+    @Override
+    public String toString() {
+        return "variable_reference";
+    }
 }

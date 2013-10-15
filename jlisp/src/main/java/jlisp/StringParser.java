@@ -19,4 +19,8 @@ public class StringParser implements Parser {
         stack.push(Lisp.string(sb.toString()));
     }
 
+    @Override
+    public String toString() {
+        return "string";
+    }
 }

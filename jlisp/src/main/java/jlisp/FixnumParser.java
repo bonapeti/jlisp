@@ -27,4 +27,9 @@ public class FixnumParser implements Parser {
         }, sb);
         stack.push(new Fixnum(Integer.parseInt(sb.toString())));
     }
+    
+    @Override
+    public String toString() {
+        return "number";
+    }
 }

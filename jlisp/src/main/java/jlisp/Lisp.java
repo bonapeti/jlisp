@@ -2,6 +2,8 @@ package jlisp;
 
 import java.util.Stack;
 
+import syntax.Grammar;
+
 
 public class Lisp {
 
@@ -25,21 +27,11 @@ public class Lisp {
     private static Parser lispParser = null;
     
     static {
-        Sequence parser = new Sequence();
         
-        parser.addParser(new Spaces());
-        
-        Alteration alteration = new Alteration();
-        alteration.addParser(new FixnumParser());
-        alteration.addParser(new SExpressionParser());
-        alteration.addParser(new StringParser());
-        alteration.addParser(new VariableReferenceParser());
-        parser.addParser(alteration);
-        
-        lispParser = parser;
+        lispParser = Grammar.sequenceOf(Grammar.whitespace(), Grammar.alterationOf(new FixnumParser(), new StringParser(), new VariableReferenceParser(), new ListExpressionParser()));
     }
     
-    public static Expression parse(String text) {
+    public static Expression read(String text) {
         CharIterator charIterator = new CharIterator(text);
         Stack<Expression> stack = new Stack<Expression>();
         

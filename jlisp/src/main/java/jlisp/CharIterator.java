@@ -5,6 +5,21 @@ public class CharIterator {
     private String text = null;
     private int index = 0;
     
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < text.length(); i++) {
+            if (i == index) {
+                sb.append('[');
+            }
+            sb.append(text.charAt(i));
+            if (i == index) {
+                sb.append(']');
+            }
+        }
+        return sb.toString();
+    }
+    
     public CharIterator(String text) {
         this.text = text;
     }
@@ -31,6 +46,10 @@ public class CharIterator {
         });
     }
     
+    /**
+     * Advances in the character stream until the predicate returns true
+     * @param charPredicate
+     */
     public void advanceUntil(CharPredicate charPredicate) {
         advanceUntil(charPredicate, CharacterProcessor.DO_NOTHING);
     }
