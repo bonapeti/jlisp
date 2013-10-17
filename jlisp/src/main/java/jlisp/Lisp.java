@@ -34,6 +34,13 @@ public class Lisp {
     }
     
     public static Expression read(String text) {
+        if (text == null) {
+            throw new ParseException("Premature end of file!");
+        }
+        if (text.trim().isEmpty()) {
+            throw new ParseException("Premature end of file!");
+        }
+        
         CharIterator charIterator = new CharIterator(text);
         Stack<Expression> stack = new Stack<Expression>();
         

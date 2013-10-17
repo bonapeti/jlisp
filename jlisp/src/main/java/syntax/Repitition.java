@@ -1,6 +1,5 @@
 package syntax;
 
-import java.util.Iterator;
 import java.util.Stack;
 
 import jlisp.CharIterator;

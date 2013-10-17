@@ -36,16 +36,6 @@ public class CharIterator {
         this.index = position;
     }
     
-    public void advanceUntilEnd() {
-        advanceUntil(new CharPredicate() {
-            
-            @Override
-            public boolean assertCharacter(char c) {
-                return true;
-            }
-        });
-    }
-    
     /**
      * Advances in the character stream until the predicate returns true
      * @param charPredicate
@@ -82,6 +72,25 @@ public class CharIterator {
             @Override
             public void process(char c) {
                 stringBuilder.append(c);
+            }
+        });
+    }
+    
+    public void expectWhitespaceOrEndOfFile() throws ParseException {
+        expect(new CharPredicate() {
+            
+            @Override
+            public boolean assertCharacter(char c) throws ParseException {
+                if (Character.isWhitespace(c)) {
+                    return true;
+                } else {
+                    throw new ParseException("Expecting whitespace but found " + c);
+                }
+            }
+        }, new CharacterProcessor() {
+            
+            @Override
+            protected void onEndOfFile(CharPredicate expected) throws ParseException {
             }
         });
     }
@@ -123,29 +132,5 @@ public class CharIterator {
 
     public void expect(CharPredicate charPredicate) throws ParseException {
         expect(charPredicate, CharacterProcessor.DO_NOTHING);
-    }
-}
-
-class ExpectedString implements CharPredicate {
-    private String expected = null;
-    int index = 0;
-    
-    public ExpectedString(String expected) {
-        this.expected = expected;
-    }
-
-    @Override
-    public boolean assertCharacter(char c) throws ParseException {
-        if (expected.charAt(index) == c) {
-            index++;
-            return true;
-        } else {
-            throw new ParseException("Expecting '" + expected + "' but found " + c);
-        }
-    }
-    
-    @Override
-    public String toString() {
-        return "'" + expected + "'";
     }
 }

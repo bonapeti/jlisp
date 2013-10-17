@@ -3,13 +3,11 @@ package jlisp;
 public class TrueSymbol implements Expression {
 
     public TrueSymbol() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public Object evaluate() {
-        // TODO Auto-generated method stub
-        return null;
+        return this;
     }
 
     @Override
