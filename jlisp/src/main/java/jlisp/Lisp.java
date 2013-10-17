@@ -24,11 +24,13 @@ public class Lisp {
         return new LispString(value);
     }
     
+    public static Parser ATOM = Grammar.alterationOf(new NilParser(), new FixnumParser(), new TrueSymbolParser(), new StringParser(), new VariableReferenceParser(), new ListExpressionParser()); 
+    
     private static Parser lispParser = null;
     
     static {
-        
-        lispParser = Grammar.sequenceOf(Grammar.whitespace(), Grammar.alterationOf(new FixnumParser(), new StringParser(), new VariableReferenceParser(), new ListExpressionParser()));
+
+        lispParser = Grammar.sequenceOf(Grammar.whitespace(), ATOM);
     }
     
     public static Expression read(String text) {
@@ -41,6 +43,10 @@ public class Lisp {
             throw new ParseException("Unknown expression '" + text + "'");
         }
         return stack.pop();
+    }
+
+    public static Object t() {
+        return new TrueSymbol();
     }
 
 }

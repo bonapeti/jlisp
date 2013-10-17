@@ -7,6 +7,20 @@ import org.junit.Test;
 public class LispTestCase {
     
     @Test
+    public void nil() {
+        assertEquals(Lisp.NIL, Lisp.read("nil"));
+        assertEquals(Lisp.NIL, Lisp.read(" nil"));
+        assertEquals(Lisp.NIL, Lisp.read(" nil "));
+    }
+    
+    @Test
+    public void truthy() {
+        assertEquals(Lisp.t(), Lisp.read("t"));
+        assertEquals(Lisp.t(), Lisp.read(" t"));
+        assertEquals(Lisp.t(), Lisp.read(" t "));
+    }
+    
+    @Test
     public void fixnums() {
         assertEquals(Lisp.fixnum(3), Lisp.read("3"));
         assertEquals(Lisp.fixnum(3), Lisp.read(" 3"));

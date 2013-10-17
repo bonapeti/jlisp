@@ -18,6 +18,12 @@ public class VariableReferenceParser implements Parser {
                 }
             }
         }, sb);
+        if ("t".equals(sb.toString())) {
+            throw new ParseException("'t' is cannot be used as variable");
+        }
+        if ("nil".equals(sb.toString())) {
+            throw new ParseException("'nil' is cannot be used as variable");
+        }
         stack.push(new VariableReference(sb.toString()));
     }
 

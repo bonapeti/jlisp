@@ -1,13 +1,14 @@
 package jlisp;
 
-public interface CharacterProcessor {
-
-    CharacterProcessor DO_NOTHING = new CharacterProcessor() {
-        
-        @Override
-        public void process(char c) {
-        }
-    };
+public class CharacterProcessor {
     
-    void process(char c);
+    public static final CharacterProcessor DO_NOTHING = new CharacterProcessor();
+
+    protected void process(char c) throws ParseException {
+        
+    }
+    
+    protected void onEndOfFile(CharPredicate expected)  throws ParseException {
+        throw new ParseException("Expected " + expected.toString() + " but found end of file!");
+    }
 }

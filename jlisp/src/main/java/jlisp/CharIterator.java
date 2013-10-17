@@ -96,7 +96,13 @@ public class CharIterator {
                 throw new ParseException("Expected " + charPredicate.toString() + " but found " + current);
             }
         } else {
-            throw new ParseException("Expected " + charPredicate.toString() + " but found end of file!");
+            charProcessor.onEndOfFile(charPredicate);
+        }
+    }
+
+    public void expect(final String expectedString) throws ParseException {
+        for (int i = 0; i < expectedString.length(); i++) {
+            expect(expectedString.charAt(i));
         }
     }
     
@@ -115,4 +121,31 @@ public class CharIterator {
         }, CharacterProcessor.DO_NOTHING);
     }
 
+    public void expect(CharPredicate charPredicate) throws ParseException {
+        expect(charPredicate, CharacterProcessor.DO_NOTHING);
+    }
+}
+
+class ExpectedString implements CharPredicate {
+    private String expected = null;
+    int index = 0;
+    
+    public ExpectedString(String expected) {
+        this.expected = expected;
+    }
+
+    @Override
+    public boolean assertCharacter(char c) throws ParseException {
+        if (expected.charAt(index) == c) {
+            index++;
+            return true;
+        } else {
+            throw new ParseException("Expecting '" + expected + "' but found " + c);
+        }
+    }
+    
+    @Override
+    public String toString() {
+        return "'" + expected + "'";
+    }
 }

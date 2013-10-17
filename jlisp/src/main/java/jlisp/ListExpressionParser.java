@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class ListExpressionParser implements Parser {
 
-    private Parser listParser = alterationOf(sequenceOf(whitespace(), new FunctionNameParser()), new EmptyListParser());
+    private Parser listParser = alterationOf(sequenceOf(whitespace(), new FunctionNameParser(), whitespace()), new EmptyListParser());
 
     @Override
     public void parse(CharIterator charIterator, Stack<Expression> stack) {
