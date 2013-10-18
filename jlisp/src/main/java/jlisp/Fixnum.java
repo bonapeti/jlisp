@@ -8,7 +8,7 @@ public class Fixnum implements Expression {
         this.value = value;
     }
     
-    public Object evaluate() {
+    public Object evaluate(Environment environment) {
         return value;
     }
 

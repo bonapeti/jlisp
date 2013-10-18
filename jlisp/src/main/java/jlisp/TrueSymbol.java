@@ -6,7 +6,7 @@ public class TrueSymbol implements Expression {
     }
 
     @Override
-    public Object evaluate() {
+    public Object evaluate(Environment environment) {
         return this;
     }
 

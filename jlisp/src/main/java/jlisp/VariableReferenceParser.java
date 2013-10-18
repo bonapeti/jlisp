@@ -18,6 +18,13 @@ public class VariableReferenceParser implements Parser {
                 }
             }
         }, sb);
+        charIterator.advanceUntil(new CharPredicate() {
+            
+            @Override
+            public boolean assertCharacter(char c) throws ParseException {
+                return Character.isLetter(c);
+            }
+        }, sb);
         if ("t".equals(sb.toString())) {
             throw new ParseException("'t' is cannot be used as variable");
         }

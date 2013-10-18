@@ -2,5 +2,5 @@ package jlisp;
 
 public interface Expression {
 
-    Object evaluate();
+    Object evaluate(Environment environment);
 }

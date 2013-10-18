@@ -7,9 +7,8 @@ public class EmptyList implements Expression {
     }
 
     @Override
-    public Object evaluate() {
-        // TODO Auto-generated method stub
-        return null;
+    public Object evaluate(Environment environment) {
+        return Lisp.NIL;
     }
 
     @Override

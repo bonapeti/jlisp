@@ -9,7 +9,7 @@ public class Lisp {
 
     public static final Expression NIL = new Expression() {
 
-        public Object evaluate() {
+        public Object evaluate(Environment environment) {
             return NIL;
         }
         
@@ -24,13 +24,11 @@ public class Lisp {
         return new LispString(value);
     }
     
-    public static Parser ATOM = Grammar.alterationOf(new NilParser(), new FixnumParser(), new TrueSymbolParser(), new StringParser(), new VariableReferenceParser(), new ListExpressionParser()); 
-    
     private static Parser lispParser = null;
     
     static {
 
-        lispParser = Grammar.sequenceOf(Grammar.whitespace(), ATOM);
+        lispParser = Grammar.sequenceOf(Grammar.whitespace(), new AtomExpressionParser());
     }
     
     public static Expression read(String text) {

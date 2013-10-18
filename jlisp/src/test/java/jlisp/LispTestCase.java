@@ -53,6 +53,15 @@ public class LispTestCase {
         assertEquals(new FunctionCall("+"), Lisp.read(" (+) "));
         assertEquals(new FunctionCall("+"), Lisp.read(" ( +) "));
         assertEquals(new FunctionCall("+"), Lisp.read(" ( + ) "));
+        
+        FunctionCall plus = new FunctionCall("+");
+        plus.addArgument(Lisp.fixnum(3));
+        assertEquals(plus, Lisp.read(" ( + 3) "));
+        
+        FunctionCall plus2 = new FunctionCall("+");
+        plus2.addArgument(Lisp.fixnum(3));
+        plus2.addArgument(Lisp.fixnum(5));
+        assertEquals(plus2, Lisp.read(" ( + 3 5 ) "));
     }
     
     

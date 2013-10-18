@@ -9,7 +9,7 @@ public class LispString implements Expression {
     }
 
     @Override
-    public Object evaluate() {
+    public Object evaluate(Environment environment) {
         return value;
     }
 
