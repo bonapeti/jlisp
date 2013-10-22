@@ -2,8 +2,9 @@ package syntax;
 
 import java.util.Stack;
 
-import jlisp.CharIterator;
 import jlisp.Expression;
+
+import jlisp.CharIterator;
 import jlisp.ParseException;
 import jlisp.Parser;
 

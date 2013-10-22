@@ -14,7 +14,7 @@ public class Fixnum implements Expression {
 
     @Override
     public String toString() {
-        return "fixnum";
+        return value.toString();
     }
 
     @Override

@@ -2,7 +2,7 @@ package jlisp;
 
 import java.util.Stack;
 
-public class VariableReferenceParser implements Parser {
+public class SymbolParser implements Parser {
 
     @Override
     public void parse(CharIterator charIterator, Stack<Expression> stack) throws ParseException {
@@ -11,11 +11,13 @@ public class VariableReferenceParser implements Parser {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {
-                if (Character.isLetter(c)) {
-                    return true;
-                } else {
-                    throw new ParseException("Expecting variable but found '" + c + "'");
+                if (Character.isWhitespace(c)) {
+                    return false;
                 }
+                if ( (c == '(') || (c == ')')) {
+                    return false;
+                }
+                return true;
             }
         }, sb);
         charIterator.advanceUntil(new CharPredicate() {
@@ -31,7 +33,7 @@ public class VariableReferenceParser implements Parser {
         if ("nil".equals(sb.toString())) {
             throw new ParseException("'nil' is cannot be used as variable");
         }
-        stack.push(new VariableReference(sb.toString()));
+        stack.push(new Symbol(sb.toString()));
     }
 
     @Override

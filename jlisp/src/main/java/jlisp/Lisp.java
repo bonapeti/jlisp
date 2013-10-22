@@ -47,7 +47,7 @@ public class Lisp {
         if (stack.isEmpty()) {
             throw new ParseException("Unknown expression '" + text + "'");
         }
-        return stack.pop();
+        return (Expression)stack.pop();
     }
 
     public static Object t() {

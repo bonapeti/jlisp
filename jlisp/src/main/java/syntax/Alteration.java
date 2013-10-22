@@ -6,10 +6,9 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 import jlisp.CharIterator;
-import jlisp.Expression;
 import jlisp.ParseException;
 import jlisp.Parser;
-
+import jlisp.Expression;
 public class Alteration implements Parser {
 
     private Collection<Parser> parsers = new LinkedList<Parser>();

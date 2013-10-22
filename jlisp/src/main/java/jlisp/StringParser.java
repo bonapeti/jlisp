@@ -7,15 +7,15 @@ public class StringParser implements Parser {
     @Override
     public void parse(CharIterator charIterator, Stack<Expression> stack) throws ParseException {
         StringBuilder sb = new StringBuilder();
-        charIterator.expect('\'');
+        charIterator.expect('\"');
         charIterator.advanceUntil(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {
-                return c != '\'';
+                return c != '\"';
             }
         }, sb);
-        charIterator.expect('\'');
+        charIterator.expect('\"');
         stack.push(Lisp.string(sb.toString()));
     }
 
