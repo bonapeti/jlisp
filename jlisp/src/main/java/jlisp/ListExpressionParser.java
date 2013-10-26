@@ -13,26 +13,18 @@ public class ListExpressionParser implements Parser {
     @Override
     public void parse(CharIterator charIterator, Stack<Expression> stack) {
         charIterator.expect('(');
-        stack.push(new List());
         
-        listParser.parse(charIterator, stack);
+        Stack<Expression> listStack = new Stack<Expression>();
+        listParser.parse(charIterator, listStack);
         
         charIterator.expect(')');
         
-        Stack<Expression> listStack = new Stack<Expression>();
-        Expression expression = stack.peek();
-        while (! (expression instanceof List)) {
-            expression = stack.pop();
-            listStack.push(expression);
-            expression = stack.peek();
-        }
+        List list = new List();
         
-        List lispList = (List)stack.peek();
-        
-        while (!listStack.isEmpty()) {
-            Expression listExpression = listStack.pop();
-            lispList.add(listExpression);
+        for (Expression listExpression : listStack) {
+            list.add(listExpression);
         }
+        stack.push(list);
     }
 
     @Override
