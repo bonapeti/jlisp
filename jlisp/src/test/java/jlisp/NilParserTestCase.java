@@ -10,7 +10,7 @@ public class NilParserTestCase {
 
     @Test
     public void parseNil() {
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         NilParser symbolParser = new NilParser();
         CharIterator chars = new CharIterator("nil");
         symbolParser.parse(chars, stack);
@@ -20,7 +20,7 @@ public class NilParserTestCase {
     
     @Test
     public void parseNilSpace() {
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         NilParser symbolParser = new NilParser();
         CharIterator chars = new CharIterator("nil ");
         symbolParser.parse(chars, stack);
@@ -30,7 +30,7 @@ public class NilParserTestCase {
     
     @Test
     public void parseTSpaceWithClosingList() {
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         NilParser symbolParser = new NilParser();
         CharIterator chars = new CharIterator("nil) ");
         symbolParser.parse(chars, stack);

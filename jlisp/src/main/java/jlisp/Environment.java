@@ -7,7 +7,7 @@ public interface Environment {
     
     void defineFunction(Symbol name, Function definition);
     
-    void bindValue(Symbol symbol, Expression value);
+    void bindValue(Symbol symbol, LispObject value);
     
-    Expression getValue(Symbol symbol);
+    LispObject getValue(Symbol symbol);
 }

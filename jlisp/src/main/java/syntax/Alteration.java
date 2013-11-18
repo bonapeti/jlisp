@@ -8,13 +8,13 @@ import java.util.Stack;
 import jlisp.CharIterator;
 import jlisp.ParseException;
 import jlisp.Parser;
-import jlisp.Expression;
+import jlisp.LispObject;
 public class Alteration implements Parser {
 
     private Collection<Parser> parsers = new LinkedList<Parser>();
 
     @Override
-    public void parse(CharIterator charIterator, Stack<Expression> stack) throws ParseException {
+    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
         ParseException lastError = null;
         int position = charIterator.getCurrentPosition();
         for (Parser parser : parsers) {

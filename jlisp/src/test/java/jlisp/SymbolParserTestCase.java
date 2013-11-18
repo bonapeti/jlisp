@@ -16,7 +16,7 @@ public class SymbolParserTestCase {
     
     @Test
     public void parseEmpty() {
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         SymbolParser symbolParser = new SymbolParser();
         CharIterator chars = new CharIterator("");
         try {
@@ -31,7 +31,7 @@ public class SymbolParserTestCase {
     
     @Test
     public void parseArg() {
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         SymbolParser symbolParser = new SymbolParser();
         CharIterator chars = new CharIterator("arg ");
         symbolParser.parse(chars, stack);
@@ -41,7 +41,7 @@ public class SymbolParserTestCase {
     
     @Test
     public void parseArg1() {
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         SymbolParser symbolParser = new SymbolParser();
         symbolParser.parse(new CharIterator("arg1"), stack);
         assertEquals(new Symbol("arg1"),stack.pop());
@@ -49,7 +49,7 @@ public class SymbolParserTestCase {
     
     @Test
     public void parseHelloHyphenWorld() {
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         SymbolParser symbolParser = new SymbolParser();
         symbolParser.parse(new CharIterator("hello-world"), stack);
         assertEquals(new Symbol("hello-world"),stack.pop());
@@ -60,19 +60,19 @@ public class SymbolParserTestCase {
     @Test(expected=ParseException.class)
     public void space() {
         SymbolParser parser = new SymbolParser();
-        parser.parse(new CharIterator(" "), new Stack<Expression>());
+        parser.parse(new CharIterator(" "), new Stack<LispObject>());
     }
     
     @Test(expected=ParseException.class)
     public void spaceA() {
         SymbolParser parser = new SymbolParser();
-        parser.parse(new CharIterator(" a"), new Stack<Expression>());
+        parser.parse(new CharIterator(" a"), new Stack<LispObject>());
     }
     
     @Test
     public void a() {
         SymbolParser parser = new SymbolParser();
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         parser.parse(new CharIterator("a"), stack);
         assertFalse(stack.isEmpty());
         assertEquals(new Symbol("a"), stack.pop());
@@ -81,7 +81,7 @@ public class SymbolParserTestCase {
     @Test
     public void aSpace() {
         SymbolParser parser = new SymbolParser();
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         parser.parse(new CharIterator("a "), stack);
         assertFalse(stack.isEmpty());
         assertEquals(new Symbol("a"), stack.pop());

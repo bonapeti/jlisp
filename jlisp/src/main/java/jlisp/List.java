@@ -1,22 +1,24 @@
 package jlisp;
 
+import java.io.IOException;
+
 
 public class List implements IList {
 
-	private Expression head = null;
+	private LispObject head = null;
 	private IList tail = null;
 
-	public List(Expression head) {
+	public List(LispObject head) {
 		this(head, Lisp.NIL);
 	}
 
-	public List(Expression head, IList tail) {
+	public List(LispObject head, IList tail) {
 		this.head = head;
 		this.tail = tail;
 	}
 
 	@Override
-	public Expression evaluate(Environment environment) {
+	public LispObject evaluate(Environment environment){
 
 		Symbol functionName = (Symbol) head();
 
@@ -42,7 +44,7 @@ public class List implements IList {
 	}
 
 	@Override
-	public Expression head() {
+	public LispObject head() {
 		return head;
 	}
 
@@ -52,12 +54,12 @@ public class List implements IList {
 	}
 
 	@Override
-	public List append(Expression expression) {
-		return new List(head(), tail().append(expression));
+	public List append(LispObject lispObject) {
+		return new List(head(), tail().append(lispObject));
 	}
 
 	@Override
-	public IList filter(Function2<Expression, Boolean> f) {
+	public IList filter(Function1<LispObject, Boolean> f) {
 		if (f.apply(head())) {
 			return new List(head(), tail().filter(f));
 		} else {
@@ -67,24 +69,24 @@ public class List implements IList {
 	}
 
 	@Override
-	public IList map(Function2<Expression, Expression> f) {
+	public IList map(Function1<LispObject, LispObject> f) {
 		return new List(f.apply(head()),tail.map(f));
 	}
 
 	@Override
-	public Expression foldLeft(Expression seed,
-			Function3<Expression, Expression, Expression> f) {
+	public <R> R foldLeft(R seed,
+			Function2<R, R, LispObject> f) {
 		return tail().foldLeft(f.apply(seed, head()), f);
 	}
 
 	@Override
-	public Expression foldRight(Expression seed,
-			Function3<Expression, Expression, Expression> f) {
+	public <R> R foldRight(R seed,
+			Function2<R, LispObject, R> f) {
 		return f.apply(head(), tail().foldRight(seed, f));
 	}
 
 	@Override
-	public void foreach(Function1Void<Expression> f) {
+	public void foreach(VoidFunction f) {
 		f.apply(head());
 		tail().foreach(f);
 
@@ -93,6 +95,19 @@ public class List implements IList {
     @Override
     public boolean isEmpty() {
         return false;
+    }
+
+    @Override
+    public void print(Appendable appendable) throws IOException {
+        appendable.append("(");
+        head().print(appendable);
+        IList next = tail;
+        while (!next.isEmpty()) {
+            appendable.append(" ");
+            next.head().print(appendable);
+            next = next.tail();
+        }
+        appendable.append(")");
     }
 
 	

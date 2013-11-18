@@ -12,15 +12,15 @@ public class FunctionDefinition implements Function {
     }
     
     @Override
-    public Expression evaluate(IList arguments, Environment environment) {
+    public LispObject evaluate(IList arguments, Environment environment) {
         
         final CallEnvironment callEnvironment = new CallEnvironment(environment);
         
         
-        parameters.foldLeft(arguments, new Function3<Expression, Expression, Expression>() {
+        parameters.foldLeft(arguments, new Function2<LispObject, LispObject, LispObject>() {
 			
 			@Override
-			public Expression apply(Expression argumentsExpression, Expression parameter) {
+			public LispObject apply(LispObject argumentsExpression, LispObject parameter) {
 				Symbol parameterSymbol = (Symbol)parameter;
 
 				IList arguments = (IList)argumentsExpression;
@@ -34,10 +34,10 @@ public class FunctionDefinition implements Function {
 			}
 		});
         
-        return bodies.foldLeft(Lisp.NIL, new Function3<Expression, Expression, Expression>() {
+        return bodies.foldLeft(Lisp.NIL, new Function2<LispObject, LispObject, LispObject>() {
 			
 			@Override
-			public Expression apply(Expression seed, Expression body) {
+			public LispObject apply(LispObject seed, LispObject body) {
 				return body.evaluate(callEnvironment);
 			}
 		});

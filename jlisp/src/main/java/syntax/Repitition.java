@@ -2,7 +2,7 @@ package syntax;
 
 import java.util.Stack;
 
-import jlisp.Expression;
+import jlisp.LispObject;
 
 import jlisp.CharIterator;
 import jlisp.ParseException;
@@ -17,7 +17,7 @@ public class Repitition implements Parser {
     }
 
     @Override
-    public void parse(CharIterator charIterator, Stack<Expression> stack) throws ParseException {
+    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
         
         while (true) {
             int position = charIterator.getCurrentPosition();

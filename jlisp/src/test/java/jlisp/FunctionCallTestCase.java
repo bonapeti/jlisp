@@ -14,26 +14,26 @@ public class FunctionCallTestCase {
     @Test
     public void evaluate() {
         Function function = mock(Function.class);
-        Expression value = mock(Expression.class);
+        LispObject value = mock(LispObject.class);
         
         Environment environment = mock(Environment.class);
         
         IList expressions = mock(IList.class);
         IList evaluatedExpressions = mock(IList.class);
         
-        when(expressions.map(isA(Function2.class))).thenReturn(evaluatedExpressions);
+        when(expressions.map(isA(Function1.class))).thenReturn(evaluatedExpressions);
         when(function.evaluate(eq(expressions), eq(environment))).thenReturn(value);
         
         FunctionCall functionCall = new FunctionCall(function);
         
-        Expression expression = mock(Expression.class);
-        when(expressions.head()).thenReturn(expression);
+        LispObject lispObject = mock(LispObject.class);
+        when(expressions.head()).thenReturn(lispObject);
         
-        Expression argument = mock(Expression.class);
+        LispObject argument = mock(LispObject.class);
         
-        when(expression.evaluate(environment)).thenReturn(argument);
+        when(lispObject.evaluate(environment)).thenReturn(argument);
         
-        Expression result = mock(Expression.class);
+        LispObject result = mock(LispObject.class);
         
         when(function.evaluate(evaluatedExpressions, environment)).thenReturn(result);
         

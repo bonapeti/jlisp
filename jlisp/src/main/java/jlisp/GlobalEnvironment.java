@@ -6,7 +6,7 @@ import java.util.Map;
 public class GlobalEnvironment implements Environment {
 
     Map<Symbol,SpecialForm> specialForms = new HashMap<Symbol,SpecialForm>();
-    Map<Symbol, Expression> values = new HashMap<Symbol, Expression>();
+    Map<Symbol, LispObject> values = new HashMap<Symbol, LispObject>();
 
     @Override
     public SpecialForm getSpecialForm(Symbol name) {
@@ -34,13 +34,13 @@ public class GlobalEnvironment implements Environment {
     }
 
     @Override
-    public void bindValue(Symbol symbol, Expression value) {
+    public void bindValue(Symbol symbol, LispObject value) {
         values.put(symbol, value);
     }
 
     @Override
-    public Expression getValue(Symbol symbol) {
-    	Expression value = values.get(symbol);
+    public LispObject getValue(Symbol symbol) {
+    	LispObject value = values.get(symbol);
         if (value == null) {
             throw new EvaluationException("Variable " + symbol.toString() + " has no value");
         }

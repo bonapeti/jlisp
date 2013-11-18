@@ -5,7 +5,7 @@ import java.util.Stack;
 public class NilParser implements Parser {
 
     @Override
-    public void parse(CharIterator charIterator, Stack<Expression> stack) throws ParseException {
+    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
         charIterator.expect("nil");
         charIterator.checkNext(new CharPredicate() {
             

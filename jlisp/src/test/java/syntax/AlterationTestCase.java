@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 import java.util.Stack;
 
 import jlisp.CharIterator;
-import jlisp.Expression;
+import jlisp.LispObject;
 import jlisp.ParseException;
 import jlisp.Parser;
 
@@ -42,7 +42,7 @@ public class AlterationTestCase {
     @Test
     public void one_parser_fails() {
         Parser parser = mock(Parser.class);
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         CharIterator charIterator = mock(CharIterator.class);
         when(charIterator.getCurrentPosition()).thenReturn(5);
         
@@ -65,12 +65,12 @@ public class AlterationTestCase {
     
     @Test
     public void first_parses() {
-        Expression expression = mock(Expression.class);
+        LispObject lispObject = mock(LispObject.class);
         
-        Parser parser1 = new MockParser(expression);
+        Parser parser1 = new MockParser(lispObject);
         Parser parser2 = mock(Parser.class);
         
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         CharIterator charIterator = mock(CharIterator.class);
         
         when(charIterator.getCurrentPosition()).thenReturn(5);
@@ -83,19 +83,19 @@ public class AlterationTestCase {
         alteration.addParser(parser2);
         
         alteration.parse(charIterator, stack);
-        assertSame(expression, stack.pop());
+        assertSame(lispObject, stack.pop());
         assertTrue(stack.isEmpty());
         verifyZeroInteractions(parser2);
     }
     
     @Test
     public void first_fails() {
-        Expression expression = mock(Expression.class);
+        LispObject lispObject = mock(LispObject.class);
         
         Parser parser1 = mock(Parser.class);
-        Parser parser2 = new MockParser(expression);
+        Parser parser2 = new MockParser(lispObject);
         
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         CharIterator charIterator = mock(CharIterator.class);
         
         ParseException pe = new ParseException("ParseException");
@@ -106,7 +106,7 @@ public class AlterationTestCase {
         alteration.addParser(parser2);
         
         alteration.parse(charIterator, stack);
-        assertSame(expression, stack.pop());
+        assertSame(lispObject, stack.pop());
         assertTrue(stack.isEmpty());
         
     }

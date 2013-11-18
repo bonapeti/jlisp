@@ -13,7 +13,7 @@ import static org.mockito.Mockito.verify;
 import java.util.Stack;
 
 import jlisp.CharIterator;
-import jlisp.Expression;
+import jlisp.LispObject;
 import jlisp.ParseException;
 import jlisp.Parser;
 
@@ -32,7 +32,7 @@ public class RepititionTestCase {
     @Test
     public void one_parser_fails() {
         Parser parser = mock(Parser.class);
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         CharIterator charIterator = mock(CharIterator.class);
         when(charIterator.getCurrentPosition()).thenReturn(5);
         
@@ -50,7 +50,7 @@ public class RepititionTestCase {
     public void two_parser_fails() {
         Parser parser = mock(Parser.class);
         
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         CharIterator charIterator = mock(CharIterator.class);
         when(charIterator.getCurrentPosition()).thenReturn(5).thenReturn(10);
 

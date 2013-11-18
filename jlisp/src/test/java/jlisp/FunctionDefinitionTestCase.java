@@ -26,7 +26,7 @@ public class FunctionDefinitionTestCase {
         
         Environment environment = mock(Environment.class);
         IList body = mock(IList.class);
-        Expression value = mock(Expression.class);
+        LispObject value = mock(LispObject.class);
         when(body.evaluate(isA(Environment.class))).thenReturn(value);
         bodies = bodies.append(body);
         
@@ -44,7 +44,7 @@ public class FunctionDefinitionTestCase {
         
         Environment environment = mock(Environment.class);
         IList body = mock(List.class);
-        Expression value = mock(Expression.class);
+        LispObject value = mock(LispObject.class);
         when(body.evaluate(environment)).thenReturn(value);
         
         bodies = bodies.append(body);
@@ -69,14 +69,14 @@ public class FunctionDefinitionTestCase {
         
         Environment environment = mock(Environment.class);
         IList body = mock(IList.class);
-        Expression returnValue = mock(Expression.class);
+        LispObject returnValue = mock(LispObject.class);
         when(body.evaluate(isA(Environment.class))).thenReturn(returnValue);
         bodies = bodies.append(body);
         
         FunctionDefinition function = new FunctionDefinition(parameterList, bodies);
         
         IList arguments = Lisp.NIL;
-        Expression argument = mock(Expression.class);
+        LispObject argument = mock(LispObject.class);
         arguments = arguments.append(argument);
         
         assertEquals(returnValue, function.evaluate(arguments, environment));

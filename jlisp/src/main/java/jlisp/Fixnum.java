@@ -1,6 +1,8 @@
 package jlisp;
 
-public class Fixnum extends Number implements Expression {
+import java.io.IOException;
+
+public class Fixnum extends Number implements LispObject {
 
     private Integer value = null;
     
@@ -8,7 +10,7 @@ public class Fixnum extends Number implements Expression {
         this.value = value;
     }
     
-    public Expression evaluate(Environment environment) {
+    public LispObject evaluate(Environment environment) {
         return this;
     }
 
@@ -61,4 +63,9 @@ public class Fixnum extends Number implements Expression {
 	public double doubleValue() {
 		return value.doubleValue();
 	}
+
+    @Override
+    public void print(Appendable appendable) throws IOException {
+        appendable.append(value.toString());
+    }
 }

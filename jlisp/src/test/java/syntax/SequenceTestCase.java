@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 import java.util.Stack;
 
 import jlisp.CharIterator;
-import jlisp.Expression;
+import jlisp.LispObject;
 import jlisp.ParseException;
 import jlisp.Parser;
 
@@ -38,7 +38,7 @@ public class SequenceTestCase {
     @Test
     public void one_parser_fails() {
         Parser parser = mock(Parser.class);
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         CharIterator charIterator = mock(CharIterator.class);
         
         ParseException pe = new ParseException("ParseException");
@@ -59,12 +59,12 @@ public class SequenceTestCase {
     
     @Test
     public void two_parser_fails() {
-        Expression expression = mock(Expression.class);
+        LispObject lispObject = mock(LispObject.class);
         
-        Parser parser1 = new MockParser(expression);
+        Parser parser1 = new MockParser(lispObject);
         Parser parser2 = mock(Parser.class);
         
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         CharIterator charIterator = mock(CharIterator.class);
         
         ParseException pe = new ParseException("ParseException");
@@ -86,13 +86,13 @@ public class SequenceTestCase {
     
     @Test
     public void parse() {
-        Expression expression1 = mock(Expression.class);
-        Expression expression2 = mock(Expression.class);
+        LispObject expression1 = mock(LispObject.class);
+        LispObject expression2 = mock(LispObject.class);
         
         Parser parser1 = new MockParser(expression1);
         Parser parser2 = new MockParser(expression2);
         
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         CharIterator charIterator = mock(CharIterator.class);
         
         ParseException pe = new ParseException("ParseException");
@@ -113,15 +113,15 @@ public class SequenceTestCase {
 
 class MockParser implements Parser {
 
-    private Expression expression = null;
+    private LispObject lispObject = null;
     
-    public MockParser(Expression expression) {
-        this.expression = expression;
+    public MockParser(LispObject lispObject) {
+        this.lispObject = lispObject;
     }
     
     @Override
-    public void parse(CharIterator charIterator, Stack<Expression> stack) throws ParseException {
-        stack.push(expression);
+    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
+        stack.push(lispObject);
     }
     
 }

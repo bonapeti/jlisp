@@ -7,7 +7,7 @@ public final class T extends Symbol {
     }
 
     @Override
-    public Expression evaluate(Environment environment) {
+    public LispObject evaluate(Environment environment) {
         return this;
     }
 

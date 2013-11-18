@@ -8,7 +8,7 @@ public final class Nil extends Symbol implements IList {
     }
 
     @Override
-    public Expression evaluate(Environment environment) {
+    public LispObject evaluate(Environment environment) {
         return this;
     }
     
@@ -32,7 +32,7 @@ public final class Nil extends Symbol implements IList {
     }
 
 	@Override
-	public Expression head() {
+	public LispObject head() {
 		throw new UnsupportedOperationException("nil.head should not be called");
 	}
 
@@ -42,34 +42,34 @@ public final class Nil extends Symbol implements IList {
 	}
 
 	@Override
-	public List append(Expression expression) {
-		return new List(expression);
+	public List append(LispObject lispObject) {
+		return new List(lispObject);
 	}
 
 	@Override
-	public IList filter(Function2<Expression, Boolean> f) {
+	public IList filter(Function1<LispObject, Boolean> f) {
 		return this;
 	}
 
 	@Override
-	public IList map(Function2<Expression, Expression> f) {
+	public IList map(Function1<LispObject, LispObject> f) {
 		return this;
 	}
 
 	@Override
-	public Expression foldLeft(Expression seed,
-			Function3<Expression, Expression, Expression> f) {
+	public <R> R foldLeft(R seed,
+			Function2<R, R, LispObject> f) {
 		return seed;
 	}
 
 	@Override
-	public Expression foldRight(Expression seed,
-			Function3<Expression, Expression, Expression> f) {
+	public <R> R foldRight(R seed,
+			Function2<R, LispObject, R> f) {
 		return seed;
 	}
 
 	@Override
-	public void foreach(Function1Void<Expression> f) {
+	public void foreach(VoidFunction f) {
 		
 	}
 

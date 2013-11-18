@@ -7,7 +7,7 @@ public class CallEnvironment implements Environment {
 
     private Environment parent = null;
     
-    Map<Symbol, Expression> values = new HashMap<Symbol, Expression>();
+    Map<Symbol, LispObject> values = new HashMap<Symbol, LispObject>();
     
     public CallEnvironment(Environment parent) {
         this.parent = parent;
@@ -24,13 +24,13 @@ public class CallEnvironment implements Environment {
     }
 
     @Override
-    public void bindValue(Symbol symbol, Expression value) {
+    public void bindValue(Symbol symbol, LispObject value) {
         values.put(symbol, value);
     }
 
     @Override
-    public Expression getValue(Symbol symbol) {
-    	Expression value = values.get(symbol);
+    public LispObject getValue(Symbol symbol) {
+    	LispObject value = values.get(symbol);
         if (value == null) {
             return parent.getValue(symbol);
         }

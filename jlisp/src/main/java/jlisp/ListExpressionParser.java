@@ -11,17 +11,17 @@ public class ListExpressionParser implements Parser {
     private Parser listParser = sequenceOf(repititionOf(sequenceOf(whitespace(), new AtomExpressionParser())), whitespace());
 
     @Override
-    public void parse(CharIterator charIterator, Stack<Expression> stack) {
+    public void parse(CharIterator charIterator, Stack<LispObject> stack) {
         charIterator.expect('(');
         
-        Stack<Expression> listStack = new Stack<Expression>();
+        Stack<LispObject> listStack = new Stack<LispObject>();
         listParser.parse(charIterator, listStack);
         
         charIterator.expect(')');
         
         IList list = Lisp.NIL;
         
-        for (Expression listExpression : listStack) {
+        for (LispObject listExpression : listStack) {
             list = list.append(listExpression);
         }
         stack.push(list);

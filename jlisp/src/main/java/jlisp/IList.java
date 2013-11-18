@@ -1,23 +1,23 @@
 package jlisp;
 
-public interface IList extends Expression {
+public interface IList extends LispObject {
 
     boolean isEmpty();
     
-	Expression head();
+	LispObject head();
 	
 	IList tail();
 	
-	List append(Expression expression);
+	List append(LispObject lispObject);
 	
-	IList filter(Function2<Expression,Boolean> f);
+	IList filter(Function1<LispObject,Boolean> f);
 	
-	IList map(Function2<Expression,Expression> f);
+	IList map(Function1<LispObject,LispObject> f);
 	
-	Expression foldLeft(Expression seed, Function3<Expression,Expression,Expression> f);
+	<R> R foldLeft(R seed, Function2<R,R,LispObject> f);
 	
-	Expression foldRight(Expression seed, Function3<Expression,Expression,Expression> f);
+	<R> R foldRight(R seed, Function2<R, LispObject, R> f);
 	
-	void foreach(Function1Void<Expression> f);
+	void foreach(VoidFunction f);
 
 }

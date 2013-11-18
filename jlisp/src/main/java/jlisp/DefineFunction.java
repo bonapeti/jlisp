@@ -4,13 +4,13 @@ package jlisp;
 public class DefineFunction implements SpecialForm {
     
     @Override
-    public Expression evaluate(IList expressions, Environment environment) {
+    public LispObject evaluate(IList expressions, Environment environment) {
         
         if (expressions.isEmpty()) {
             throw new EvaluationException("DEFUN: cannot define a function from: " + expressions);
         }
         
-        Expression first = expressions.head();
+        LispObject first = expressions.head();
         if (!(first instanceof Symbol)) {
             throw new EvaluationException("The value " + first.toString() + " is not of type SYMBOL");
         }
@@ -21,13 +21,13 @@ public class DefineFunction implements SpecialForm {
         
         IList remaining = expressions.tail();
         if (!remaining.isEmpty()) {
-            Expression second = remaining.head();
+            LispObject second = remaining.head();
             assertList(second);
             parameterList = (IList)second;
-            parameterList.foreach(new Function1Void<Expression>() {
+            parameterList.foreach(new VoidFunction() {
                 
                 @Override
-                public void apply(Expression e) {
+                public void apply(LispObject e) {
                     assertListOrSymbol(e);
                 }
             });
@@ -46,7 +46,7 @@ public class DefineFunction implements SpecialForm {
         
     }
 
-    private void assertList(Expression second) {
+    private void assertList(LispObject second) {
         if (!(second instanceof IList)) {
             throw new EvaluationException("The value " + second.toString() + " is not of type LIST");
         }

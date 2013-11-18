@@ -12,7 +12,7 @@ public class TrueSymbolParserTestCase {
 
 	@Test
     public void parseT() {
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         TrueSymbolParser symbolParser = new TrueSymbolParser();
         CharIterator chars = new CharIterator("t");
         symbolParser.parse(chars, stack);
@@ -22,7 +22,7 @@ public class TrueSymbolParserTestCase {
     
     @Test
     public void parseTSpace() {
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         TrueSymbolParser symbolParser = new TrueSymbolParser();
         CharIterator chars = new CharIterator("t ");
         symbolParser.parse(chars, stack);
@@ -32,7 +32,7 @@ public class TrueSymbolParserTestCase {
     
     @Test
     public void parseTSpaceWithClosingList() {
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         TrueSymbolParser symbolParser = new TrueSymbolParser();
         CharIterator chars = new CharIterator("t) ");
         symbolParser.parse(chars, stack);

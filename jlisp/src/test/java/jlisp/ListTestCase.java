@@ -1,11 +1,13 @@
 package jlisp;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
 
@@ -19,17 +21,28 @@ public class ListTestCase {
     }
     
     @Test
-    public void to_string() {
+    public void to_string() throws Exception {
         
-        Expression firstExpression = mock(Expression.class);
+        LispObject firstExpression = mock(LispObject.class);
+        
+        Appendable sb = mock(Appendable.class);
+        
         List list = new List(firstExpression);
 
         assertEquals("(" + firstExpression.toString() + " NIL)",list.toString());
         
-        Expression secondExpression = mock(Expression.class);
+        list.print(sb);
+        verify(firstExpression).print(sb);
+        
+        LispObject secondExpression = mock(LispObject.class);
+        
         list = list.append(secondExpression);
         
         assertEquals("(" + firstExpression.toString() + " (" + secondExpression.toString() + " NIL))",list.toString());
+        sb = new StringBuilder();
+        list.print(sb);
+        verify(firstExpression).print(sb);
+        verify(secondExpression).print(sb);
     }
     
     @Test
@@ -40,7 +53,7 @@ public class ListTestCase {
     @Test
     public void first_expression_is_not_symbol() {
         
-    	Expression firstExpression = mock(Expression.class);
+    	LispObject firstExpression = mock(LispObject.class);
     	List list = new List(firstExpression);
         
         
@@ -62,7 +75,7 @@ public class ListTestCase {
         
         Environment environment = mock(Environment.class);
         
-        Expression evaluationValue = mock(Expression.class);
+        LispObject evaluationValue = mock(LispObject.class);
         
         SpecialForm specialForm = mock(SpecialForm.class);
         
@@ -84,7 +97,7 @@ public class ListTestCase {
         
         Environment environment = mock(Environment.class);
         
-        Expression evaluationValue = mock(Expression.class);
+        LispObject evaluationValue = mock(LispObject.class);
         List arguments = new List(new Fixnum(1));
         
         SpecialForm specialForm = mock(SpecialForm.class);

@@ -30,7 +30,7 @@ public class Lisp {
     	lispParser = Grammar.sequenceOf(Grammar.whitespace(), new AtomExpressionParser());
     }
     
-    public static Expression read(String text) {
+    public static LispObject read(String text) {
         if (text == null) {
             throw new ParseException("Premature end of file!");
         }
@@ -39,13 +39,13 @@ public class Lisp {
         }
         
         CharIterator charIterator = new CharIterator(text);
-        Stack<Expression> stack = new Stack<Expression>();
+        Stack<LispObject> stack = new Stack<LispObject>();
         
         lispParser.parse(charIterator, stack);
         
         if (stack.isEmpty()) {
             throw new ParseException("Unknown expression '" + text + "'");
         }
-        return (Expression)stack.pop();
+        return (LispObject)stack.pop();
     }
 }

@@ -5,7 +5,7 @@ import java.util.Stack;
 public class StringParser implements Parser {
 
     @Override
-    public void parse(CharIterator charIterator, Stack<Expression> stack) throws ParseException {
+    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
         StringBuilder sb = new StringBuilder();
         charIterator.expect('\"');
         charIterator.advanceUntil(new CharPredicate() {

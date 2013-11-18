@@ -16,29 +16,41 @@ public class EvaluationTestCase {
 	
 	@Test
     public void t() {
-		assertEquals(Lisp.T, commonLisp.evaluate(" t "));
+		assertEvaluation(" t ", "T");
     }
 	
 	@Test
     public void nil() {
-		assertEquals(Lisp.NIL, commonLisp.evaluate(" nil "));
+	    assertEvaluation(" nil ", "NIL");
+    }
+	
+	@Test
+    public void list_1_2() {
+        assertEvaluation(" (list 1 2 3) ", "(1 2 3)");
     }
 	
 	@Test
     public void numberp() {
-		assertEquals(Lisp.T, commonLisp.evaluate(" (numberp 4) "));
-		assertEquals(Lisp.NIL, commonLisp.evaluate(" (numberp t) "));
-		assertEquals(Lisp.NIL, commonLisp.evaluate(" (numberp nil) "));
+	    assertEvaluation(" (numberp 4) ", "T");
+	    assertEvaluation(" (numberp t) ", "NIL");
+	    assertEvaluation(" (numberp nil) ", "NIL");
     }
+
 	
 	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");
 
-        assertEquals(new Fixnum(37), commonLisp.evaluate("(a 3)"));
-        
-        
-        
+        assertEvaluation("(a 3)", "37");
     }
 
+	void assertEvaluation(String line, String expectedReply) {
+	    try {
+            StringBuilder reply = new StringBuilder();
+            commonLisp.evaluate(line).print(reply);
+            assertEquals(expectedReply, reply.toString());    
+        } catch (Exception pe) {
+            assertEquals(expectedReply, pe.getMessage());
+        }
+	}
 }

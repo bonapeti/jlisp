@@ -1,6 +1,8 @@
 package jlisp;
 
-public class Symbol implements Expression {
+import java.io.IOException;
+
+public class Symbol implements LispObject {
 
     private String name = null;
     
@@ -9,7 +11,7 @@ public class Symbol implements Expression {
     }
 
     @Override
-    public Expression evaluate(Environment environment) {
+    public LispObject evaluate(Environment environment) {
     	return environment.getValue(this);
     }
 
@@ -41,6 +43,11 @@ public class Symbol implements Expression {
     @Override
     public String toString() {
         return name.toUpperCase();
+    }
+
+    @Override
+    public void print(Appendable appendable) throws IOException {
+        appendable.append(name.toUpperCase());
     }
 
 }

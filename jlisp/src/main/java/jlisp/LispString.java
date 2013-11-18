@@ -1,6 +1,8 @@
 package jlisp;
 
-public class LispString implements Expression {
+import java.io.IOException;
+
+public class LispString implements LispObject {
 
     private String value = null;
     
@@ -9,7 +11,7 @@ public class LispString implements Expression {
     }
 
     @Override
-    public Expression evaluate(Environment environment) {
+    public LispObject evaluate(Environment environment) {
         return this;
     }
 
@@ -42,6 +44,11 @@ public class LispString implements Expression {
 	public String toString() {
 		return "\"" + value + "\"";
 	}
+
+	@Override
+    public void print(Appendable appendable) throws IOException {
+	    appendable.append(value);
+    }
 
     
 }

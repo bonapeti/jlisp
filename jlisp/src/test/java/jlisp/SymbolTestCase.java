@@ -16,7 +16,7 @@ public class SymbolTestCase {
         
         Symbol symbol = new Symbol("symbol");
         
-        Expression value = mock(Expression.class);
+        LispObject value = mock(LispObject.class);
         
         Environment environment = mock(Environment.class);
         when(environment.getValue(symbol)).thenReturn(value);

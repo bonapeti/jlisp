@@ -1,5 +1,7 @@
 package jlisp;
 
+import java.io.IOException;
+
 
 public class CommonLisp {
 
@@ -10,7 +12,7 @@ public class CommonLisp {
 		environment.defineFunction("numberp", new Function() {
 
 			@Override
-			public Expression evaluate(IList arguments,
+			public LispObject evaluate(IList arguments,
 					Environment environment) {
 				if (arguments.head() instanceof Number) {
 					return Lisp.T;
@@ -22,7 +24,7 @@ public class CommonLisp {
 		environment.defineFunction("symbolp", new Function() {
 
             @Override
-            public Expression evaluate(IList arguments,
+            public LispObject evaluate(IList arguments,
                     Environment environment) {
                 if (arguments.head() instanceof Symbol) {
                     return Lisp.T;
@@ -34,7 +36,7 @@ public class CommonLisp {
 		environment.defineFunction("zerop", new Function() {
 
             @Override
-            public Expression evaluate(IList arguments,
+            public LispObject evaluate(IList arguments,
                     Environment environment) {
                 if (0 == ((Number)arguments.head()).intValue()) {
                     return Lisp.T;
@@ -46,29 +48,35 @@ public class CommonLisp {
 		environment.defineFunction("list", new Function() {
 
 			@Override
-			public Expression evaluate(IList arguments,
-					Environment environment) {
+			public LispObject evaluate(IList arguments,
+					Environment environment){
 				return arguments;
 			}
 		});
 		environment.defineFunction("format", new Function() {
 
 			@Override
-			public Expression evaluate(IList arguments,
-					Environment environment) {
-				System.out.println(arguments.tail().head());
-				return Lisp.NIL;
+			public LispObject evaluate(IList arguments,
+					Environment environment){
+				try {
+                    arguments.tail().head().print(System.out);
+                    System.out.println();
+                    return Lisp.NIL;
+                } catch (IOException e) {
+                    throw new EvaluationException(e.getMessage());
+                }
+				
 			}
 		});
 		environment.defineFunction("+", new Function() {
 
 			@Override
-			public Expression evaluate(IList arguments,
-					Environment environment) {
-				return arguments.foldLeft(new Fixnum(0), new Function3<Expression,Expression,Expression>() {
+			public LispObject evaluate(IList arguments,
+					Environment environment){
+				return arguments.foldLeft(new Fixnum(0), new Function2<LispObject,LispObject,LispObject>() {
 
 					@Override
-					public Expression apply(Expression p1, Expression p2) {
+					public LispObject apply(LispObject p1, LispObject p2) {
 						return new Fixnum( ((Number)p1).intValue() + ((Number) p2).intValue());
 					}
 					
@@ -78,12 +86,12 @@ public class CommonLisp {
 		environment.defineFunction("*", new Function() {
 
 			@Override
-			public Expression evaluate(IList arguments,
-					Environment environment) {
-				return arguments.foldLeft(new Fixnum(1), new Function3<Expression,Expression,Expression>() {
+			public LispObject evaluate(IList arguments,
+					Environment environment){
+				return arguments.foldLeft(new Fixnum(1), new Function2<LispObject,LispObject,LispObject>() {
 
 					@Override
-					public Expression apply(Expression p1, Expression p2) {
+					public LispObject apply(LispObject p1, LispObject p2) {
 						return new Fixnum( ((Number)p1).intValue() * ((Number) p2).intValue());
 					}
 					
@@ -94,7 +102,7 @@ public class CommonLisp {
 		environment.defineSpecialForm("quote", new Quote());
 	}
 	
-	public Object evaluate(String line) {
+	public LispObject evaluate(String line) {
 		return Lisp.read(line).evaluate(environment);
 	}
 }

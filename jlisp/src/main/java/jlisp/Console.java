@@ -21,7 +21,9 @@ public class Console {
             }
             
             try {
-                console.println(commonLisp.evaluate(line).toString());    
+                StringBuilder reply = new StringBuilder();
+                commonLisp.evaluate(line).print(reply);
+                console.println(reply.toString());    
             } catch (Exception pe) {
                 console.println(pe.getMessage());
             }
