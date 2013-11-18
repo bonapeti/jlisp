@@ -1,6 +1,5 @@
 package jlisp;
 
-import java.util.Collection;
 
 public interface Function {
 

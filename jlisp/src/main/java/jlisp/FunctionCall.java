@@ -1,7 +1,5 @@
 package jlisp;
 
-import java.util.Collection;
-import java.util.LinkedList;
 
 public class FunctionCall implements SpecialForm {
 

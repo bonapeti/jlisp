@@ -1,6 +1,5 @@
 package jlisp;
 
-import java.util.Iterator;
 
 public class List implements IList {
 

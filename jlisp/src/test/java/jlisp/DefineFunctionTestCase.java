@@ -6,8 +6,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
-import java.util.LinkedList;
-
 import org.junit.Test;
 
 public class DefineFunctionTestCase {

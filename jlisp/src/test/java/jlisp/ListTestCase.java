@@ -7,8 +7,6 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.LinkedList;
-
 import org.junit.Test;
 
 public class ListTestCase {
