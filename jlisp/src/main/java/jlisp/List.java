@@ -38,7 +38,7 @@ public class List implements IList {
 
 	@Override
 	public String toString() {
-		return "(" + head() + ", " + tail() + ")";
+		return "(" + head() + " " + tail() + ")";
 	}
 
 	@Override
@@ -89,6 +89,11 @@ public class List implements IList {
 		tail().foreach(f);
 
 	}
+
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
 
 	
 

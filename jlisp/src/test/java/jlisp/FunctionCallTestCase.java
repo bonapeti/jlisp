@@ -3,6 +3,7 @@ package jlisp;
 
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -17,13 +18,14 @@ public class FunctionCallTestCase {
         
         Environment environment = mock(Environment.class);
         
-        IList list = mock(IList.class);
+        IList expressions = mock(IList.class);
+        IList evaluatedExpressions = mock(IList.class);
         
-        when(function.evaluate(eq(list), eq(environment))).thenReturn(value);
+        when(expressions.map(isA(Function2.class))).thenReturn(evaluatedExpressions);
+        when(function.evaluate(eq(expressions), eq(environment))).thenReturn(value);
         
         FunctionCall functionCall = new FunctionCall(function);
         
-        IList expressions = mock(IList.class);
         Expression expression = mock(Expression.class);
         when(expressions.head()).thenReturn(expression);
         
@@ -31,7 +33,12 @@ public class FunctionCallTestCase {
         
         when(expression.evaluate(environment)).thenReturn(argument);
         
-        assertSame(value, functionCall.evaluate(expressions, environment));
+        Expression result = mock(Expression.class);
+        
+        when(function.evaluate(evaluatedExpressions, environment)).thenReturn(result);
+        
+        assertSame(result, functionCall.evaluate(expressions, environment));
+        
         
         
     }

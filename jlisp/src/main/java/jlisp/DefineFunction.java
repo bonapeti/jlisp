@@ -6,6 +6,10 @@ public class DefineFunction implements SpecialForm {
     @Override
     public Expression evaluate(IList expressions, Environment environment) {
         
+        if (expressions.isEmpty()) {
+            throw new EvaluationException("DEFUN: cannot define a function from: " + expressions);
+        }
+        
         Expression first = expressions.head();
         if (!(first instanceof Symbol)) {
             throw new EvaluationException("The value " + first.toString() + " is not of type SYMBOL");
@@ -13,21 +17,30 @@ public class DefineFunction implements SpecialForm {
         Symbol name = (Symbol)first;
         
         IList parameterList = Lisp.NIL;
-        Expression second = expressions.tail().head();
-        assertList(second);
-        parameterList = (IList)second;
-        parameterList.foreach(new Function1Void<Expression>() {
-			
-			@Override
-			public void apply(Expression e) {
-				assertListOrSymbol(e);
-			}
-		});
+        IList bodies = Lisp.NIL;
         
-        Expression third = expressions.tail().tail().head();
-        assertList(third);
+        IList remaining = expressions.tail();
+        if (!remaining.isEmpty()) {
+            Expression second = remaining.head();
+            assertList(second);
+            parameterList = (IList)second;
+            parameterList.foreach(new Function1Void<Expression>() {
+                
+                @Override
+                public void apply(Expression e) {
+                    assertListOrSymbol(e);
+                }
+            });
+            
+            
+            remaining = remaining.tail();
+            if (!remaining.isEmpty()) {
+                assertList(remaining);    
+                bodies = (IList)remaining;
+            }
+        }
         
-        environment.defineFunction(name, new FunctionDefinition(parameterList, (IList)third));
+        environment.defineFunction(name, new FunctionDefinition(parameterList, bodies));
         
         return name;
         

@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class DefineFunctionTestCase {
 
-    @Test
+    @Test(expected=EvaluationException.class)
     public void evaluate_empty() {
         Environment environment = mock(Environment.class);
         DefineFunction defun = new DefineFunction();
@@ -108,17 +108,16 @@ public class DefineFunctionTestCase {
         DefineFunction defun = new DefineFunction();
         
         
-        Symbol functionName = new Symbol("funcationName");
+        Symbol functionName = new Symbol("functionName");
         List arguments = new List(functionName);
         
         List parameter_list = new List(new Symbol("b"));
         
         arguments = arguments.append(parameter_list);
-        arguments = arguments.append(Lisp.NIL);
         
         assertEquals(functionName, defun.evaluate(arguments, environment));
         
-        verify(environment).defineFunction(functionName, new FunctionDefinition(parameter_list, new List(Lisp.NIL)));
+        verify(environment).defineFunction(functionName, new FunctionDefinition(parameter_list, Lisp.NIL));
         
     }
     
@@ -130,14 +129,16 @@ public class DefineFunctionTestCase {
         
         Symbol functionName = new Symbol("funcationName");
         List arguments = new List(functionName);
-        
         List parameter_list = new List(new Symbol("b"));
-        
         arguments = arguments.append(parameter_list);
+        
+        List bodies = new List(new Symbol("b"));
+        
+        arguments = arguments.append(bodies);
         
         assertEquals(functionName, defun.evaluate(arguments, environment));
         
-        verify(environment).defineFunction(functionName, new FunctionDefinition(parameter_list, new List(Lisp.NIL)));
+        verify(environment).defineFunction(functionName, new FunctionDefinition(parameter_list, new List(new List(new Symbol("b")))));
     }
 }
 

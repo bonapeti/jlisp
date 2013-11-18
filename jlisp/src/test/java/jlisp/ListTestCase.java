@@ -20,17 +20,16 @@ public class ListTestCase {
     
     @Test
     public void to_string() {
-        assertEquals("()",Lisp.NIL.toString());
         
         Expression firstExpression = mock(Expression.class);
         List list = new List(firstExpression);
 
-        assertEquals("(" + firstExpression.toString() + ")",list.toString());
+        assertEquals("(" + firstExpression.toString() + " NIL)",list.toString());
         
         Expression secondExpression = mock(Expression.class);
         list = list.append(secondExpression);
         
-        assertEquals("(" + firstExpression.toString() + " " + secondExpression.toString() + ")",list.toString());
+        assertEquals("(" + firstExpression.toString() + " (" + secondExpression.toString() + " NIL))",list.toString());
     }
     
     @Test

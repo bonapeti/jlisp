@@ -33,12 +33,12 @@ public final class Nil extends Symbol implements IList {
 
 	@Override
 	public Expression head() {
-		throw new UnsupportedOperationException("nil.head");
+		throw new UnsupportedOperationException("nil.head should not be called");
 	}
 
 	@Override
 	public IList tail() {
-		throw new UnsupportedOperationException("nil.tail");
+		throw new UnsupportedOperationException("nil.tail should not be called");
 	}
 
 	@Override
@@ -72,5 +72,10 @@ public final class Nil extends Symbol implements IList {
 	public void foreach(Function1Void<Expression> f) {
 		
 	}
+
+    @Override
+    public boolean isEmpty() {
+        return true;
+    }
 
 }

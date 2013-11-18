@@ -2,6 +2,8 @@ package jlisp;
 
 public interface IList extends Expression {
 
+    boolean isEmpty();
+    
 	Expression head();
 	
 	IList tail();

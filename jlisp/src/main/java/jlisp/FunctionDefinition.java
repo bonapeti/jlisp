@@ -25,6 +25,10 @@ public class FunctionDefinition implements Function {
 
 				IList arguments = (IList)argumentsExpression;
 				
+				if (arguments.isEmpty()) {
+				    throw new EvaluationException("Too few arguments (0 instead of at least 1) given");
+				}
+				
 				callEnvironment.bindValue(parameterSymbol, arguments.head());
 				return arguments.tail();
 			}

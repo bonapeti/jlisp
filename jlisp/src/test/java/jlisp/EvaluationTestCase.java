@@ -35,7 +35,7 @@ public class EvaluationTestCase {
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");
 
-        assertEquals(37, commonLisp.evaluate("(a 3)"));
+        assertEquals(new Fixnum(37), commonLisp.evaluate("(a 3)"));
         
         
         
