@@ -133,21 +133,12 @@ public class List implements IList {
 
     @Override
     public LispObject second() {
-        if (tail instanceof Nil) {
-            return Lisp.NIL;
-        }
-        return tail().head();
+        return tail().first();
     }
 
     @Override
     public LispObject third() {
-        if (tail instanceof Nil) {
-            return Lisp.NIL;
-        }
-        if (tail().tail() instanceof Nil) {
-            return Lisp.NIL;
-        }
-        return tail().tail().head();
+        return tail().second();
     }
 
 	
