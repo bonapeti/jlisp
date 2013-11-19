@@ -35,6 +35,37 @@ public class EvaluationTestCase {
 	    assertEvaluation(" (numberp t) ", "NIL");
 	    assertEvaluation(" (numberp nil) ", "NIL");
     }
+	
+	@Test
+    public void oddp() {
+        assertEvaluation(" (oddp 28) ", "NIL");
+        assertEvaluation(" (oddp 27) ", "T");
+    }
+	
+	@Test
+    public void evenp() {
+        assertEvaluation(" (evenp 28) ", "T");
+        assertEvaluation(" (evenp 27) ", "NIL");
+    }
+	
+	@Test
+    public void not() {
+        assertEvaluation(" (not t) ", "NIL");
+        assertEvaluation(" (not nil) ", "T");
+    }
+	
+	@Test
+    public void length() {
+	    assertEvaluation(" (length ()) ", "0");
+	    assertEvaluation(" (length (list 1)) ", "1");
+	    assertEvaluation(" (length (list 1 3 4)) ", "3");
+    }
+	
+	@Test
+    public void first() {
+        assertEvaluation(" (first (list 1)) ", "1");
+        assertEvaluation(" (first (list 1 3 4)) ", "1");
+    }
 
 	
 	@Test

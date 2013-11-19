@@ -78,4 +78,18 @@ public final class Nil extends Symbol implements IList {
         return true;
     }
 
+    @Override
+    public boolean isTrue() {
+        return false;
+    }
+
+    @Override
+    public Fixnum length() {
+        return new Fixnum(0);
+    }
+
+    @Override
+    public LispObject first() {
+        return this;
+    }
 }

@@ -7,8 +7,64 @@ public class CommonLisp {
 
 	private GlobalEnvironment environment = new GlobalEnvironment();
 
+	private LispObject not(LispObject argument) {
+	    return argument.isTrue() ? Lisp.NIL : Lisp.T;
+	}
+	
+	private LispObject isOdd(Number argument) {
+        return argument.intValue() % 2 != 0 ? Lisp.T : Lisp.NIL;
+    }
+	
+	private LispObject isEven(Number argument) {
+        return not(isOdd(argument));
+    }
+	
 	public CommonLisp() {
 
+	    environment.defineFunction("first", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                LispObject firstArgument = arguments.head();
+                if (arguments.head() instanceof IList) {
+                    return ((IList)firstArgument).first();
+                }
+                throw new EvaluationException(firstArgument.toString() + " is not a list");
+            }
+        });
+	    environment.defineFunction("length", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return ((IList)arguments.head()).length();
+            }
+        });
+	    environment.defineFunction("not", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return not(arguments.head());
+            }
+        });
+	    environment.defineFunction("oddp", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return isOdd((Number)arguments.head());
+            }
+        });
+	    environment.defineFunction("evenp", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return isEven((Number)arguments.head());
+            }
+        });
 		environment.defineFunction("numberp", new Function() {
 
 			@Override

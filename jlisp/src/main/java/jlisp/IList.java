@@ -20,4 +20,8 @@ public interface IList extends LispObject {
 	
 	void foreach(VoidFunction f);
 
+    Fixnum length();
+    
+    LispObject first();
+
 }

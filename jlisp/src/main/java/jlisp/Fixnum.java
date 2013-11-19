@@ -68,4 +68,9 @@ public class Fixnum extends Number implements LispObject {
     public void print(Appendable appendable) throws IOException {
         appendable.append(value.toString());
     }
+
+    @Override
+    public boolean isTrue() {
+        return true;
+    }
 }

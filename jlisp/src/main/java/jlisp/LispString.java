@@ -50,5 +50,10 @@ public class LispString implements LispObject {
 	    appendable.append(value);
     }
 
+    @Override
+    public boolean isTrue() {
+        return true;
+    }
+
     
 }

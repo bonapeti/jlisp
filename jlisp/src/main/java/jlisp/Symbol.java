@@ -50,4 +50,9 @@ public class Symbol implements LispObject {
         appendable.append(name.toUpperCase());
     }
 
+    @Override
+    public boolean isTrue() {
+        return true;
+    }
+
 }

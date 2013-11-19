@@ -121,6 +121,18 @@ public class ReadTestCase {
         assertEquals(expectedList, Lisp.read("(defun a ())"));
     }
     
+    @Test
+    public void first_list_1() {
+        
+        List innerList = new List(new Symbol("list"));
+        innerList = innerList.append(new Fixnum(1));
+        
+        List expectedList = new List(new Symbol("first"));
+        expectedList = expectedList.append(innerList);
+        
+        assertEquals(expectedList, Lisp.read("(first (list 1))"));
+    }
+    
     
     
     

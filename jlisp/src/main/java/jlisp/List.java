@@ -110,6 +110,27 @@ public class List implements IList {
         appendable.append(")");
     }
 
+    @Override
+    public boolean isTrue() {
+        return true;
+    }
+
+    @Override
+    public Fixnum length() {
+        return foldLeft(new Fixnum(0), new Function2<Fixnum, Fixnum, LispObject>() {
+
+            @Override
+            public Fixnum apply(Fixnum p1, LispObject p2) {
+                return new Fixnum(p1.intValue() + 1);
+            }
+        });
+    }
+
+    @Override
+    public LispObject first() {
+        return head();
+    }
+
 	
 
 }

@@ -12,4 +12,6 @@ public interface LispObject {
 	LispObject evaluate(Environment environment);
 	
 	void print(Appendable appendable) throws IOException;
+	
+	boolean isTrue();
 }
