@@ -24,7 +24,7 @@ public class DefineFunctionTestCase {
         Environment environment = mock(Environment.class);
         DefineFunction defun = new DefineFunction();
         
-        List arguments = new List(new Fixnum(1));
+        ConsCell arguments = new ConsCell(new Fixnum(1));
         
         try {
             defun.evaluate(arguments, environment);
@@ -41,7 +41,7 @@ public class DefineFunctionTestCase {
         DefineFunction defun = new DefineFunction();
         
         Symbol functionName = new Symbol("funcationName");
-        List arguments = new List(functionName);
+        ConsCell arguments = new ConsCell(functionName);
         
         assertEquals(functionName, defun.evaluate(arguments, environment));
         
@@ -55,7 +55,7 @@ public class DefineFunctionTestCase {
         
         
         Symbol functionName = new Symbol("funcationName");
-        List arguments = new List(functionName);
+        ConsCell arguments = new ConsCell(functionName);
         arguments = arguments.append(new Symbol("b"));
         
         try {
@@ -73,7 +73,7 @@ public class DefineFunctionTestCase {
         DefineFunction defun = new DefineFunction();
         
         Symbol functionName = new Symbol("funcationName");
-        List arguments = new List(functionName);
+        ConsCell arguments = new ConsCell(functionName);
         arguments = arguments.append(Lisp.NIL);
         
         assertEquals(functionName, defun.evaluate(arguments, environment));
@@ -87,8 +87,8 @@ public class DefineFunctionTestCase {
         DefineFunction defun = new DefineFunction();
         
         Symbol functionName = new Symbol("funcationName");
-        List arguments = new List(functionName);
-        List parameter_list = new List(new Fixnum(23));
+        ConsCell arguments = new ConsCell(functionName);
+        ConsCell parameter_list = new ConsCell(new Fixnum(23));
         
         arguments = arguments.append(parameter_list);
         arguments = arguments.append(Lisp.NIL);
@@ -109,9 +109,9 @@ public class DefineFunctionTestCase {
         
         
         Symbol functionName = new Symbol("functionName");
-        List arguments = new List(functionName);
+        ConsCell arguments = new ConsCell(functionName);
         
-        List parameter_list = new List(new Symbol("b"));
+        ConsCell parameter_list = new ConsCell(new Symbol("b"));
         
         arguments = arguments.append(parameter_list);
         
@@ -128,17 +128,17 @@ public class DefineFunctionTestCase {
         
         
         Symbol functionName = new Symbol("funcationName");
-        List arguments = new List(functionName);
-        List parameter_list = new List(new Symbol("b"));
+        ConsCell arguments = new ConsCell(functionName);
+        ConsCell parameter_list = new ConsCell(new Symbol("b"));
         arguments = arguments.append(parameter_list);
         
-        List bodies = new List(new Symbol("b"));
+        ConsCell bodies = new ConsCell(new Symbol("b"));
         
         arguments = arguments.append(bodies);
         
         assertEquals(functionName, defun.evaluate(arguments, environment));
         
-        verify(environment).defineFunction(functionName, new FunctionDefinition(parameter_list, new List(new List(new Symbol("b")))));
+        verify(environment).defineFunction(functionName, new FunctionDefinition(parameter_list, new ConsCell(new ConsCell(new Symbol("b")))));
     }
 }
 

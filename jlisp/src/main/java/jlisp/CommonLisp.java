@@ -19,14 +19,14 @@ public class CommonLisp {
         return not(isOdd(argument));
     }
 	
-	private IList firstArgumentAsList(IList arguments) {
+	private List firstArgumentAsList(List arguments) {
 	    LispObject firstArgument = arguments.head();
 	    
-        if (!(firstArgument instanceof IList)) {
+        if (!(firstArgument instanceof List)) {
             throw new EvaluationException(firstArgument.toString() + " is not a list");
             
         }
-        return (IList)firstArgument;
+        return (List)firstArgument;
 	}
 	
 	public CommonLisp() {
@@ -34,7 +34,7 @@ public class CommonLisp {
 	    environment.defineFunction("eval", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 return arguments.first().evaluate(environment);
             }
@@ -42,7 +42,7 @@ public class CommonLisp {
 	    environment.defineFunction("equal", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 if (arguments.first().equals(arguments.second())) {
                     return Lisp.T;
@@ -54,9 +54,9 @@ public class CommonLisp {
 	    environment.defineFunction("atomp", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
-                if (!(arguments.head() instanceof List)) {
+                if (!(arguments.head() instanceof ConsCell)) {
                     return Lisp.T;
                 } else {
                     return Lisp.NIL;
@@ -66,9 +66,9 @@ public class CommonLisp {
 	    environment.defineFunction("consp", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
-                if (arguments.head() instanceof List) {
+                if (arguments.head() instanceof ConsCell) {
                     return Lisp.T;
                 } else {
                     return Lisp.NIL;
@@ -78,9 +78,9 @@ public class CommonLisp {
 	    environment.defineFunction("listp", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
-                if (arguments.head() instanceof IList) {
+                if (arguments.head() instanceof List) {
                     return Lisp.T;
                 } else {
                     return Lisp.NIL;
@@ -90,15 +90,15 @@ public class CommonLisp {
 	    environment.defineFunction("cons", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
-                return new List(arguments.head(),(IList)arguments.second());
+                return new ConsCell(arguments.head(),(List)arguments.second());
             }
         });
 	    environment.defineFunction("car", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 return firstArgumentAsList(arguments).car();
             }
@@ -106,7 +106,7 @@ public class CommonLisp {
 	    environment.defineFunction("cdr", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 return firstArgumentAsList(arguments).cdr();
             }
@@ -114,7 +114,7 @@ public class CommonLisp {
 	    environment.defineFunction("rest", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 return firstArgumentAsList(arguments).tail();
             }
@@ -122,7 +122,7 @@ public class CommonLisp {
 	    environment.defineFunction("first", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 return firstArgumentAsList(arguments).first();
             }
@@ -130,7 +130,7 @@ public class CommonLisp {
 	    environment.defineFunction("second", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 return firstArgumentAsList(arguments).second();
             }
@@ -138,7 +138,7 @@ public class CommonLisp {
 	    environment.defineFunction("third", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 return firstArgumentAsList(arguments).third();
             }
@@ -146,15 +146,15 @@ public class CommonLisp {
 	    environment.defineFunction("length", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
-                return ((IList)arguments.head()).length();
+                return ((List)arguments.head()).length();
             }
         });
 	    environment.defineFunction("not", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 return not(arguments.head());
             }
@@ -162,7 +162,7 @@ public class CommonLisp {
 	    environment.defineFunction("oddp", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 return isOdd((Number)arguments.head());
             }
@@ -170,7 +170,7 @@ public class CommonLisp {
 	    environment.defineFunction("evenp", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 return isEven((Number)arguments.head());
             }
@@ -178,7 +178,7 @@ public class CommonLisp {
 		environment.defineFunction("numberp", new Function() {
 
 			@Override
-			public LispObject evaluate(IList arguments,
+			public LispObject evaluate(List arguments,
 					Environment environment) {
 				if (arguments.head() instanceof Number) {
 					return Lisp.T;
@@ -190,7 +190,7 @@ public class CommonLisp {
 		environment.defineFunction("symbolp", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 if (arguments.head() instanceof Symbol) {
                     return Lisp.T;
@@ -202,7 +202,7 @@ public class CommonLisp {
 		environment.defineFunction("zerop", new Function() {
 
             @Override
-            public LispObject evaluate(IList arguments,
+            public LispObject evaluate(List arguments,
                     Environment environment) {
                 if (0 == ((Number)arguments.head()).intValue()) {
                     return Lisp.T;
@@ -214,7 +214,7 @@ public class CommonLisp {
 		environment.defineFunction("list", new Function() {
 
 			@Override
-			public LispObject evaluate(IList arguments,
+			public LispObject evaluate(List arguments,
 					Environment environment){
 				return arguments;
 			}
@@ -222,7 +222,7 @@ public class CommonLisp {
 		environment.defineFunction("format", new Function() {
 
 			@Override
-			public LispObject evaluate(IList arguments,
+			public LispObject evaluate(List arguments,
 					Environment environment){
 				try {
                     arguments.tail().head().print(System.out);
@@ -237,7 +237,7 @@ public class CommonLisp {
 		environment.defineFunction("+", new Function() {
 
 			@Override
-			public LispObject evaluate(IList arguments,
+			public LispObject evaluate(List arguments,
 					Environment environment){
 				return arguments.foldLeft(new Fixnum(0), new Function2<LispObject,LispObject,LispObject>() {
 
@@ -252,7 +252,7 @@ public class CommonLisp {
 		environment.defineFunction("*", new Function() {
 
 			@Override
-			public LispObject evaluate(IList arguments,
+			public LispObject evaluate(List arguments,
 					Environment environment){
 				return arguments.foldLeft(new Fixnum(1), new Function2<LispObject,LispObject,LispObject>() {
 

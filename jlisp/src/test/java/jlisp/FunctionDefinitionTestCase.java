@@ -12,8 +12,8 @@ public class FunctionDefinitionTestCase {
 
     @Test
     public void evaluate_no_body() {
-        IList parameterList = Lisp.NIL;
-        IList bodies = Lisp.NIL;
+        List parameterList = Lisp.NIL;
+        List bodies = Lisp.NIL;
         FunctionDefinition function = new FunctionDefinition(parameterList, bodies);
         Environment environment = mock(Environment.class);
         assertEquals(Lisp.NIL, function.evaluate(Lisp.NIL, environment));
@@ -21,11 +21,11 @@ public class FunctionDefinitionTestCase {
 
     @Test
     public void evaluate_with_body() {
-        IList parameterList = Lisp.NIL;
-        IList bodies = Lisp.NIL;
+        List parameterList = Lisp.NIL;
+        List bodies = Lisp.NIL;
         
         Environment environment = mock(Environment.class);
-        IList body = mock(IList.class);
+        List body = mock(List.class);
         LispObject value = mock(LispObject.class);
         when(body.evaluate(isA(Environment.class))).thenReturn(value);
         bodies = bodies.append(body);
@@ -37,13 +37,13 @@ public class FunctionDefinitionTestCase {
     
     @Test
     public void evaluate_with_1_missing_parameter() {
-    	IList parameterList = Lisp.NIL;
+    	List parameterList = Lisp.NIL;
         parameterList = parameterList.append(new Symbol("b"));
         
-        IList bodies = Lisp.NIL;
+        List bodies = Lisp.NIL;
         
         Environment environment = mock(Environment.class);
-        IList body = mock(List.class);
+        List body = mock(ConsCell.class);
         LispObject value = mock(LispObject.class);
         when(body.evaluate(environment)).thenReturn(value);
         
@@ -62,20 +62,20 @@ public class FunctionDefinitionTestCase {
     
     @Test
     public void evaluate_with_1_arguments() {
-        IList parameterList = Lisp.NIL;
+        List parameterList = Lisp.NIL;
         parameterList = parameterList.append(new Symbol("b"));
         
-        IList bodies = Lisp.NIL;
+        List bodies = Lisp.NIL;
         
         Environment environment = mock(Environment.class);
-        IList body = mock(IList.class);
+        List body = mock(List.class);
         LispObject returnValue = mock(LispObject.class);
         when(body.evaluate(isA(Environment.class))).thenReturn(returnValue);
         bodies = bodies.append(body);
         
         FunctionDefinition function = new FunctionDefinition(parameterList, bodies);
         
-        IList arguments = Lisp.NIL;
+        List arguments = Lisp.NIL;
         LispObject argument = mock(LispObject.class);
         arguments = arguments.append(argument);
         

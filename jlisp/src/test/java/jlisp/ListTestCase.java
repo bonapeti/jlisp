@@ -28,7 +28,7 @@ public class ListTestCase {
         
         Appendable sb = mock(Appendable.class);
         
-        List list = new List(firstExpression);
+        ConsCell list = new ConsCell(firstExpression);
 
         assertEquals("(" + firstExpression.toString() + " NIL)",list.toString());
         
@@ -55,7 +55,7 @@ public class ListTestCase {
     public void first_expression_is_not_symbol() {
         
     	LispObject firstExpression = mock(LispObject.class);
-    	List list = new List(firstExpression);
+    	ConsCell list = new ConsCell(firstExpression);
         
         
         Environment environment = mock(Environment.class);
@@ -72,7 +72,7 @@ public class ListTestCase {
         
         
         Symbol symbol = new Symbol("functionName");
-        List list = new List(symbol);
+        ConsCell list = new ConsCell(symbol);
         
         Environment environment = mock(Environment.class);
         
@@ -93,13 +93,13 @@ public class ListTestCase {
         
         
         Symbol symbol = new Symbol("functionName");
-        List list = new List(symbol);
+        ConsCell list = new ConsCell(symbol);
         list = list.append(new Fixnum(1));
         
         Environment environment = mock(Environment.class);
         
         LispObject evaluationValue = mock(LispObject.class);
-        List arguments = new List(new Fixnum(1));
+        ConsCell arguments = new ConsCell(new Fixnum(1));
         
         SpecialForm specialForm = mock(SpecialForm.class);
         
@@ -112,13 +112,13 @@ public class ListTestCase {
     
     @Test
     public void append() {
-        List list = new List(new Symbol("sym"));
+        ConsCell list = new ConsCell(new Symbol("sym"));
         assertEquals(new Symbol("sym"), list.head());
         assertEquals(Lisp.NIL, list.tail());
         
         list = list.append(new Symbol("sym2"));
         assertEquals(new Symbol("sym"), list.head());
-        IList tail = list.tail();
+        List tail = list.tail();
         assertFalse(Lisp.NIL.equals(tail));
         assertEquals(new Symbol("sym2"), tail.head());
         assertEquals(Lisp.NIL, tail.tail());

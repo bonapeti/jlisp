@@ -4,7 +4,7 @@ package jlisp;
 public class DefineFunction implements SpecialForm {
     
     @Override
-    public LispObject evaluate(IList expressions, Environment environment) {
+    public LispObject evaluate(List expressions, Environment environment) {
         
         if (expressions.isEmpty()) {
             throw new EvaluationException("DEFUN: cannot define a function from: " + expressions);
@@ -16,14 +16,14 @@ public class DefineFunction implements SpecialForm {
         }
         Symbol name = (Symbol)first;
         
-        IList parameterList = Lisp.NIL;
-        IList bodies = Lisp.NIL;
+        List parameterList = Lisp.NIL;
+        List bodies = Lisp.NIL;
         
-        IList remaining = expressions.tail();
+        List remaining = expressions.tail();
         if (!remaining.isEmpty()) {
             LispObject second = remaining.head();
             assertList(second);
-            parameterList = (IList)second;
+            parameterList = (List)second;
             parameterList.foreach(new VoidFunction() {
                 
                 @Override
@@ -36,7 +36,7 @@ public class DefineFunction implements SpecialForm {
             remaining = remaining.tail();
             if (!remaining.isEmpty()) {
                 assertList(remaining);    
-                bodies = (IList)remaining;
+                bodies = (List)remaining;
             }
         }
         
@@ -47,13 +47,13 @@ public class DefineFunction implements SpecialForm {
     }
 
     private void assertList(LispObject second) {
-        if (!(second instanceof IList)) {
+        if (!(second instanceof List)) {
             throw new EvaluationException("The value " + second.toString() + " is not of type LIST");
         }
     }
 
     void assertListOrSymbol(Object parameter) throws EvaluationException {
-        if ( (!(parameter instanceof List)) && (!(parameter instanceof Symbol))) {
+        if ( (!(parameter instanceof ConsCell)) && (!(parameter instanceof Symbol))) {
             throw new EvaluationException("Invalid lambda list element " + parameter.toString() + ". A lambda list may only contain symbols and lists.");
         }
         

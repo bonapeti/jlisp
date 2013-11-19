@@ -1,161 +1,36 @@
 package jlisp;
 
-import java.io.IOException;
+public interface List extends LispObject {
 
-
-public class List implements IList {
-
-	private LispObject head = null;
-	private IList tail = null;
-
-	public List(LispObject head) {
-		this(head, Lisp.NIL);
-	}
-
-	public List(LispObject head, IList tail) {
-		this.head = head;
-		this.tail = tail;
-	}
-
-	@Override
-	public LispObject evaluate(Environment environment){
-
-		Symbol functionName = (Symbol) head();
-
-		return environment.getSpecialForm(functionName).evaluate(tail(),
-				environment);
-	}
-
-	public int hashCode() {
-		return 37 * (head().hashCode() + tail().hashCode());
-	}
-
-	@Override
-	public boolean equals(Object other) {
-		if (other == null || getClass() != other.getClass())
-			return false;
-		IList that = (IList) other;
-		return head().equals(that.head()) && tail().equals(that.tail());
-	}
-
-	@Override
-	public String toString() {
-		return "(" + head() + " " + tail() + ")";
-	}
-
-	@Override
-	public LispObject head() {
-		return head;
-	}
-
-	@Override
-	public IList tail() {
-		return tail;
-	}
-
-	@Override
-	public List append(LispObject lispObject) {
-		return new List(head(), tail().append(lispObject));
-	}
-
-	@Override
-	public IList filter(Function1<LispObject, Boolean> f) {
-		if (f.apply(head())) {
-			return new List(head(), tail().filter(f));
-		} else {
-			return tail().filter(f);
-		}
-
-	}
-
-	@Override
-	public IList map(Function1<LispObject, LispObject> f) {
-		return new List(f.apply(head()),tail.map(f));
-	}
-
-	@Override
-	public <R> R foldLeft(R seed,
-			Function2<R, R, LispObject> f) {
-		return tail().foldLeft(f.apply(seed, head()), f);
-	}
-
-	@Override
-	public <R> R foldRight(R seed,
-			Function2<R, LispObject, R> f) {
-		return f.apply(head(), tail().foldRight(seed, f));
-	}
-
-	@Override
-	public void foreach(VoidFunction f) {
-		f.apply(head());
-		tail().foreach(f);
-
-	}
-
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public void print(Appendable appendable) throws IOException {
-        appendable.append("(");
-        head().print(appendable);
-        IList next = tail;
-        while (!next.isEmpty()) {
-            appendable.append(" ");
-            next.head().print(appendable);
-            next = next.tail();
-        }
-        appendable.append(")");
-    }
-
-    @Override
-    public boolean isTrue() {
-        return true;
-    }
-
-    @Override
-    public Fixnum length() {
-        return foldLeft(new Fixnum(0), new Function2<Fixnum, Fixnum, LispObject>() {
-
-            @Override
-            public Fixnum apply(Fixnum p1, LispObject p2) {
-                return new Fixnum(p1.intValue() + 1);
-            }
-        });
-    }
-
-    @Override
-    public LispObject first() {
-        return head();
-    }
-
-    @Override
-    public LispObject second() {
-        return tail().first();
-    }
-
-    @Override
-    public LispObject third() {
-        return tail().second();
-    }
-
-    @Override
-    public IList rest() {
-        return tail();
-    }
-
-    @Override
-    public LispObject car() {
-        return head();
-    }
-
-    @Override
-    public IList cdr() {
-        return tail();
-    }
-
+    boolean isEmpty();
+    
+	LispObject head();
 	
+	List tail();
+	
+	ConsCell append(LispObject lispObject);
+	
+	List filter(Function1<LispObject,Boolean> f);
+	
+	List map(Function1<LispObject,LispObject> f);
+	
+	<R> R foldLeft(R seed, Function2<R,R,LispObject> f);
+	
+	<R> R foldRight(R seed, Function2<R, LispObject, R> f);
+	
+	void foreach(VoidFunction f);
 
+    Fixnum length();
+    
+    LispObject first();
+    
+    LispObject second();
+    
+    LispObject third();
+
+    List rest();
+    
+    LispObject car();
+    
+    List cdr();
 }

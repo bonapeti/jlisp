@@ -3,6 +3,6 @@ package jlisp;
 
 public interface Function {
 
-    LispObject evaluate(IList arguments, Environment environment);
+    LispObject evaluate(List arguments, Environment environment);
 
 }

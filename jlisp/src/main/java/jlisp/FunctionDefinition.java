@@ -3,16 +3,16 @@ package jlisp;
 
 public class FunctionDefinition implements Function {
 
-    private IList parameters = null;
-    private IList bodies = null;
+    private List parameters = null;
+    private List bodies = null;
     
-    public FunctionDefinition(IList parameters, IList bodies) {
+    public FunctionDefinition(List parameters, List bodies) {
         this.parameters = parameters;
         this.bodies = bodies;
     }
     
     @Override
-    public LispObject evaluate(IList arguments, Environment environment) {
+    public LispObject evaluate(List arguments, Environment environment) {
         
         final CallEnvironment callEnvironment = new CallEnvironment(environment);
         
@@ -23,7 +23,7 @@ public class FunctionDefinition implements Function {
 			public LispObject apply(LispObject argumentsExpression, LispObject parameter) {
 				Symbol parameterSymbol = (Symbol)parameter;
 
-				IList arguments = (IList)argumentsExpression;
+				List arguments = (List)argumentsExpression;
 				
 				if (arguments.isEmpty()) {
 				    throw new EvaluationException("Too few arguments (0 instead of at least 1) given");

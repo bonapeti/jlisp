@@ -18,8 +18,8 @@ public class FunctionCallTestCase {
         
         Environment environment = mock(Environment.class);
         
-        IList expressions = mock(IList.class);
-        IList evaluatedExpressions = mock(IList.class);
+        List expressions = mock(List.class);
+        List evaluatedExpressions = mock(List.class);
         
         when(expressions.map(isA(Function1.class))).thenReturn(evaluatedExpressions);
         when(function.evaluate(eq(expressions), eq(environment))).thenReturn(value);

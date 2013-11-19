@@ -20,7 +20,7 @@ public class Lisp {
         return new LispString(value);
     }
     
-    public static IList nil() {
+    public static List nil() {
         return NIL;
     }
     

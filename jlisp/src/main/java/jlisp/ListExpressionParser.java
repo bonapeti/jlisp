@@ -19,7 +19,7 @@ public class ListExpressionParser implements Parser {
         
         charIterator.expect(')');
         
-        IList list = Lisp.NIL;
+        List list = Lisp.NIL;
         
         for (LispObject listExpression : listStack) {
             list = list.append(listExpression);

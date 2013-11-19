@@ -1,7 +1,7 @@
 package jlisp;
 
 
-public final class Nil extends Symbol implements IList {
+public final class Nil extends Symbol implements List {
 
     public Nil() {
         super("nil");
@@ -37,22 +37,22 @@ public final class Nil extends Symbol implements IList {
 	}
 
 	@Override
-	public IList tail() {
+	public List tail() {
 		throw new UnsupportedOperationException("nil.tail should not be called");
 	}
 
 	@Override
-	public List append(LispObject lispObject) {
-		return new List(lispObject);
+	public ConsCell append(LispObject lispObject) {
+		return new ConsCell(lispObject);
 	}
 
 	@Override
-	public IList filter(Function1<LispObject, Boolean> f) {
+	public List filter(Function1<LispObject, Boolean> f) {
 		return this;
 	}
 
 	@Override
-	public IList map(Function1<LispObject, LispObject> f) {
+	public List map(Function1<LispObject, LispObject> f) {
 		return this;
 	}
 
@@ -104,7 +104,7 @@ public final class Nil extends Symbol implements IList {
     }
 
     @Override
-    public IList rest() {
+    public List rest() {
         return this;
     }
 
@@ -114,7 +114,7 @@ public final class Nil extends Symbol implements IList {
     }
 
     @Override
-    public IList cdr() {
+    public List cdr() {
         return this;
     }
 }
