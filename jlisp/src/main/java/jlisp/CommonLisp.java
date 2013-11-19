@@ -19,6 +19,16 @@ public class CommonLisp {
         return not(isOdd(argument));
     }
 	
+	private IList firstArgumentAsList(IList arguments) {
+	    LispObject firstArgument = arguments.head();
+	    
+        if (!(firstArgument instanceof IList)) {
+            throw new EvaluationException(firstArgument.toString() + " is not a list");
+            
+        }
+        return (IList)firstArgument;
+	}
+	
 	public CommonLisp() {
 
 	    environment.defineFunction("first", new Function() {
@@ -26,11 +36,23 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(IList arguments,
                     Environment environment) {
-                LispObject firstArgument = arguments.head();
-                if (arguments.head() instanceof IList) {
-                    return ((IList)firstArgument).first();
-                }
-                throw new EvaluationException(firstArgument.toString() + " is not a list");
+                return firstArgumentAsList(arguments).first();
+            }
+        });
+	    environment.defineFunction("second", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return firstArgumentAsList(arguments).second();
+            }
+        });
+	    environment.defineFunction("third", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return firstArgumentAsList(arguments).third();
             }
         });
 	    environment.defineFunction("length", new Function() {

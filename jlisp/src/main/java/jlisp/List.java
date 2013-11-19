@@ -131,6 +131,25 @@ public class List implements IList {
         return head();
     }
 
+    @Override
+    public LispObject second() {
+        if (tail instanceof Nil) {
+            return Lisp.NIL;
+        }
+        return tail().head();
+    }
+
+    @Override
+    public LispObject third() {
+        if (tail instanceof Nil) {
+            return Lisp.NIL;
+        }
+        if (tail().tail() instanceof Nil) {
+            return Lisp.NIL;
+        }
+        return tail().tail().head();
+    }
+
 	
 
 }

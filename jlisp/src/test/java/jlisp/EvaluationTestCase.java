@@ -66,6 +66,19 @@ public class EvaluationTestCase {
         assertEvaluation(" (first (list 1)) ", "1");
         assertEvaluation(" (first (list 1 3 4)) ", "1");
     }
+	
+	@Test
+    public void second() {
+        assertEvaluation(" (second (list 1)) ", "NIL");
+        assertEvaluation(" (second (list 1 2)) ", "2");
+    }
+	
+	@Test
+    public void third() {
+        assertEvaluation(" (third (list 1)) ", "NIL");
+        assertEvaluation(" (third (list 1 2)) ", "NIL");
+        assertEvaluation(" (third (list 1 2 3)) ", "3");
+    }
 
 	
 	@Test

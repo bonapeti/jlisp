@@ -92,4 +92,14 @@ public final class Nil extends Symbol implements IList {
     public LispObject first() {
         return this;
     }
+
+    @Override
+    public LispObject second() {
+        return this;
+    }
+
+    @Override
+    public LispObject third() {
+        return this;
+    }
 }

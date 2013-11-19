@@ -23,5 +23,9 @@ public interface IList extends LispObject {
     Fixnum length();
     
     LispObject first();
+    
+    LispObject second();
+    
+    LispObject third();
 
 }
