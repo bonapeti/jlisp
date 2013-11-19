@@ -31,6 +31,18 @@ public class CommonLisp {
 	
 	public CommonLisp() {
 
+	    environment.defineFunction("equal", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                if (arguments.first().equals(arguments.second())) {
+                    return Lisp.T;
+                } else {
+                    return Lisp.NIL;
+                }
+            }
+        });
 	    environment.defineFunction("atomp", new Function() {
 
             @Override

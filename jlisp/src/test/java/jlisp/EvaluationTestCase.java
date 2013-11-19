@@ -112,6 +112,14 @@ public class EvaluationTestCase {
     }
 	
 	@Test
+    public void equal() {
+        assertEvaluation(" (equal 1 1) ", "T");
+        assertEvaluation(" (quote (hello world)) ", "(HELLO WORLD)");
+        
+        assertEvaluation(" 'foo ", "FOO");
+    }
+	
+	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");
 
