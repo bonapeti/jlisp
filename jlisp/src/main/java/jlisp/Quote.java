@@ -1,10 +1,29 @@
 package jlisp;
 
-public class Quote implements SpecialForm {
+import java.io.IOException;
+
+public class Quote implements LispObject {
+
+    private LispObject target = null;
+    
+    public Quote(LispObject target) {
+        this.target = target;
+    }
+    
+    @Override
+    public LispObject evaluate(Environment environment) {
+        return target;
+    }
 
     @Override
-    public LispObject evaluate(IList expressions, Environment environment) {
-        return expressions.first();
+    public void print(Appendable appendable) throws IOException {
+        appendable.append('\'');
+        target.print(appendable);
+    }
+
+    @Override
+    public boolean isTrue() {
+        return target.isTrue();
     }
 
 }

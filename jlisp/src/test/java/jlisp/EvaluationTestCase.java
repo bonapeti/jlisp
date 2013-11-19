@@ -107,6 +107,8 @@ public class EvaluationTestCase {
     public void quote() {
         assertEvaluation(" (quote foo) ", "FOO");
         assertEvaluation(" (quote (hello world)) ", "(HELLO WORLD)");
+        
+        assertEvaluation(" 'foo ", "FOO");
     }
 	
 	@Test

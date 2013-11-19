@@ -17,6 +17,9 @@ public class SymbolParser implements Parser {
                 if ( (c == '(') || (c == ')')) {
                     return false;
                 }
+                if ( c== '\'') {
+                    return false;
+                }
                 return true;
             }
             

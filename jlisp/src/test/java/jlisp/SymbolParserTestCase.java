@@ -69,6 +69,12 @@ public class SymbolParserTestCase {
         parser.parse(new CharIterator(" a"), new Stack<LispObject>());
     }
     
+    @Test(expected=ParseException.class)
+    public void quoted() {
+        SymbolParser parser = new SymbolParser();
+        parser.parse(new CharIterator("'a"), new Stack<LispObject>());
+    }
+    
     @Test
     public void a() {
         SymbolParser parser = new SymbolParser();
