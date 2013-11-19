@@ -120,6 +120,11 @@ public class EvaluationTestCase {
     }
 	
 	@Test
+    public void eval() {
+        assertEvaluation(" (eval '(+ 2 2)) ", "4");
+    }
+	
+	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");
 

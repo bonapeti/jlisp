@@ -31,6 +31,14 @@ public class CommonLisp {
 	
 	public CommonLisp() {
 
+	    environment.defineFunction("eval", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return arguments.first().evaluate(environment);
+            }
+        });
 	    environment.defineFunction("equal", new Function() {
 
             @Override
