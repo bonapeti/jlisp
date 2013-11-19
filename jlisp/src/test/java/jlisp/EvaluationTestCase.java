@@ -80,6 +80,28 @@ public class EvaluationTestCase {
         assertEvaluation(" (third (list 1 2 3)) ", "3");
     }
 
+	@Test
+    public void rest() {
+        assertEvaluation(" (rest (list 1)) ", "NIL");
+        assertEvaluation(" (rest (list 1 2)) ", "(2)");
+        assertEvaluation(" (rest (list 1 2 3)) ", "(2 3)");
+    }
+	
+	@Test
+    public void cons() {
+        assertEvaluation(" (cons 1 (list 2)) ", "(1 2)");
+    }
+	
+	@Test
+    public void listp() {
+        assertEvaluation(" (listp 1) ", "NIL");
+        assertEvaluation(" (listp (list 1)) ", "T");
+    }
+	
+	@Test
+    public void car() {
+        assertEvaluation(" (car (list 1)) ", "1");
+    }
 	
 	@Test
     public void defun_and_eval() {

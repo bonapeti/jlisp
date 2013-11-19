@@ -28,4 +28,9 @@ public interface IList extends LispObject {
     
     LispObject third();
 
+    IList rest();
+    
+    LispObject car();
+    
+    IList cdr();
 }

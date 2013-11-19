@@ -31,6 +31,74 @@ public class CommonLisp {
 	
 	public CommonLisp() {
 
+	    environment.defineFunction("atomp", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                if (!(arguments.head() instanceof List)) {
+                    return Lisp.T;
+                } else {
+                    return Lisp.NIL;
+                }
+            }
+        });
+	    environment.defineFunction("consp", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                if (arguments.head() instanceof List) {
+                    return Lisp.T;
+                } else {
+                    return Lisp.NIL;
+                }
+            }
+        });
+	    environment.defineFunction("listp", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                if (arguments.head() instanceof IList) {
+                    return Lisp.T;
+                } else {
+                    return Lisp.NIL;
+                }
+            }
+        });
+	    environment.defineFunction("cons", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return new List(arguments.head(),(IList)arguments.second());
+            }
+        });
+	    environment.defineFunction("car", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return firstArgumentAsList(arguments).car();
+            }
+        });
+	    environment.defineFunction("cdr", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return firstArgumentAsList(arguments).cdr();
+            }
+        });
+	    environment.defineFunction("rest", new Function() {
+
+            @Override
+            public LispObject evaluate(IList arguments,
+                    Environment environment) {
+                return firstArgumentAsList(arguments).tail();
+            }
+        });
 	    environment.defineFunction("first", new Function() {
 
             @Override

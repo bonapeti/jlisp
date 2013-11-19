@@ -102,4 +102,19 @@ public final class Nil extends Symbol implements IList {
     public LispObject third() {
         return this;
     }
+
+    @Override
+    public IList rest() {
+        return this;
+    }
+
+    @Override
+    public LispObject car() {
+        return this;
+    }
+
+    @Override
+    public IList cdr() {
+        return this;
+    }
 }

@@ -141,6 +141,21 @@ public class List implements IList {
         return tail().second();
     }
 
+    @Override
+    public IList rest() {
+        return tail();
+    }
+
+    @Override
+    public LispObject car() {
+        return head();
+    }
+
+    @Override
+    public IList cdr() {
+        return tail();
+    }
+
 	
 
 }
