@@ -266,6 +266,7 @@ public class CommonLisp {
 		});
 		environment.defineSpecialForm("defun", new DefineFunction());
 		environment.defineSpecialForm("quote", new QuoteFunction());
+		environment.defineSpecialForm("if", new IfFunction());
 	}
 	
 	public LispObject evaluate(String line) {

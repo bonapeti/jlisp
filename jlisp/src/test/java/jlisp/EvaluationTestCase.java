@@ -125,6 +125,12 @@ public class EvaluationTestCase {
     }
 	
 	@Test
+    public void ifTest() {
+        assertEvaluation(" (if t 1 2) ", "1");
+        assertEvaluation(" (if (oddp 2) 1 2) ", "2");
+    }
+	
+	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");
 
