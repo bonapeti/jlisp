@@ -139,6 +139,8 @@ public class EvaluationTestCase {
 	
 	@Test
     public void cond() {
+	    assertEvaluation(" (cond) ", "NIL");
+	    
 	    commonLisp.evaluate("(defun compare (x y) (cond " +
 	    		"((equal x y) 'numbers-are-the-same)" +
 	    		"((< x y) 'first-is-smaller)" +
@@ -151,6 +153,23 @@ public class EvaluationTestCase {
         assertEvaluation(" (compare 4 4) ", "numbers-are-the-same");
     }
 	
+	@Test
+    public void and() {
+        assertEvaluation(" (and) ", "T");
+        assertEvaluation(" (and t) ", "T");
+        assertEvaluation(" (and nil) ", "nil");
+        assertEvaluation(" (and t nil) ", "NIL");
+        assertEvaluation(" (and 1 2) ", "2");
+    }
+	
+	@Test
+    public void or() {
+        assertEvaluation(" (or) ", " nil ");
+        assertEvaluation(" (or t) ", "T");
+        assertEvaluation(" (or nil) ", "nil");
+        assertEvaluation(" (or t nil) ", "t");
+        assertEvaluation(" (or nil t) ", "t");
+    }
 	
 	@Test
     public void defun_and_eval() {
@@ -163,8 +182,9 @@ public class EvaluationTestCase {
 	    try {
             StringBuilder reply = new StringBuilder();
             commonLisp.evaluate(line).print(reply);
-            String replyString = reply.toString();
-            assertTrue("Expected: " + expectedReply + " but was: " + replyString, expectedReply.equalsIgnoreCase(replyString));    
+            String replyString = reply.toString().trim();
+            String expectedString = expectedReply.trim();
+            assertTrue("Expected: " + expectedString + " but was: " + replyString, expectedString.equalsIgnoreCase(replyString));    
         } catch (Exception pe) {
             assertEquals(expectedReply, pe.getMessage());
         }

@@ -287,6 +287,8 @@ public class CommonLisp {
 		environment.defineSpecialForm("quote", new QuoteFunction());
 		environment.defineSpecialForm("if", new IfFunction());
 		environment.defineSpecialForm("cond", new Cond());
+		environment.defineSpecialForm("and", new And());
+		environment.defineSpecialForm("or", new Or());
 	}
 	
 	public LispObject evaluate(String line) {

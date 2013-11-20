@@ -92,6 +92,7 @@ public class ConsCell implements List {
 
 	}
 
+
     @Override
     public boolean isEmpty() {
         return false;
@@ -155,7 +156,5 @@ public class ConsCell implements List {
     public List cdr() {
         return tail();
     }
-
-	
 
 }

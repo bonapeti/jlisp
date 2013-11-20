@@ -72,7 +72,7 @@ public final class Nil extends Symbol implements List {
 	public void foreach(VoidFunction f) {
 		
 	}
-
+	
     @Override
     public boolean isEmpty() {
         return true;
@@ -117,4 +117,6 @@ public final class Nil extends Symbol implements List {
     public List cdr() {
         return this;
     }
+
+    
 }

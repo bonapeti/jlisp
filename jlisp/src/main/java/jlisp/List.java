@@ -19,7 +19,7 @@ public interface List extends LispObject {
 	<R> R foldRight(R seed, Function2<R, LispObject, R> f);
 	
 	void foreach(VoidFunction f);
-
+	
     Fixnum length();
     
     LispObject first();
