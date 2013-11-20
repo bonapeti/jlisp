@@ -137,6 +137,20 @@ public class EvaluationTestCase {
         assertEvaluation(" (< 2 1) ", "NIL");
     }
 	
+	@Test
+    public void cond() {
+	    commonLisp.evaluate("(defun compare (x y) (cond " +
+	    		"((equal x y) 'numbers-are-the-same)" +
+	    		"((< x y) 'first-is-smaller)" +
+	    		"((> x y) 'first-is-bigger)" +
+	    		" ))");
+	    
+	    
+        assertEvaluation(" (compare 3 5) ", "first-is-smaller");
+        assertEvaluation(" (compare 7 2) ", "first-is-bigger");
+        assertEvaluation(" (compare 4 4) ", "numbers-are-the-same");
+    }
+	
 	
 	@Test
     public void defun_and_eval() {
@@ -149,7 +163,8 @@ public class EvaluationTestCase {
 	    try {
             StringBuilder reply = new StringBuilder();
             commonLisp.evaluate(line).print(reply);
-            assertEquals(expectedReply, reply.toString());    
+            String replyString = reply.toString();
+            assertTrue("Expected: " + expectedReply + " but was: " + replyString, expectedReply.equalsIgnoreCase(replyString));    
         } catch (Exception pe) {
             assertEquals(expectedReply, pe.getMessage());
         }

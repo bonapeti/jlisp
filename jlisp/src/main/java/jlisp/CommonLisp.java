@@ -1,6 +1,7 @@
 package jlisp;
 
 import java.io.IOException;
+import static jlisp.Lisp.asFixnum;
 
 
 public class CommonLisp {
@@ -29,12 +30,7 @@ public class CommonLisp {
         return (List)firstArgument;
 	}
 	
-	private Fixnum cast(LispObject object) {
-	    if (!(object instanceof Fixnum)) {
-	        throw new EvaluationException(object.toString() + " is not a number");
-	    }
-	    return (Fixnum)object;
-	}
+	
 	
 	public CommonLisp() {
 
@@ -43,7 +39,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                return cast(arguments.first()).smallerThan(cast(arguments.second()));
+                return asFixnum(arguments.first()).smallerThan(asFixnum(arguments.second()));
             }
         });
 	    environment.defineFunction(">", new Function() {
@@ -51,7 +47,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                return cast(arguments.first()).greaterThan(cast(arguments.second()));
+                return asFixnum(arguments.first()).greaterThan(asFixnum(arguments.second()));
             }
         });
 	    environment.defineFunction("eval", new Function() {
@@ -290,6 +286,7 @@ public class CommonLisp {
 		environment.defineSpecialForm("defun", new DefineFunction());
 		environment.defineSpecialForm("quote", new QuoteFunction());
 		environment.defineSpecialForm("if", new IfFunction());
+		environment.defineSpecialForm("cond", new Cond());
 	}
 	
 	public LispObject evaluate(String line) {

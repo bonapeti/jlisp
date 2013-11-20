@@ -48,4 +48,18 @@ public class Lisp {
         }
         return (LispObject)stack.pop();
     }
+    
+    public static List asList(LispObject lispObject) {
+        if (!(lispObject instanceof List)) {
+            throw new EvaluationException(lispObject.toString() + " is not a LIST");
+        }
+        return (List)lispObject;
+    }
+    
+    public static Fixnum asFixnum(LispObject object) {
+        if (!(object instanceof Fixnum)) {
+            throw new EvaluationException(object.toString() + " is not a number");
+        }
+        return (Fixnum)object;
+    }
 }
