@@ -21,13 +21,7 @@ public class CommonLisp {
     }
 	
 	private List firstArgumentAsList(List arguments) {
-	    LispObject firstArgument = arguments.head();
-	    
-        if (!(firstArgument instanceof List)) {
-            throw new EvaluationException(firstArgument.toString() + " is not a list");
-            
-        }
-        return (List)firstArgument;
+	    return Lisp.asList(arguments.head());
 	}
 	
 	
@@ -289,6 +283,7 @@ public class CommonLisp {
 		environment.defineSpecialForm("cond", new Cond());
 		environment.defineSpecialForm("and", new And());
 		environment.defineSpecialForm("or", new Or());
+		environment.defineSpecialForm("setf", new Setf());
 	}
 	
 	public LispObject evaluate(String line) {

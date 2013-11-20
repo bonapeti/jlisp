@@ -62,4 +62,11 @@ public class Lisp {
         }
         return (Fixnum)object;
     }
+    
+    public static Symbol asSymbol(LispObject object) {
+        if (!(object instanceof Symbol)) {
+            throw new EvaluationException(object.toString() + " is not a SYMBOL");
+        }
+        return (Symbol)object;
+    }
 }

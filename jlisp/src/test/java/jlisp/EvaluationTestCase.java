@@ -172,6 +172,14 @@ public class EvaluationTestCase {
     }
 	
 	@Test
+    public void setf() {
+        assertEvaluation(" (setf) ", " nil ");
+        
+        assertEvaluation(" (setf a 3) ", " 3 ");
+        assertEvaluation(" a ", " 3 ");
+    }
+	
+	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");
 
