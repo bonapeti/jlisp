@@ -131,6 +131,14 @@ public class EvaluationTestCase {
     }
 	
 	@Test
+    public void smaller() {
+        assertEvaluation(" (< 1 2) ", "T");
+        assertEvaluation(" (< 1 1) ", "NIL");
+        assertEvaluation(" (< 2 1) ", "NIL");
+    }
+	
+	
+	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");
 

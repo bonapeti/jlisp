@@ -29,8 +29,31 @@ public class CommonLisp {
         return (List)firstArgument;
 	}
 	
+	private Fixnum cast(LispObject object) {
+	    if (!(object instanceof Fixnum)) {
+	        throw new EvaluationException(object.toString() + " is not a number");
+	    }
+	    return (Fixnum)object;
+	}
+	
 	public CommonLisp() {
 
+	    environment.defineFunction("<", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment) {
+                return cast(arguments.first()).smallerThan(cast(arguments.second()));
+            }
+        });
+	    environment.defineFunction(">", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment) {
+                return cast(arguments.first()).greaterThan(cast(arguments.second()));
+            }
+        });
 	    environment.defineFunction("eval", new Function() {
 
             @Override

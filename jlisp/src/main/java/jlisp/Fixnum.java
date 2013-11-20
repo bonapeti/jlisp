@@ -73,4 +73,20 @@ public class Fixnum extends Number implements LispObject {
     public boolean isTrue() {
         return true;
     }
+    
+    public LispObject smallerThan(Fixnum other) {
+        if (value.compareTo(other.value) < 0) {
+            return Lisp.T;
+        } else {
+            return Lisp.NIL;
+        }
+    }
+    
+    public LispObject greaterThan(Fixnum other) {
+        if (value.compareTo(other.value) > 0) {
+            return Lisp.T;
+        } else {
+            return Lisp.NIL;
+        }
+    }
 }
