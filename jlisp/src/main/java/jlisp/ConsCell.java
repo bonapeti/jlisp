@@ -164,4 +164,20 @@ public class ConsCell implements List {
         return tail();
     }
 
+    @Override
+    public LispObject findFirst(Function1<LispObject, Boolean> f) {
+        if (f.apply(head())) {
+            return head();
+        }
+        return tail().findFirst(f);
+    }
+
+    @Override
+    public List last() {
+        if (tail().isEmpty()) {
+            return this;
+        }
+        return tail().last();
+    }
+
 }

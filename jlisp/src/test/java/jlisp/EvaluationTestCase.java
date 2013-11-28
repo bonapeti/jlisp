@@ -3,6 +3,7 @@ package jlisp;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class EvaluationTestCase {
@@ -234,6 +235,25 @@ public class EvaluationTestCase {
         assertEvaluation("(reverse 'live)","LIVE is not a LIST");
     }
 	
+    
+    @Test @Ignore
+    public void nthcdr() {
+        assertEvaluation("(nthcdr 0 '(a b c))","(a b c)");
+    }
+    
+    @Test
+    public void last() {
+        assertEvaluation("(last '(all is forgiven))","(forgiven)");
+        assertEvaluation("(last nil)"," nil ");
+        assertEvaluation("(last 'nevermore)","NEVERMORE is not a LIST");
+    }
+    
+    @Test
+    public void remove() {
+        assertEvaluation("(remove 'a '(b a n a n a))","(b n n)");
+        assertEvaluation("(remove 1 '(3 1 4 1 5 9))","(3 4 5 9)");
+    }
+    
 	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");

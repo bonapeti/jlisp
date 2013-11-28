@@ -119,4 +119,14 @@ public final class Nil extends Symbol implements List {
         return this;
     }
 
+    @Override
+    public LispObject findFirst(Function1<LispObject, Boolean> f) {
+        return this;
+    }
+
+    @Override
+    public List last() {
+        return this;
+    }
+
 }

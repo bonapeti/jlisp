@@ -27,10 +27,14 @@ public interface List extends LispObject {
     LispObject second();
     
     LispObject third();
+    
+    List last();
 
     List rest();
     
     LispObject car();
     
     List cdr();
+    
+    LispObject findFirst(Function1<LispObject,Boolean> f);
 }

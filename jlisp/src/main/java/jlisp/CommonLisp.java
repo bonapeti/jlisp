@@ -344,6 +344,30 @@ public class CommonLisp {
                 });
             }
         });
+		environment.defineFunction("last", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+                return Lisp.asList(arguments.first()).last();
+            }
+        });
+		environment.defineFunction("remove", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+                final LispObject element = arguments.first();
+                return Lisp.asList(arguments.second()).filter(new Function1<LispObject, Boolean>() {
+                    
+                    @Override
+                    public Boolean apply(LispObject p) {
+                        return !element.equals(p);
+                    }
+                });
+            }
+        });
+		
 		environment.defineSpecialForm("defun", new DefineFunction());
 		environment.defineSpecialForm("quote", new QuoteFunction());
 		environment.defineSpecialForm("if", new IfFunction());
