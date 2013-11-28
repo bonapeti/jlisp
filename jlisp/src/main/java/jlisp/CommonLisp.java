@@ -105,7 +105,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                return new ConsCell(arguments.head(),(List)arguments.second());
+                return new ConsCell(arguments.head(),Lisp.asList(arguments.second()));
             }
         });
 	    environment.defineFunction("car", new Function() {
@@ -302,6 +302,28 @@ public class CommonLisp {
                     @Override
                     public LispObject apply(LispObject p1, LispObject p2) {
                         return new Fixnum( ((Number)p1).intValue() - ((Number) p2).intValue());
+                    }
+                    
+                });
+            }
+        });
+		environment.defineFunction("append", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+                return arguments.foldLeft(Lisp.NIL, new Function2<LispObject,LispObject,LispObject>() {
+
+                    @Override
+                    public LispObject apply(LispObject p1, LispObject p2) {
+                        return Lisp.asList(p2).foldLeft(p1, new Function2<LispObject,LispObject,LispObject>() {
+
+                            @Override
+                            public LispObject apply(LispObject p3, LispObject p4) {
+                                return Lisp.asList(p3).append(p4);
+                            }
+                        });
+                        
                     }
                     
                 });

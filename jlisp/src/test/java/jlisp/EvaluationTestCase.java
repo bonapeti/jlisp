@@ -90,6 +90,17 @@ public class EvaluationTestCase {
 	@Test
     public void cons() {
         assertEvaluation(" (cons 1 (list 2)) ", "(1 2)");
+        assertEvaluation(" (cons 'rice '(and beans)) ", "(RICE AND BEANS)");
+        assertEvaluation(" (cons '(here today) '(gone tomorrow)) ", "((HERE TODAY) GONE TOMORROW)");
+        
+        //assertEvaluation(" (cons 'a 'b) ", "(A . B)");
+    }
+	
+	@Test
+    public void list() {
+        assertEvaluation(" (list 'rice '(and beans)) ", "(RICE (AND BEANS))");
+        assertEvaluation(" (list '(here today) '(gone tomorrow)) ", "((HERE TODAY) (GONE TOMORROW))");
+        
     }
 	
 	@Test
@@ -197,6 +208,23 @@ public class EvaluationTestCase {
 
         assertEvaluation(" (price-change 100 500) ", " (WIDGET CHANGED BY 400 PERCENT) ");
     }
+	
+	@Test
+	public void append() {
+        assertEvaluation("(append '(friends romans) '(and countrymen))","(FRIENDS ROMANS AND COUNTRYMEN)");
+        assertEvaluation("(append '(l m n o) '(p q r))","(L M N O P Q R)");
+        assertEvaluation("(append '(april showers) nil)","(APRIL SHOWERS)");
+        assertEvaluation("(append nil '(bring may flowers))","(BRING MAY FLOWERS)");
+        assertEvaluation("(append nil nil)","NIL");
+        assertEvaluation("(append '((a 1) (b 2)) '((c 3) (d 4)))","((A 1) (B 2) (C 3) (D 4))");
+        assertEvaluation("(setf who '(only the good))","(ONLY THE GOOD)");
+        assertEvaluation("(append who '(die young))","(ONLY THE GOOD DIE YOUNG)");
+        assertEvaluation("who","(ONLY THE GOOD)");
+        assertEvaluation("(append 'a '(b c d))","A is not a LIST");
+        assertEvaluation("(append '(a b c) '(d))","(A B C D)");
+        
+        assertEvaluation("(append '(here today) '(gone tomorrow))","(HERE TODAY GONE TOMORROW)");
+	}
 	
 	@Test
     public void defun_and_eval() {
