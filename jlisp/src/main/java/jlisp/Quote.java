@@ -26,4 +26,8 @@ public class Quote implements LispObject {
         return target.isTrue();
     }
 
+    @Override
+    public String toString() {
+        return "'" + target.toString();
+    }
 }

@@ -22,31 +22,6 @@ public class ListTestCase {
     }
     
     @Test
-    public void to_string() throws Exception {
-        
-        LispObject firstExpression = mock(LispObject.class);
-        
-        Appendable sb = mock(Appendable.class);
-        
-        ConsCell list = new ConsCell(firstExpression);
-
-        assertEquals("(" + firstExpression.toString() + " NIL)",list.toString());
-        
-        list.print(sb);
-        verify(firstExpression).print(sb);
-        
-        LispObject secondExpression = mock(LispObject.class);
-        
-        list = list.append(secondExpression);
-        
-        assertEquals("(" + firstExpression.toString() + " (" + secondExpression.toString() + " NIL))",list.toString());
-        sb = new StringBuilder();
-        list.print(sb);
-        verify(firstExpression).print(sb);
-        verify(secondExpression).print(sb);
-    }
-    
-    @Test
     public void emptyList_equals() {
         assertEquals(Lisp.NIL,Lisp.NIL);
     }

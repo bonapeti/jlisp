@@ -1,6 +1,7 @@
 package jlisp;
 
 
+
 public final class Nil extends Symbol implements List {
 
     public Nil() {
@@ -118,5 +119,4 @@ public final class Nil extends Symbol implements List {
         return this;
     }
 
-    
 }

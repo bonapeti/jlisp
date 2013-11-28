@@ -40,7 +40,14 @@ public class ConsCell implements List {
 
 	@Override
 	public String toString() {
-		return "(" + head() + " " + tail() + ")";
+	    StringBuilder sb = new StringBuilder();
+	    try {
+            print(sb);
+            return sb.toString();
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+	    
 	}
 
 	@Override

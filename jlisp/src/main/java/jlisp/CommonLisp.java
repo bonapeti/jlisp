@@ -277,6 +277,36 @@ public class CommonLisp {
 				});
 			}
 		});
+		environment.defineFunction("/", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+                return arguments.tail().foldLeft(arguments.car(), new Function2<LispObject,LispObject,LispObject>() {
+
+                    @Override
+                    public LispObject apply(LispObject p1, LispObject p2) {
+                        return new Fixnum( ((Number)p1).intValue() / ((Number) p2).intValue());
+                    }
+                    
+                });
+            }
+        });
+		environment.defineFunction("-", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+                return arguments.tail().foldLeft(arguments.car(), new Function2<LispObject,LispObject,LispObject>() {
+
+                    @Override
+                    public LispObject apply(LispObject p1, LispObject p2) {
+                        return new Fixnum( ((Number)p1).intValue() - ((Number) p2).intValue());
+                    }
+                    
+                });
+            }
+        });
 		environment.defineSpecialForm("defun", new DefineFunction());
 		environment.defineSpecialForm("quote", new QuoteFunction());
 		environment.defineSpecialForm("if", new IfFunction());
@@ -284,6 +314,7 @@ public class CommonLisp {
 		environment.defineSpecialForm("and", new And());
 		environment.defineSpecialForm("or", new Or());
 		environment.defineSpecialForm("setf", new Setf());
+		environment.defineSpecialForm("let*", new LetStar());
 	}
 	
 	public LispObject evaluate(String line) {
