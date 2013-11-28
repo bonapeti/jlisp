@@ -66,8 +66,8 @@ public class ConsCell implements List {
 	}
 
 	@Override
-	public List filter(Function1<LispObject, Boolean> f) {
-		if (f.apply(head())) {
+	public List filter(Function1<LispObject, LispObject> f) {
+		if (f.apply(head()).isTrue()) {
 			return new ConsCell(head(), tail().filter(f));
 		} else {
 			return tail().filter(f);
@@ -125,11 +125,11 @@ public class ConsCell implements List {
 
     @Override
     public Fixnum length() {
-        return foldLeft(new Fixnum(0), new Function2<Fixnum, Fixnum, LispObject>() {
+        return foldLeft(Fixnum.ZERO, new Function2<Fixnum, Fixnum, LispObject>() {
 
             @Override
             public Fixnum apply(Fixnum p1, LispObject p2) {
-                return new Fixnum(p1.intValue() + 1);
+                return p1.next();
             }
         });
     }
@@ -165,19 +165,10 @@ public class ConsCell implements List {
     }
 
     @Override
-    public LispObject findFirst(Function1<LispObject, Boolean> f) {
-        if (f.apply(head())) {
-            return head();
+    public LispObject findFirst(Function1<List,Boolean> predicate, Function1<List, LispObject> valueOf) {
+        if (predicate.apply(this)) {
+            return valueOf.apply(this);
         }
-        return tail().findFirst(f);
+        return tail().findFirst(predicate,valueOf);
     }
-
-    @Override
-    public List last() {
-        if (tail().isEmpty()) {
-            return this;
-        }
-        return tail().last();
-    }
-
 }

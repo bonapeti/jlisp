@@ -254,6 +254,22 @@ public class EvaluationTestCase {
         assertEvaluation("(remove 1 '(3 1 4 1 5 9))","(3 4 5 9)");
     }
     
+    @Test
+    public void member() {
+        commonLisp.evaluate("(setf ducks '(huey dewey louie))");
+        assertEvaluation("(member 'huey ducks)","(HUEY DEWEY LOUIE)");
+        assertEvaluation("(member 'dewey ducks)","(DEWEY LOUIE)");
+        assertEvaluation("(member 'louie ducks)","(LOUIE)");
+        assertEvaluation("(member 'mickey ducks)","nil");
+    }
+    
+    @Test
+    public void intersection() {
+        assertEvaluation("(intersection '(fred john mary) '(sue mary fred))","(FRED MARY)");
+        assertEvaluation("(intersection '(a s d f g) '(v w s r a))","(A S)");
+        assertEvaluation("(intersection '(foo bar baz) '(xam gorp bletch))"," nil ");
+    }
+    
 	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");

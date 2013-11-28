@@ -48,7 +48,7 @@ public final class Nil extends Symbol implements List {
 	}
 
 	@Override
-	public List filter(Function1<LispObject, Boolean> f) {
+	public List filter(Function1<LispObject, LispObject> f) {
 		return this;
 	}
 
@@ -120,13 +120,7 @@ public final class Nil extends Symbol implements List {
     }
 
     @Override
-    public LispObject findFirst(Function1<LispObject, Boolean> f) {
+    public LispObject findFirst(Function1<List,Boolean> predicate, Function1<List, LispObject> valueOf) {
         return this;
     }
-
-    @Override
-    public List last() {
-        return this;
-    }
-
 }

@@ -4,10 +4,16 @@ import java.io.IOException;
 
 public class Fixnum extends Number implements LispObject {
 
+    public static Fixnum ZERO = new Fixnum(0);
+    
     private Integer value = null;
     
     public Fixnum(Integer value) {
         this.value = value;
+    }
+    
+    public Fixnum next() {
+        return new Fixnum(value + 1);
     }
     
     public LispObject evaluate(Environment environment) {

@@ -10,7 +10,7 @@ public interface List extends LispObject {
 	
 	ConsCell append(LispObject lispObject);
 	
-	List filter(Function1<LispObject,Boolean> f);
+	List filter(Function1<LispObject,LispObject> f);
 	
 	List map(Function1<LispObject,LispObject> f);
 	
@@ -28,13 +28,11 @@ public interface List extends LispObject {
     
     LispObject third();
     
-    List last();
-
     List rest();
     
     LispObject car();
     
     List cdr();
     
-    LispObject findFirst(Function1<LispObject,Boolean> f);
+    LispObject findFirst(Function1<List,Boolean> predicate, Function1<List, LispObject> valueOf);
 }
