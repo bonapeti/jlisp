@@ -180,6 +180,25 @@ public class EvaluationTestCase {
     }
 	
 	@Test
+    public void letStar() {
+	    commonLisp.evaluate(" (defun average (x y)" +
+        		            "  (let* ((sum (+ x y))) " +
+        		            "  (list x y 'average 'is (/ sum 2))" +
+        		            ")) ");
+        
+        assertEvaluation(" (average 3 7) ", " (3 7 AVERAGE IS 5) ");
+        
+        commonLisp.evaluate(" (defun price-change (old new)" +
+                "  (let* ( (diff (- new old)) " +
+                "         (propotion (/ diff old))" +
+                "         (percentage (* propotion 100))) " +
+                "  (list 'widget 'changed 'by percentage 'percent)" +
+                ")) ");
+
+        assertEvaluation(" (price-change 100 500) ", " (WIDGET CHANGED BY 400 PERCENT) ");
+    }
+	
+	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");
 

@@ -92,4 +92,13 @@ public class SymbolParserTestCase {
         assertFalse(stack.isEmpty());
         assertEquals(new Symbol("a"), stack.pop());
     }
+    
+    @Test
+    public void letStar() {
+        SymbolParser parser = new SymbolParser();
+        Stack<LispObject> stack = new Stack<LispObject>();
+        parser.parse(new CharIterator("let* "), stack);
+        assertFalse(stack.isEmpty());
+        assertEquals(new Symbol("let*"), stack.pop());
+    }
 }

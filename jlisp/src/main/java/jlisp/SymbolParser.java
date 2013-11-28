@@ -32,7 +32,7 @@ public class SymbolParser implements Parser {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {
-                return Character.isLetter(c) || Character.isDigit(c) || c == '-';
+                return Character.isLetter(c) || Character.isDigit(c) || c == '-' || c == '*';
             }
         }, sb);
         if ("t".equals(sb.toString())) {
