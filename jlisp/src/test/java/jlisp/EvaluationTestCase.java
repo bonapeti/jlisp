@@ -226,6 +226,14 @@ public class EvaluationTestCase {
         assertEvaluation("(append '(here today) '(gone tomorrow))","(HERE TODAY GONE TOMORROW)");
 	}
 	
+
+    @Test
+    public void reverse() {
+        assertEvaluation("(reverse '(one two three four five))","(FIVE FOUR THREE TWO ONE)");
+        assertEvaluation("(reverse '(l i v e))","(E V I L)");
+        assertEvaluation("(reverse 'live)","LIVE is not a LIST");
+    }
+	
 	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");

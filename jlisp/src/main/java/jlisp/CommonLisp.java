@@ -329,6 +329,21 @@ public class CommonLisp {
                 });
             }
         });
+		environment.defineFunction("reverse", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+                return Lisp.asList(arguments.first()).foldRight(Lisp.NIL, new Function2<LispObject,LispObject,LispObject>() {
+
+                    @Override
+                    public LispObject apply(LispObject p1, LispObject p2) {
+                        return Lisp.asList(p2).append(p1);
+                    }
+                    
+                });
+            }
+        });
 		environment.defineSpecialForm("defun", new DefineFunction());
 		environment.defineSpecialForm("quote", new QuoteFunction());
 		environment.defineSpecialForm("if", new IfFunction());
