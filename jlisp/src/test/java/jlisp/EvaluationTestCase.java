@@ -270,6 +270,13 @@ public class EvaluationTestCase {
         assertEvaluation("(intersection '(foo bar baz) '(xam gorp bletch))"," nil ");
     }
     
+    @Test
+    public void setDifference() {
+        assertEvaluation("(set-difference '(alpha bravo charlie delta) '(bravo charlie))","(ALPHA DELTA)");
+        assertEvaluation("(set-difference '(alpha bravo charlie delta) '(echo alpha foxtrot))","(BRAVO CHARLIE DELTA)");
+        assertEvaluation("(set-difference '(alpha bravo) '(bravo alpha))","nil");
+    }
+    
 	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");

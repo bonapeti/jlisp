@@ -421,6 +421,22 @@ public class CommonLisp {
                 });
             }
         });		
+		environment.defineFunction("set-difference", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+                List firstArg = Lisp.asList(arguments.first());
+                final List secondArg = Lisp.asList(arguments.second());
+                return firstArg.filter(new Function1<LispObject, LispObject>() {
+                    
+                    @Override
+                    public LispObject apply(LispObject firstArgElement) {
+                        return not(member(firstArgElement, secondArg));
+                    }
+                });
+            }
+        });
 		
 		
 		environment.defineSpecialForm("defun", new DefineFunction());
