@@ -271,6 +271,13 @@ public class EvaluationTestCase {
     }
     
     @Test
+    public void union() {
+        assertEvaluation("(union '(finger hand arm) '(toe finger foot leg))","(FINGER HAND ARM TOE FOOT LEG)");
+        assertEvaluation("(union '(fred john mary) '(sue mary fred))","(FRED JOHN MARY SUE)");
+        assertEvaluation("(union '(a s d f g) '(v w s r a))","(A S D F G V W R)");
+    }
+    
+    @Test
     public void setDifference() {
         assertEvaluation("(set-difference '(alpha bravo charlie delta) '(bravo charlie))","(ALPHA DELTA)");
         assertEvaluation("(set-difference '(alpha bravo charlie delta) '(echo alpha foxtrot))","(BRAVO CHARLIE DELTA)");

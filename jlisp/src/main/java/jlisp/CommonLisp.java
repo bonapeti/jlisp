@@ -8,7 +8,7 @@ public class CommonLisp {
 
 	private GlobalEnvironment environment = new GlobalEnvironment();
 
-	public LispObject not(LispObject argument) {
+	public static LispObject not(LispObject argument) {
 	    return argument.isTrue() ? Lisp.NIL : Lisp.T;
 	}
 	
@@ -20,19 +20,19 @@ public class CommonLisp {
         }
     }
 	
-	public LispObject isOdd(Number argument) {
+	public static LispObject isOdd(Number argument) {
         return argument.intValue() % 2 != 0 ? Lisp.T : Lisp.NIL;
     }
 	
-	public LispObject isEven(Number argument) {
+	public static LispObject isEven(Number argument) {
         return not(isOdd(argument));
     }
 	
-	public List firstArgumentAsList(List arguments) {
+	public static List firstArgumentAsList(List arguments) {
 	    return Lisp.asList(arguments.head());
 	}
 	
-	public LispObject member(final LispObject element, List list) {
+	public static LispObject member(final LispObject element, List list) {
         return list.findFirst(new Function1<List, Boolean>() {
             
             @Override
@@ -47,6 +47,54 @@ public class CommonLisp {
             }
         });
     }
+	
+	public static List intersection(List list1, final List list2) {
+	    return list1.filter(new Function1<LispObject, LispObject>() {
+            
+            @Override
+            public LispObject apply(LispObject firstArgElement) {
+                return member(firstArgElement, list2);
+            }
+        });
+	}
+	
+	public static List union(final List list1, final List list2) {
+	    return list2.foldLeft(list1, new Function2<List,List, LispObject>() {
+
+            @Override
+            public List apply(List p1, final LispObject p2) {
+                if (p1.findFirst(new Function1<List, Boolean>() {
+                    
+                    @Override
+                    public Boolean apply(List element) {
+                        return equal(p2, element.car()).isTrue();
+                    }
+                }, new Function1<List, LispObject>() {
+                    
+                    @Override
+                    public LispObject apply(List p) {
+                        return Lisp.T;
+                    }
+                }).isTrue()) {
+                    return p1;
+                } else {
+                    return p1.append(p2);
+                }
+            }
+	        
+	    });
+    }
+	
+	public static List difference(List list1, final List list2) {
+        return list1.filter(new Function1<LispObject, LispObject>() {
+            
+            @Override
+            public LispObject apply(LispObject firstArgElement) {
+                return not(member(firstArgElement, list2));
+            }
+        });
+    }
+	
 	
 	public CommonLisp() {
 
@@ -410,15 +458,16 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-                List firstArg = Lisp.asList(arguments.first());
-                final List secondArg = Lisp.asList(arguments.second());
-                return firstArg.filter(new Function1<LispObject, LispObject>() {
-                    
-                    @Override
-                    public LispObject apply(LispObject firstArgElement) {
-                        return member(firstArgElement, secondArg);
-                    }
-                });
+                return intersection(Lisp.asList(arguments.first()), Lisp.asList(arguments.second()));
+            }
+        });
+        environment.defineFunction("union", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+                
+                return union(Lisp.asList(arguments.first()), Lisp.asList(arguments.second()));
             }
         });		
 		environment.defineFunction("set-difference", new Function() {
@@ -426,15 +475,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-                List firstArg = Lisp.asList(arguments.first());
-                final List secondArg = Lisp.asList(arguments.second());
-                return firstArg.filter(new Function1<LispObject, LispObject>() {
-                    
-                    @Override
-                    public LispObject apply(LispObject firstArgElement) {
-                        return not(member(firstArgElement, secondArg));
-                    }
-                });
+                return difference(Lisp.asList(arguments.first()), Lisp.asList(arguments.second()));
             }
         });
 		
