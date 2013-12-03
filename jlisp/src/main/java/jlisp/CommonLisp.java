@@ -58,6 +58,10 @@ public class CommonLisp {
         });
 	}
 	
+	public static LispObject isSubset(final List list1, final List list2) {
+	    return difference(list1, list2).isEmpty() ? Lisp.T : Lisp.NIL;
+	}
+	
 	public static List union(final List list1, final List list2) {
 	    return list2.foldLeft(list1, new Function2<List,List, LispObject>() {
 
@@ -476,6 +480,14 @@ public class CommonLisp {
             public LispObject evaluate(List arguments,
                     Environment environment){
                 return difference(Lisp.asList(arguments.first()), Lisp.asList(arguments.second()));
+            }
+        });
+		environment.defineFunction("subsetp", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+                return isSubset(Lisp.asList(arguments.first()), Lisp.asList(arguments.second()));
             }
         });
 		

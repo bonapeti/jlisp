@@ -284,6 +284,12 @@ public class EvaluationTestCase {
         assertEvaluation("(set-difference '(alpha bravo) '(bravo alpha))","nil");
     }
     
+    @Test
+    public void subsetp() {
+        assertEvaluation("(subsetp '(a i) '(a e i o u))","t");
+        assertEvaluation("(subsetp '(a x) '(a e i o u))","nil");
+    }
+    
 	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");
