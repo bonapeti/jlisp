@@ -35,6 +35,22 @@ public class SymbolParser implements Parser {
                 return Character.isLetter(c) || Character.isDigit(c) || c == '-' || c == '*';
             }
         }, sb);
+        charIterator.checkNext(new CharPredicate() {
+            
+            @Override
+            public boolean assertCharacter(char c) throws ParseException {
+                if (Character.isWhitespace(c) || c == ')') {
+                    return true;
+                } else {
+                    throw new ParseException("Expecting nothing after '" +  sb.toString() +"' but found " + c);
+                }
+            }
+        }, new CharacterProcessor() {
+            
+            @Override
+            protected void onEndOfFile(CharPredicate expected) throws ParseException {
+            }
+        });
         if ("t".equals(sb.toString())) {
             throw new ParseException("'t' is cannot be used as variable");
         }

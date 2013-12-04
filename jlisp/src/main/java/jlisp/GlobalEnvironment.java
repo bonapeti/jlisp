@@ -26,7 +26,7 @@ public class GlobalEnvironment implements Environment {
 
     @Override
     public void defineFunction(Symbol name, Function definition) {
-        defineSpecialForm(name, new FunctionCall(definition));
+        defineSpecialForm(name, new FunctionCall(name, definition));
     }
     
     public void defineFunction(String name, Function definition) {

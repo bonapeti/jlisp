@@ -290,6 +290,14 @@ public class EvaluationTestCase {
         assertEvaluation("(subsetp '(a x) '(a e i o u))","nil");
     }
     
+    @Test
+    @Ignore
+    public void sharpQuote() {
+        assertEvaluation("(defun double (x) (* x 2))","DOUBLE");
+        assertEvaluation("(double 2)","4");
+        assertEvaluation("#'double","#<Function DOUBLE {}>");
+    }
+    
 	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");

@@ -24,7 +24,7 @@ public class FunctionCallTestCase {
         when(expressions.map(isA(Function1.class))).thenReturn(evaluatedExpressions);
         when(function.evaluate(eq(expressions), eq(environment))).thenReturn(value);
         
-        FunctionCall functionCall = new FunctionCall(function);
+        FunctionCall functionCall = new FunctionCall(new Symbol("name"),function);
         
         LispObject lispObject = mock(LispObject.class);
         when(expressions.head()).thenReturn(lispObject);

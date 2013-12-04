@@ -8,7 +8,7 @@ public class AtomExpressionParser implements Parser {
 
     @Override
     public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
-        Grammar.alterationOf(new QuoteParser(),new FixnumParser(), new StringParser(), new NilParser(), new TrueSymbolParser(), new SymbolParser(), new ListExpressionParser()).parse(charIterator, stack);
+        Grammar.alterationOf(new QuoteParser(), new SharpQuoteParser(), new FixnumParser(), new StringParser(), new NilParser(), new TrueSymbolParser(), new SymbolParser(), new ListExpressionParser()).parse(charIterator, stack);
     }
 
 }
@@ -21,6 +21,19 @@ class QuoteParser implements Parser {
         Stack<LispObject> atomStack = new Stack<LispObject>();
         new AtomExpressionParser().parse(charIterator, atomStack);
         stack.push(new Quote(atomStack.pop()));
+    }
+    
+    
+}
+
+class SharpQuoteParser implements Parser {
+
+    @Override
+    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
+        charIterator.expect("#'");
+        Stack<LispObject> atomStack = new Stack<LispObject>();
+        new SymbolParser().parse(charIterator, atomStack);
+        stack.push(new SharpQuote((Symbol)atomStack.pop()));
     }
     
     
