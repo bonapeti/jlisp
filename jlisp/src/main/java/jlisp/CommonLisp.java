@@ -490,6 +490,15 @@ public class CommonLisp {
                 return isSubset(Lisp.asList(arguments.first()), Lisp.asList(arguments.second()));
             }
         });
+		environment.defineFunction("funcall", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+                FunctionCall functionCall = (FunctionCall)arguments.car();
+                return functionCall.evaluate(arguments.cdr(),environment);
+            }
+        });
 		
 		
 		environment.defineSpecialForm("defun", new DefineFunction());
@@ -500,6 +509,7 @@ public class CommonLisp {
 		environment.defineSpecialForm("or", new Or());
 		environment.defineSpecialForm("setf", new Setf());
 		environment.defineSpecialForm("let*", new LetStar());
+		environment.defineSpecialForm("function", new FunctionForm());
 	}
 	
 	public LispObject evaluate(String line) {

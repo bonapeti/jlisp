@@ -5,6 +5,7 @@ import java.io.IOException;
 public class SharpQuote implements LispObject {
 
     private Symbol symbol = null;
+    private FunctionForm functionForm = new FunctionForm();
     
     public SharpQuote(Symbol symbol) {
         this.symbol = symbol;
@@ -12,11 +13,7 @@ public class SharpQuote implements LispObject {
     
     @Override
     public LispObject evaluate(Environment environment) {
-        SpecialForm specialForm = environment.getSpecialForm(symbol);
-        if (!(specialForm instanceof FunctionCall)) {
-            throw new EvaluationException(symbol + " is not an ordinary function");
-        }
-        return (FunctionCall)specialForm;
+        return functionForm.evaluate(new ConsCell(symbol), environment);
     }
 
     @Override

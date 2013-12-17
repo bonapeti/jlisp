@@ -5,6 +5,7 @@ import java.io.IOException;
 public class Quote implements LispObject {
 
     private LispObject target = null;
+    private QuoteFunction quoteFunction = new QuoteFunction();
     
     public Quote(LispObject target) {
         this.target = target;
@@ -12,7 +13,7 @@ public class Quote implements LispObject {
     
     @Override
     public LispObject evaluate(Environment environment) {
-        return target;
+        return quoteFunction.evaluate(new ConsCell(target), environment);
     }
 
     @Override

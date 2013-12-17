@@ -31,9 +31,20 @@ public class FunctionCall implements SpecialForm, LispObject {
 
     @Override
     public void print(Appendable appendable) throws IOException {
-        appendable.append("#<Function " + name + " {" + function.hashCode() + "}>");
+        appendable.append("#<Function " + name + ">");
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            print(sb);
+            return sb.toString();
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+    }
+    
     @Override
     public boolean isTrue() {
         return true;

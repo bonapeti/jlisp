@@ -291,11 +291,15 @@ public class EvaluationTestCase {
     }
     
     @Test
-    @Ignore
     public void sharpQuote() {
         assertEvaluation("(defun double (x) (* x 2))","DOUBLE");
-        assertEvaluation("(double 2)","4");
-        assertEvaluation("#'double","#<Function DOUBLE {}>");
+        assertEvaluation("#'double","#<Function DOUBLE>");
+    }
+    
+    @Test
+    public void function() {
+        assertEvaluation("(defun double (x) (* x 2))","DOUBLE");
+        assertEvaluation("(function double)","#<Function DOUBLE>");
     }
     
 	@Test
