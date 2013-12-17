@@ -302,6 +302,12 @@ public class EvaluationTestCase {
         assertEvaluation("(function double)","#<Function DOUBLE>");
     }
     
+    @Test
+    public void mapcar() {
+        assertEvaluation("(defun square (n) (* n n))","SQUARE");
+        assertEvaluation("(mapcar #'square '(1 2 3 4 5))","(1 4 9 16 25)");
+    }
+    
 	@Test
     public void defun_and_eval() {
         commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");

@@ -56,6 +56,13 @@ public class Lisp {
         return (List)lispObject;
     }
     
+    public static FunctionCall asFunction(LispObject lispObject) {
+        if (!(lispObject instanceof FunctionCall)) {
+            throw new EvaluationException(lispObject.toString() + " is not a FUNCTION");
+        }
+        return (FunctionCall)lispObject;
+    }
+    
     public static Fixnum asFixnum(LispObject object) {
         if (!(object instanceof Fixnum)) {
             throw new EvaluationException(object.toString() + " is not a number");

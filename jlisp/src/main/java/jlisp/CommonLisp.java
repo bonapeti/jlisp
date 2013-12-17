@@ -32,6 +32,10 @@ public class CommonLisp {
 	    return Lisp.asList(arguments.head());
 	}
 	
+	public static LispObject callFunction(FunctionCall function, List arguments, Environment environment) {
+	    return function.evaluate(arguments, environment);
+	}
+	
 	public static LispObject member(final LispObject element, List list) {
         return list.findFirst(new Function1<List, Boolean>() {
             
@@ -495,8 +499,23 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-                FunctionCall functionCall = (FunctionCall)arguments.car();
-                return functionCall.evaluate(arguments.cdr(),environment);
+                return callFunction(Lisp.asFunction(arguments.car()), arguments.cdr(), environment);
+            }
+        });
+		environment.defineFunction("mapcar", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    final Environment environment){
+                final FunctionCall functionCall = Lisp.asFunction(arguments.car());
+                List list = Lisp.asList(arguments.second());
+                return list.map(new Function1<LispObject, LispObject>() {
+                    
+                    @Override
+                    public LispObject apply(LispObject p) {
+                        return callFunction(functionCall, new ConsCell(p), environment);
+                    }
+                });
             }
         });
 		
