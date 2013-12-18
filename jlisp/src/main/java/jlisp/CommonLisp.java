@@ -243,7 +243,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                return ((List)arguments.head()).length();
+                return Lisp.asList(arguments.head()).length();
             }
         });
 	    environment.defineFunction("not", new Function() {

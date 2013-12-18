@@ -58,17 +58,17 @@ public class NotNilListEnd implements List {
 
     @Override
     public <R> R foldLeft(R seed, Function2<R, R, LispObject> f) {
-        throw new UnsupportedOperationException("NotNilListEnd.foldLeft is not supported");
+        return seed;
     }
 
     @Override
     public <R> R foldRight(R seed, Function2<R, LispObject, R> f) {
-        throw new UnsupportedOperationException("NotNilListEnd.foldRight is not supported");
+        return seed;
     }
 
     @Override
     public void foreach(VoidFunction f) {
-        throw new UnsupportedOperationException("NotNilListEnd.foreach is not supported");
+        f.apply(head());
     }
 
     @Override

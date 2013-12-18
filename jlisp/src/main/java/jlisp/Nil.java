@@ -86,7 +86,7 @@ public final class Nil extends Symbol implements List {
 
     @Override
     public Fixnum length() {
-        return new Fixnum(0);
+        return Fixnum.ZERO;
     }
 
     @Override
