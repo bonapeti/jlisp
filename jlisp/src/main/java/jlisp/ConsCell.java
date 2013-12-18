@@ -20,7 +20,7 @@ public class ConsCell implements List {
 	@Override
 	public LispObject evaluate(Environment environment){
 
-		Symbol functionName = (Symbol) head();
+		Symbol functionName = Lisp.asSymbol(head());
 
 		return environment.getSpecialForm(functionName).evaluate(tail(),
 				environment);

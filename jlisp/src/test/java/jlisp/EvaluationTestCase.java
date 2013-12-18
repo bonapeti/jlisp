@@ -94,7 +94,7 @@ public class EvaluationTestCase {
         assertEvaluation(" (cons 'rice '(and beans)) ", "(RICE AND BEANS)");
         assertEvaluation(" (cons '(here today) '(gone tomorrow)) ", "((HERE TODAY) GONE TOMORROW)");
         
-        //assertEvaluation(" (cons 'a 'b) ", "(A . B)");
+        assertEvaluation(" (cons 'a 'b) ", "(A . B)");
     }
 	
 	@Test

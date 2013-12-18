@@ -20,6 +20,14 @@ public class CommonLisp {
         }
     }
 	
+	public static LispObject listp(LispObject lispObject) {
+	    if (lispObject instanceof List) {
+            return Lisp.T;
+        } else {
+            return Lisp.NIL;
+        }
+	}
+	
 	public static LispObject isOdd(Number argument) {
         return argument.intValue() % 2 != 0 ? Lisp.T : Lisp.NIL;
     }
@@ -167,11 +175,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                if (arguments.head() instanceof List) {
-                    return Lisp.T;
-                } else {
-                    return Lisp.NIL;
-                }
+                return listp(arguments.car());
             }
         });
 	    environment.defineFunction("cons", new Function() {
@@ -179,7 +183,11 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                return new ConsCell(arguments.head(),Lisp.asList(arguments.second()));
+                if (listp(arguments.second()).isTrue()) {
+                    return new ConsCell(arguments.head(),Lisp.asList(arguments.second()));    
+                } else {
+                    return new ConsCell(arguments.head(),new NotNilListEnd(arguments.second()));
+                }
             }
         });
 	    environment.defineFunction("car", new Function() {

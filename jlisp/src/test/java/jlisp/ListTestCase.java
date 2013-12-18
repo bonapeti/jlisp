@@ -8,7 +8,6 @@ import static org.junit.Assert.fail;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
 
@@ -36,8 +35,8 @@ public class ListTestCase {
         Environment environment = mock(Environment.class);
         try {
             list.evaluate(environment);
-            fail("Expected ClassCastException because expression is not a symbol");
-        } catch (ClassCastException cce) {
+            fail("Expected EvaluationException because expression is not a symbol");
+        } catch (EvaluationException cce) {
             
         }
     }
