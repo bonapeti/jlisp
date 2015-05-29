@@ -334,7 +334,7 @@ public class CommonLisp {
 			@Override
 			public LispObject evaluate(List arguments,
 					Environment environment){
-				return arguments.foldLeft(new Fixnum(0), new Function2<LispObject,LispObject,LispObject>() {
+				return arguments.foldLeft(Fixnum.ZERO, new Function2<LispObject,LispObject,LispObject>() {
 
 					@Override
 					public LispObject apply(LispObject p1, LispObject p2) {
@@ -349,7 +349,7 @@ public class CommonLisp {
 			@Override
 			public LispObject evaluate(List arguments,
 					Environment environment){
-				return arguments.foldLeft(new Fixnum(1), new Function2<LispObject,LispObject,LispObject>() {
+				return arguments.foldLeft(Fixnum.ONE, new Function2<LispObject,LispObject,LispObject>() {
 
 					@Override
 					public LispObject apply(LispObject p1, LispObject p2) {
@@ -387,6 +387,14 @@ public class CommonLisp {
                     }
                     
                 });
+            }
+        });
+		environment.defineFunction("abs", new Function() {
+
+            @Override
+            public LispObject evaluate(List arguments,
+                    Environment environment){
+            	return asFixnum(arguments.first()).absoluteValue();
             }
         });
 		environment.defineFunction("append", new Function() {

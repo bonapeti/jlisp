@@ -314,6 +314,11 @@ public class EvaluationTestCase {
 
         assertEvaluation("(a 3)", "37");
     }
+	
+	@Test
+    public void abs() {
+        assertEvaluation("(abs 1)", "1");
+    }
 
 	void assertEvaluation(String line, String expectedReply) {
 	    try {
