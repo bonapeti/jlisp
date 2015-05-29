@@ -28,6 +28,10 @@ public class CharIterator {
         return index < text.length();
     }
     
+    /**
+     * Returns the 0 based current position
+     * @return
+     */
     public int getCurrentPosition() {
         return index;
     }

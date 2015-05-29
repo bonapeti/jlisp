@@ -11,6 +11,10 @@ public class FixnumParser implements Parser {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {
+            	if (c == '-') {
+            		return true;
+            	}
+            	
                 if (!Character.isDigit(c)) {
                     throw new ParseException("Expected number but found " + c);
                 } else {
