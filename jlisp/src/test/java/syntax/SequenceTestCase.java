@@ -22,20 +22,6 @@ import org.junit.Test;
 public class SequenceTestCase {
 
     @Test
-    public void to_string() {
-        Parser parser = mock(Parser.class);
-        Sequence sequence = new Sequence();
-        sequence.addParser(parser);
-        
-        assertEquals("(" + parser.toString() + ")",sequence.toString());
-        
-        Parser parser2 = mock(Parser.class);
-        sequence.addParser(parser2);
-        
-        assertEquals("(" + parser.toString() + " " + parser2.toString() + ")",sequence.toString());
-    }
-    
-    @Test
     public void one_parser_fails() {
         Parser parser = mock(Parser.class);
         Stack<LispObject> stack = new Stack<>();

@@ -20,14 +20,6 @@ import org.junit.Test;
 public class RepititionTestCase {
 
     @Test
-    public void to_string() {
-        Parser parser = mock(Parser.class);
-        Repitition repition = new Repitition(parser);
-        
-        assertEquals(parser.toString() + "*",repition.toString());
-    }
-    
-    @Test
     public void one_parser_fails() {
         Parser parser = mock(Parser.class);
         Stack<LispObject> stack = new Stack<>();

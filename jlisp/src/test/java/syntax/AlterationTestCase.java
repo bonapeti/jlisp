@@ -27,20 +27,6 @@ import org.junit.Test;
 public class AlterationTestCase {
 
     @Test
-    public void to_string() {
-        Parser parser = mock(Parser.class);
-        Alteration alteration = new Alteration();
-        alteration.addParser(parser);
-        
-        assertEquals("(" + parser.toString() + ")",alteration.toString());
-        
-        Parser parser2 = mock(Parser.class);
-        alteration.addParser(parser2);
-        
-        assertEquals("(" + parser.toString() + " | " + parser2.toString() + ")",alteration.toString());
-    }
-    
-    @Test
     public void one_parser_fails() {
         Parser parser = mock(Parser.class);
         Stack<LispObject> stack = new Stack<>();
