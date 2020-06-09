@@ -12,7 +12,7 @@ import static org.mockito.Mockito.mock;
 
 import java.util.Stack;
 
-import jlisp.CharIterator;
+import jlisp.LispCode;
 import jlisp.LispObject;
 import jlisp.ParseException;
 import jlisp.Parser;
@@ -38,17 +38,17 @@ public class SequenceTestCase {
     @Test
     public void one_parser_fails() {
         Parser parser = mock(Parser.class);
-        Stack<LispObject> stack = new Stack<LispObject>();
-        CharIterator charIterator = mock(CharIterator.class);
+        Stack<LispObject> stack = new Stack<>();
+        LispCode lispCode = mock(LispCode.class);
         
         ParseException pe = new ParseException("ParseException");
-        doThrow(pe).when(parser).parse(charIterator, stack);
+        doThrow(pe).when(parser).parse(lispCode, stack);
         
         Sequence sequence = new Sequence();
         sequence.addParser(parser);
         
         try {
-            sequence.parse(charIterator, stack);
+            sequence.parse(lispCode, stack);
             fail("Should have failed with ParseException");
         } catch (ParseException ape) {
             assertSame(pe, ape);
@@ -64,18 +64,18 @@ public class SequenceTestCase {
         Parser parser1 = new MockParser(lispObject);
         Parser parser2 = mock(Parser.class);
         
-        Stack<LispObject> stack = new Stack<LispObject>();
-        CharIterator charIterator = mock(CharIterator.class);
+        Stack<LispObject> stack = new Stack<>();
+        LispCode lispCode = mock(LispCode.class);
         
         ParseException pe = new ParseException("ParseException");
-        doThrow(pe).when(parser2).parse(eq(charIterator), isA(Stack.class));
+        doThrow(pe).when(parser2).parse(eq(lispCode), isA(Stack.class));
         
         Sequence sequence = new Sequence();
         sequence.addParser(parser1);
         sequence.addParser(parser2);
         
         try {
-            sequence.parse(charIterator, stack);
+            sequence.parse(lispCode, stack);
             fail("Should have failed with ParseException");
         } catch (ParseException ape) {
             assertSame(pe, ape);
@@ -92,16 +92,14 @@ public class SequenceTestCase {
         Parser parser1 = new MockParser(expression1);
         Parser parser2 = new MockParser(expression2);
         
-        Stack<LispObject> stack = new Stack<LispObject>();
-        CharIterator charIterator = mock(CharIterator.class);
-        
-        ParseException pe = new ParseException("ParseException");
-                
+        Stack<LispObject> stack = new Stack<>();
+        LispCode lispCode = mock(LispCode.class);
+
         Sequence sequence = new Sequence();
         sequence.addParser(parser1);
         sequence.addParser(parser2);
         
-        sequence.parse(charIterator, stack);
+        sequence.parse(lispCode, stack);
         assertSame(expression2, stack.pop());
         assertSame(expression1, stack.pop());
         
@@ -120,7 +118,7 @@ class MockParser implements Parser {
     }
     
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
         stack.push(lispObject);
     }
     

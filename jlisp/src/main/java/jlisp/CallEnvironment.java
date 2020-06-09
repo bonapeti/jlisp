@@ -7,7 +7,7 @@ public class CallEnvironment implements Environment {
 
     private Environment parent = null;
     
-    Map<Symbol, LispObject> values = new HashMap<Symbol, LispObject>();
+    Map<Symbol, LispObject> values = new HashMap<>();
     
     public CallEnvironment(Environment parent) {
         this.parent = parent;

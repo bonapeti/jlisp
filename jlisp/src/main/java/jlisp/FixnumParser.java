@@ -5,9 +5,9 @@ import java.util.Stack;
 public class FixnumParser implements Parser {
     
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException{
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException{
         final StringBuilder sb = new StringBuilder();
-        charIterator.expect(new CharPredicate() {
+        lispCode.expect(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {
@@ -22,7 +22,7 @@ public class FixnumParser implements Parser {
                 }
             }
         }, sb);
-        charIterator.advanceUntil(new CharPredicate() {
+        lispCode.advanceUntil(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {

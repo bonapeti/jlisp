@@ -8,16 +8,16 @@ import java.util.Stack;
 
 public class ListExpressionParser implements Parser {
 
-    private Parser listParser = sequenceOf(repititionOf(sequenceOf(whitespace(), new AtomExpressionParser())), whitespace());
+    private final Parser listParser = sequenceOf(repititionOf(sequenceOf(whitespace(), new AtomExpressionParser())), whitespace());
 
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) {
-        charIterator.expect('(');
+    public void parse(LispCode lispCode, Stack<LispObject> stack) {
+        lispCode.expect('(');
         
-        Stack<LispObject> listStack = new Stack<LispObject>();
-        listParser.parse(charIterator, listStack);
+        Stack<LispObject> listStack = new Stack<>();
+        listParser.parse(lispCode, listStack);
         
-        charIterator.expect(')');
+        lispCode.expect(')');
         
         List list = Lisp.NIL;
         

@@ -16,9 +16,9 @@ public class SymbolParserTestCase {
     
     @Test
     public void parseEmpty() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         SymbolParser symbolParser = new SymbolParser();
-        CharIterator chars = new CharIterator("");
+        LispCode chars = new LispCode("");
         try {
             symbolParser.parse(chars, stack);
             fail("Should have failed with 'Expected SYMBOL but found end of file.'");
@@ -31,9 +31,9 @@ public class SymbolParserTestCase {
     
     @Test
     public void parseArg() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         SymbolParser symbolParser = new SymbolParser();
-        CharIterator chars = new CharIterator("arg ");
+        LispCode chars = new LispCode("arg ");
         symbolParser.parse(chars, stack);
         assertEquals(new Symbol("arg"),stack.pop());
         assertEquals(3, chars.getCurrentPosition());
@@ -41,17 +41,17 @@ public class SymbolParserTestCase {
     
     @Test
     public void parseArg1() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         SymbolParser symbolParser = new SymbolParser();
-        symbolParser.parse(new CharIterator("arg1"), stack);
+        symbolParser.parse(new LispCode("arg1"), stack);
         assertEquals(new Symbol("arg1"),stack.pop());
     }
     
     @Test
     public void parseHelloHyphenWorld() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         SymbolParser symbolParser = new SymbolParser();
-        symbolParser.parse(new CharIterator("hello-world"), stack);
+        symbolParser.parse(new LispCode("hello-world"), stack);
         assertEquals(new Symbol("hello-world"),stack.pop());
     }
 
@@ -60,26 +60,26 @@ public class SymbolParserTestCase {
     @Test(expected=ParseException.class)
     public void space() {
         SymbolParser parser = new SymbolParser();
-        parser.parse(new CharIterator(" "), new Stack<LispObject>());
+        parser.parse(new LispCode(" "), new Stack<LispObject>());
     }
     
     @Test(expected=ParseException.class)
     public void spaceA() {
         SymbolParser parser = new SymbolParser();
-        parser.parse(new CharIterator(" a"), new Stack<LispObject>());
+        parser.parse(new LispCode(" a"), new Stack<LispObject>());
     }
     
     @Test(expected=ParseException.class)
     public void quoted() {
         SymbolParser parser = new SymbolParser();
-        parser.parse(new CharIterator("'a"), new Stack<LispObject>());
+        parser.parse(new LispCode("'a"), new Stack<LispObject>());
     }
     
     @Test
     public void a() {
         SymbolParser parser = new SymbolParser();
-        Stack<LispObject> stack = new Stack<LispObject>();
-        parser.parse(new CharIterator("a"), stack);
+        Stack<LispObject> stack = new Stack<>();
+        parser.parse(new LispCode("a"), stack);
         assertFalse(stack.isEmpty());
         assertEquals(new Symbol("a"), stack.pop());
     }
@@ -87,8 +87,8 @@ public class SymbolParserTestCase {
     @Test
     public void aSpace() {
         SymbolParser parser = new SymbolParser();
-        Stack<LispObject> stack = new Stack<LispObject>();
-        parser.parse(new CharIterator("a "), stack);
+        Stack<LispObject> stack = new Stack<>();
+        parser.parse(new LispCode("a "), stack);
         assertFalse(stack.isEmpty());
         assertEquals(new Symbol("a"), stack.pop());
     }
@@ -96,8 +96,8 @@ public class SymbolParserTestCase {
     @Test
     public void letStar() {
         SymbolParser parser = new SymbolParser();
-        Stack<LispObject> stack = new Stack<LispObject>();
-        parser.parse(new CharIterator("let* "), stack);
+        Stack<LispObject> stack = new Stack<>();
+        parser.parse(new LispCode("let* "), stack);
         assertFalse(stack.isEmpty());
         assertEquals(new Symbol("let*"), stack.pop());
     }

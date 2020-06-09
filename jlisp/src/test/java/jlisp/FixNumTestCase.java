@@ -16,7 +16,7 @@ public class FixNumTestCase {
 	@Test
 	public void equal() {
 		assertEquals(new Fixnum(5), new Fixnum(5));
-		assertFalse(new Fixnum(7).equals(new Fixnum(5)));
+		assertNotEquals(new Fixnum(7), new Fixnum(5));
 	}
 
 }

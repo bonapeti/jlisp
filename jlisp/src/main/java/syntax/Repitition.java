@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import jlisp.LispObject;
 
-import jlisp.CharIterator;
+import jlisp.LispCode;
 import jlisp.ParseException;
 import jlisp.Parser;
 
@@ -17,14 +17,14 @@ public class Repitition implements Parser {
     }
 
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
         
         while (true) {
-            int position = charIterator.getCurrentPosition();
+            int position = lispCode.getCurrentPosition();
             try {
-                parser.parse(charIterator, stack);    
+                parser.parse(lispCode, stack);
             } catch (ParseException pe) {
-                charIterator.setCurrentPosition(position);
+                lispCode.goTo(position);
                 break;
             }
             

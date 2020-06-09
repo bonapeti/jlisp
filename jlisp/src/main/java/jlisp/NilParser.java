@@ -5,9 +5,9 @@ import java.util.Stack;
 public class NilParser implements Parser {
 
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
-        charIterator.expect("nil");
-        charIterator.checkNext(new CharPredicate() {
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+        lispCode.expect("nil");
+        lispCode.checkNext(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {

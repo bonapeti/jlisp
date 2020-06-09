@@ -12,9 +12,9 @@ public class TrueSymbolParserTestCase {
 
 	@Test
     public void parseT() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         TrueSymbolParser symbolParser = new TrueSymbolParser();
-        CharIterator chars = new CharIterator("t");
+        LispCode chars = new LispCode("t");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.T,stack.pop());
         assertEquals(1, chars.getCurrentPosition());
@@ -22,9 +22,9 @@ public class TrueSymbolParserTestCase {
     
     @Test
     public void parseTSpace() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         TrueSymbolParser symbolParser = new TrueSymbolParser();
-        CharIterator chars = new CharIterator("t ");
+        LispCode chars = new LispCode("t ");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.T,stack.pop());
         assertEquals(1, chars.getCurrentPosition());
@@ -32,9 +32,9 @@ public class TrueSymbolParserTestCase {
     
     @Test
     public void parseTSpaceWithClosingList() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         TrueSymbolParser symbolParser = new TrueSymbolParser();
-        CharIterator chars = new CharIterator("t) ");
+        LispCode chars = new LispCode("t) ");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.T,stack.pop());
         assertEquals(1, chars.getCurrentPosition());

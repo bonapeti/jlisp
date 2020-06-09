@@ -31,7 +31,7 @@ public class FunctionCall implements SpecialForm, LispObject {
 
     @Override
     public void print(Appendable appendable) throws IOException {
-        appendable.append("#<Function " + name + ">");
+        appendable.append("#<Function ").append(String.valueOf(name)).append(">");
     }
 
     @Override

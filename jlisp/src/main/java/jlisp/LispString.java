@@ -33,11 +33,8 @@ public class LispString implements LispObject {
             return false;
         LispString other = (LispString) obj;
         if (value == null) {
-            if (other.value != null)
-                return false;
-        } else if (!value.equals(other.value))
-            return false;
-        return true;
+            return other.value == null;
+        } else return value.equals(other.value);
     }
 
 	@Override

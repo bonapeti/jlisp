@@ -10,9 +10,9 @@ public class NilParserTestCase {
 
     @Test
     public void parseNil() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         NilParser symbolParser = new NilParser();
-        CharIterator chars = new CharIterator("nil");
+        LispCode chars = new LispCode("nil");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.NIL,stack.pop());
         assertEquals(3, chars.getCurrentPosition());
@@ -20,9 +20,9 @@ public class NilParserTestCase {
     
     @Test
     public void parseNilSpace() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         NilParser symbolParser = new NilParser();
-        CharIterator chars = new CharIterator("nil ");
+        LispCode chars = new LispCode("nil ");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.NIL,stack.pop());
         assertEquals(3, chars.getCurrentPosition());
@@ -30,9 +30,9 @@ public class NilParserTestCase {
     
     @Test
     public void parseTSpaceWithClosingList() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         NilParser symbolParser = new NilParser();
-        CharIterator chars = new CharIterator("nil) ");
+        LispCode chars = new LispCode("nil) ");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.NIL,stack.pop());
         assertEquals(3, chars.getCurrentPosition());

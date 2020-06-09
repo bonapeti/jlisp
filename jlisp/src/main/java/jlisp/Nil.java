@@ -27,9 +27,7 @@ public final class Nil extends Symbol implements List {
             return true;
         if (obj == null)
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        return true;
+        return getClass() == obj.getClass();
     }
 
 	@Override

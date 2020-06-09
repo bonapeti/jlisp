@@ -3,10 +3,14 @@ package jlisp;
 import java.io.IOException;
 import static jlisp.Lisp.asFixnum;
 
-
+/**
+ * Main class to evaluate Lisp expressions
+ *
+ * Use #method(evaluate)
+ */
 public class CommonLisp {
 
-	private GlobalEnvironment environment = new GlobalEnvironment();
+	private final GlobalEnvironment environment = new GlobalEnvironment();
 
 	public static LispObject not(LispObject argument) {
 	    return argument.isTrue() ? Lisp.NIL : Lisp.T;
@@ -546,8 +550,13 @@ public class CommonLisp {
 		environment.defineSpecialForm("let*", new LetStar());
 		environment.defineSpecialForm("function", new FunctionForm());
 	}
-	
-	public LispObject evaluate(String line) {
-		return Lisp.read(line).evaluate(environment);
+
+    /**
+     * Evaluates a Lisp code
+     * @param lispCode Lisp code
+     * @return evaluated List object
+     */
+	public LispObject evaluate(String lispCode) {
+		return Lisp.read(lispCode).evaluate(environment);
 	}
 }

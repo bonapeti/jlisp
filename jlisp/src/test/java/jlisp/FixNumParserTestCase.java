@@ -10,9 +10,9 @@ public class FixNumParserTestCase {
 
 	@Test
     public void parse1() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         FixnumParser parser = new FixnumParser();
-        CharIterator chars = new CharIterator("1");
+        LispCode chars = new LispCode("1");
         parser.parse(chars, stack);
         assertEquals(new Fixnum(1),stack.pop());
         assertEquals(1, chars.getCurrentPosition());
@@ -20,9 +20,9 @@ public class FixNumParserTestCase {
 	
 	@Test
     public void parseMinus1() {
-        Stack<LispObject> stack = new Stack<LispObject>();
+        Stack<LispObject> stack = new Stack<>();
         FixnumParser parser = new FixnumParser();
-        CharIterator chars = new CharIterator("-1");
+        LispCode chars = new LispCode("-1");
         parser.parse(chars, stack);
         assertEquals(new Fixnum(-1),stack.pop());
         assertEquals(2, chars.getCurrentPosition());

@@ -3,10 +3,13 @@ package jlisp;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The main environment (name value pairs) during evaluation
+ */
 public class GlobalEnvironment implements Environment {
 
-    Map<Symbol,SpecialForm> specialForms = new HashMap<Symbol,SpecialForm>();
-    Map<Symbol, LispObject> values = new HashMap<Symbol, LispObject>();
+    Map<Symbol,SpecialForm> specialForms = new HashMap<>();
+    Map<Symbol, LispObject> values = new HashMap<>();
 
     @Override
     public SpecialForm getSpecialForm(Symbol name) {

@@ -3,6 +3,9 @@ package syntax;
 import jlisp.Parser;
 import jlisp.Spaces;
 
+/**
+ * Contains Lisp's syntax in Java code
+ */
 public class Grammar {
 
     private Grammar() {
@@ -16,7 +19,12 @@ public class Grammar {
         }
         return sequence;
     }
-    
+
+    /**
+     * Creates an alteration parser
+     * @param parsers
+     * @return
+     */
     public static Parser alterationOf(Parser... parsers) {
         Alteration alteration = new Alteration();
         for (Parser parser : parsers) {

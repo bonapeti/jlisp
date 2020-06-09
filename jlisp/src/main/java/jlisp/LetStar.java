@@ -2,7 +2,7 @@ package jlisp;
 
 public class LetStar implements SpecialForm {
 
-    private Setf setf = new Setf();
+    private final Setf setf = new Setf();
     
     @Override
     public LispObject evaluate(List expressions, final Environment environment) {

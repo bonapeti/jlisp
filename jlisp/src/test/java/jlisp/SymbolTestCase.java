@@ -1,9 +1,7 @@
 package jlisp;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +28,7 @@ public class SymbolTestCase {
     public void equal() {
         assertEquals(new Symbol("name"), new Symbol("name"));
         assertEquals(new Symbol("name"), new Symbol("NAME"));
-        assertFalse(new Symbol("name").equals(new Symbol("name1")));
+        assertNotEquals(new Symbol("name"), new Symbol("name1"));
     }
 
     

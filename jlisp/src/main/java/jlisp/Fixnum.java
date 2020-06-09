@@ -44,16 +44,13 @@ public class Fixnum extends Number implements LispObject {
             return false;
         Fixnum other = (Fixnum) obj;
         if (value == null) {
-            if (other.value != null)
-                return false;
-        } else if (!value.equals(other.value))
-            return false;
-        return true;
+            return other.value == null;
+        } else return value.equals(other.value);
     }
 
 	@Override
 	public int intValue() {
-		return value.intValue();
+		return value;
 	}
 
 	@Override

@@ -5,9 +5,9 @@ import java.util.Stack;
 public class TrueSymbolParser implements Parser {
 
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
-        charIterator.expect('t');
-        charIterator.checkNext(new CharPredicate() {
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+        lispCode.expect('t');
+        lispCode.checkNext(new CharPredicate() {
 			
 			@Override
 			public boolean assertCharacter(char c) throws ParseException {

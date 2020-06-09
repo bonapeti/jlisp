@@ -22,7 +22,7 @@ public class StringTestCase {
 	@Test
 	public void equal() {
 		assertEquals(new LispString("5"), new LispString("5"));
-		assertFalse(new LispString("7").equals(new LispString("5")));
+		assertNotEquals(new LispString("7"), new LispString("5"));
 	}
 
 }

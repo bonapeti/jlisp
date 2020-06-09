@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class AndTestCase {
 
-    private And and = new And();
+    private final And and = new And();
     
     @Test
     public void nil() {

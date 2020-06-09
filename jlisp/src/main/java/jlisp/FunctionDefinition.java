@@ -69,22 +69,18 @@ public class FunctionDefinition implements Function {
         } else if (!parameters.equals(other.parameters))
             return false;
         if (bodies == null) {
-            if (other.bodies != null)
-                return false;
-        } else if (!bodies.equals(other.bodies))
-            return false;
-        return true;
+            return other.bodies == null;
+        } else return bodies.equals(other.bodies);
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("FunctionDefinition [parameters=");
-        builder.append(parameters);
-        builder.append(", bodies=");
-        builder.append(bodies);
-        builder.append("]");
-        return builder.toString();
+        String builder = "FunctionDefinition [parameters=" +
+                parameters +
+                ", bodies=" +
+                bodies +
+                "]";
+        return builder;
     }
 
 }

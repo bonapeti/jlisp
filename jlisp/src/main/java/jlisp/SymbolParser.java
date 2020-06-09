@@ -5,9 +5,9 @@ import java.util.Stack;
 public class SymbolParser implements Parser {
 
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
         final StringBuilder sb = new StringBuilder();
-        charIterator.expect(new CharPredicate() {
+        lispCode.expect(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {
@@ -17,10 +17,7 @@ public class SymbolParser implements Parser {
                 if ( (c == '(') || (c == ')')) {
                     return false;
                 }
-                if ( c== '\'') {
-                    return false;
-                }
-                return true;
+                return c != '\'';
             }
             
             @Override
@@ -28,14 +25,14 @@ public class SymbolParser implements Parser {
                 return "SYMBOL";
             }
         }, sb);
-        charIterator.advanceUntil(new CharPredicate() {
+        lispCode.advanceUntil(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {
                 return Character.isLetter(c) || Character.isDigit(c) || c == '-' || c == '*';
             }
         }, sb);
-        charIterator.checkNext(new CharPredicate() {
+        lispCode.checkNext(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {

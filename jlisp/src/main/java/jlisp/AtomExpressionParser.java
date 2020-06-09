@@ -7,8 +7,8 @@ import syntax.Grammar;
 public class AtomExpressionParser implements Parser {
 
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
-        Grammar.alterationOf(new QuoteParser(), new SharpQuoteParser(), new FixnumParser(), new StringParser(), new NilParser(), new TrueSymbolParser(), new SymbolParser(), new ListExpressionParser()).parse(charIterator, stack);
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+        Grammar.alterationOf(new QuoteParser(), new SharpQuoteParser(), new FixnumParser(), new StringParser(), new NilParser(), new TrueSymbolParser(), new SymbolParser(), new ListExpressionParser()).parse(lispCode, stack);
     }
 
 }
@@ -16,10 +16,10 @@ public class AtomExpressionParser implements Parser {
 class QuoteParser implements Parser {
 
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
-        charIterator.expect('\'');
-        Stack<LispObject> atomStack = new Stack<LispObject>();
-        new AtomExpressionParser().parse(charIterator, atomStack);
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+        lispCode.expect('\'');
+        Stack<LispObject> atomStack = new Stack<>();
+        new AtomExpressionParser().parse(lispCode, atomStack);
         stack.push(new Quote(atomStack.pop()));
     }
     
@@ -29,10 +29,10 @@ class QuoteParser implements Parser {
 class SharpQuoteParser implements Parser {
 
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
-        charIterator.expect("#'");
-        Stack<LispObject> atomStack = new Stack<LispObject>();
-        new SymbolParser().parse(charIterator, atomStack);
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+        lispCode.expect("#'");
+        Stack<LispObject> atomStack = new Stack<>();
+        new SymbolParser().parse(lispCode, atomStack);
         stack.push(new SharpQuote((Symbol)atomStack.pop()));
     }
     

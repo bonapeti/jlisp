@@ -5,26 +5,30 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Stack;
 
-import jlisp.CharIterator;
+import jlisp.LispCode;
 import jlisp.ParseException;
 import jlisp.Parser;
 import jlisp.LispObject;
+
+/**
+ * Parser which lets each provided parser try evaluating the code until one succeeds
+ */
 public class Alteration implements Parser {
 
-    private Collection<Parser> parsers = new LinkedList<Parser>();
+    private final Collection<Parser> parsers = new LinkedList<>();
 
     @Override
-    public void parse(CharIterator charIterator, Stack<LispObject> stack) throws ParseException {
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
         ParseException lastError = null;
-        int position = charIterator.getCurrentPosition();
+        int positionToStart = lispCode.getCurrentPosition();
         for (Parser parser : parsers) {
             try {
-                parser.parse(charIterator, stack);
+                parser.parse(lispCode, stack);
                 lastError = null;
                 break;
             } catch (ParseException pe) {
                 lastError = pe;
-                charIterator.setCurrentPosition(position);
+                lispCode.goTo(positionToStart);
             }
             
         }

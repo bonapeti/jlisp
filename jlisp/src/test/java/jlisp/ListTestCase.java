@@ -1,10 +1,7 @@
 package jlisp;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -93,7 +90,7 @@ public class ListTestCase {
         list = list.append(new Symbol("sym2"));
         assertEquals(new Symbol("sym"), list.head());
         List tail = list.tail();
-        assertFalse(Lisp.NIL.equals(tail));
+        assertNotEquals(Lisp.NIL, tail);
         assertEquals(new Symbol("sym2"), tail.head());
         assertEquals(Lisp.NIL, tail.tail());
     }

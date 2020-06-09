@@ -2,6 +2,9 @@ package jlisp;
 
 import java.io.IOException;
 
+/**
+ * Lisp expression whose evaluation returns the value in a given environment
+ */
 public class Symbol implements LispObject {
 
     private String name = null;
@@ -33,11 +36,8 @@ public class Symbol implements LispObject {
             return false;
         Symbol other = (Symbol) obj;
         if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equalsIgnoreCase(other.name))
-            return false;
-        return true;
+            return other.name == null;
+        } else return name.equalsIgnoreCase(other.name);
     }
 
     @Override

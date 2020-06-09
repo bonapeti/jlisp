@@ -191,7 +191,7 @@ public class EvaluationTestCase {
         assertEvaluation(" a ", " 3 ");
     }
 	
-	@Test
+	@Test @Ignore
     public void letStar() {
 	    commonLisp.evaluate(" (defun average (x y)" +
         		            "  (let* ((sum (+ x y))) " +
