@@ -2,10 +2,9 @@ package syntax;
 
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.doThrow;
@@ -20,8 +19,8 @@ import jlisp.LispCode;
 import jlisp.LispObject;
 import jlisp.ParseException;
 import jlisp.Parser;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
 
 @SuppressWarnings("ALL")
 public class AlterationTestCase {

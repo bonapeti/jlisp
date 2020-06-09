@@ -1,16 +1,17 @@
 package jlisp;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class EvaluationTestCase {
 
 	private CommonLisp commonLisp = null;
 	
-	@Before
+	@BeforeEach
 	public void setup() {
 		commonLisp = new CommonLisp();
 	}
@@ -191,7 +192,7 @@ public class EvaluationTestCase {
         assertEvaluation(" a ", " 3 ");
     }
 	
-	@Test @Ignore
+	@Test @Disabled
     public void letStar() {
 	    commonLisp.evaluate(" (defun average (x y)" +
         		            "  (let* ((sum (+ x y))) " +
@@ -236,7 +237,7 @@ public class EvaluationTestCase {
     }
 	
     
-    @Test @Ignore
+    @Test @Disabled
     public void nthcdr() {
         assertEvaluation("(nthcdr 0 '(a b c))","(a b c)");
     }
@@ -326,7 +327,7 @@ public class EvaluationTestCase {
             commonLisp.evaluate(line).print(reply);
             String replyString = reply.toString().trim();
             String expectedString = expectedReply.trim();
-            assertTrue("Expected: " + expectedString + " but was: " + replyString, expectedString.equalsIgnoreCase(replyString));    
+            assertTrue(expectedString.equalsIgnoreCase(replyString), "Expected: " + expectedString + " but was: " + replyString);
         } catch (Exception pe) {
             assertEquals(expectedReply, pe.getMessage());
         }

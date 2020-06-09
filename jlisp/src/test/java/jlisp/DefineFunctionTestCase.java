@@ -1,22 +1,24 @@
 package jlisp;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
-import org.junit.Test;
+
 
 public class DefineFunctionTestCase {
 
-    @Test(expected=EvaluationException.class)
+    @Test
     public void evaluate_empty() {
         Environment environment = mock(Environment.class);
         DefineFunction defun = new DefineFunction();
-        assertEquals(Lisp.NIL, defun.evaluate(Lisp.NIL, environment));
-        
-        verifyZeroInteractions(environment);
+        assertThrows(EvaluationException.class,() -> defun.evaluate(Lisp.NIL, environment));
+
     }
     
     @Test

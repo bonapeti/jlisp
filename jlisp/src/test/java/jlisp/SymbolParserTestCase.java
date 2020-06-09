@@ -1,10 +1,10 @@
 package jlisp;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Stack;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SymbolParserTestCase {
 
@@ -57,22 +57,22 @@ public class SymbolParserTestCase {
 
     
     
-    @Test(expected=ParseException.class)
+    @Test
     public void space() {
         SymbolParser parser = new SymbolParser();
-        parser.parse(new LispCode(" "), new Stack<LispObject>());
+        assertThrows(ParseException.class, () -> parser.parse(new LispCode(" "), new Stack<LispObject>()));
     }
     
-    @Test(expected=ParseException.class)
+    @Test
     public void spaceA() {
         SymbolParser parser = new SymbolParser();
-        parser.parse(new LispCode(" a"), new Stack<LispObject>());
+        assertThrows(ParseException.class, () -> parser.parse(new LispCode(" a"), new Stack<LispObject>()));
     }
     
-    @Test(expected=ParseException.class)
+    @Test
     public void quoted() {
         SymbolParser parser = new SymbolParser();
-        parser.parse(new LispCode("'a"), new Stack<LispObject>());
+        assertThrows(ParseException.class, () -> parser.parse(new LispCode("'a"), new Stack<LispObject>()));
     }
     
     @Test
