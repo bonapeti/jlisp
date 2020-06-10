@@ -4,34 +4,36 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Stack;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Parsing nil")
 public class NilParserTestCase {
 
-    @Test
+    Stack<LispObject> stack = new Stack<>();
+    NilParser symbolParser = new NilParser();
+
+    @Test @DisplayName("Parsing 'nil'")
     public void parseNil() {
-        Stack<LispObject> stack = new Stack<>();
-        NilParser symbolParser = new NilParser();
+
         LispCode chars = new LispCode("nil");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.NIL,stack.pop());
         assertEquals(3, chars.getCurrentPosition());
     }
     
-    @Test
+    @Test @DisplayName("Parsing 'nil '")
     public void parseNilSpace() {
-        Stack<LispObject> stack = new Stack<>();
-        NilParser symbolParser = new NilParser();
+
         LispCode chars = new LispCode("nil ");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.NIL,stack.pop());
         assertEquals(3, chars.getCurrentPosition());
     }
     
-    @Test
+    @Test @DisplayName("Parsing 'nil) '")
     public void parseTSpaceWithClosingList() {
-        Stack<LispObject> stack = new Stack<>();
-        NilParser symbolParser = new NilParser();
+
         LispCode chars = new LispCode("nil) ");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.NIL,stack.pop());

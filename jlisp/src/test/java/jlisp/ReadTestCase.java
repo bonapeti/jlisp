@@ -1,41 +1,44 @@
 package jlisp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Lisp parser")
 public class ReadTestCase {
     
-    @Test
+    @Test @DisplayName("nil should be parsed as NIL")
     public void nil() {
         assertEquals(Lisp.NIL, Lisp.read("nil"));
         assertEquals(Lisp.NIL, Lisp.read(" nil"));
         assertEquals(Lisp.NIL, Lisp.read(" nil "));
     }
     
-    @Test
+    @Test  @DisplayName("t should be parsed as T")
     public void truthy() {
         assertEquals(Lisp.T, Lisp.read("t"));
         assertEquals(Lisp.T, Lisp.read(" t"));
         assertEquals(Lisp.T, Lisp.read(" t "));
     }
     
-    @Test
+    @Test  @DisplayName("(t) should be parsed as T in a list")
     public void t_in_list() {
         assertEquals(new ConsCell(Lisp.T), Lisp.read("(t)"));
     }
     
-    @Test
+    @Test @DisplayName("(nil) should be parsed as NIL in a list")
     public void nil_in_list() {
         assertEquals(new ConsCell(Lisp.NIL), Lisp.read("(nil)"));
     }
     
-    @Test
+    @Test  @DisplayName("symbols should be parsed as themselves")
     public void symbols() {
         assertEquals(new Symbol("arh"), Lisp.read("arh"));
         assertEquals(new Symbol("arg1"), Lisp.read("arg1"));
     }
     
-    @Test
+    @Test @DisplayName("simple integers should be parsed as fixnum")
     public void fixnums() {
         assertEquals(Lisp.fixnum(3), Lisp.read("3"));
         assertEquals(Lisp.fixnum(3), Lisp.read(" 3"));
@@ -44,7 +47,7 @@ public class ReadTestCase {
         assertEquals(Lisp.fixnum(34), Lisp.read(" 34 "));
     }
     
-    @Test
+    @Test @DisplayName("Strings in apostrophes should be parsed as strings")
     public void strings() {
         assertEquals(Lisp.string("a"), Lisp.read("\"a\""));
         assertEquals(Lisp.string("a"), Lisp.read(" \"a\""));
@@ -53,7 +56,7 @@ public class ReadTestCase {
         assertEquals(Lisp.string("ab"), Lisp.read(" \"ab\" "));
     }
     
-    @Test
+    @Test @DisplayName("() should be NIL")
     public void emptyList() {
         assertEquals(Lisp.NIL, Lisp.read("()"));
         assertEquals(Lisp.NIL, Lisp.read(" ()"));
@@ -62,7 +65,7 @@ public class ReadTestCase {
     }
     
     
-    @Test
+    @Test  @DisplayName("' ( + 3) ' should be list")
     public void add_3() {
     	ConsCell expectedList = new ConsCell(new Symbol("+"));
         expectedList = expectedList.append(Lisp.fixnum(3));
@@ -70,7 +73,7 @@ public class ReadTestCase {
         assertEquals(expectedList, Lisp.read(" ( + 3) "));
     }
     
-    @Test
+    @Test  @DisplayName("' ( + 3 5 ) '")
     public void add_3_5() {
     	ConsCell expectedList = new ConsCell(new Symbol("+"));
         expectedList = expectedList.append(Lisp.fixnum(3));
@@ -79,7 +82,7 @@ public class ReadTestCase {
         assertEquals(expectedList, Lisp.read(" ( + 3 5 ) "));
     }
     
-    @Test
+    @Test @DisplayName("' ( + 3 5 (+ 7 1)) '")
     public void add_3_5_and_add_7_2() {
     	ConsCell expectedList = new ConsCell(new Symbol("+"));
         expectedList = expectedList.append(Lisp.fixnum(3));
@@ -95,7 +98,7 @@ public class ReadTestCase {
     }
     
     
-    @Test
+    @Test @DisplayName("'(+)' should be symbol +")
     public void addition() {
         ConsCell expectedList = new ConsCell(new Symbol("+"));
         
@@ -106,14 +109,14 @@ public class ReadTestCase {
         assertEquals(expectedList, Lisp.read(" ( + ) "));
     }
     
-    @Test
+    @Test @DisplayName("'(defun a)' is function definition with name 'a'")
     public void defun() {
         ConsCell expectedList = new ConsCell(new Symbol("defun"));
         expectedList = expectedList.append(new Symbol("a"));
         assertEquals(expectedList, Lisp.read("(defun a)"));
     }
     
-    @Test
+    @Test @DisplayName("'(defun a ())' is function definition with empty parameters")
     public void defun_empty_parameterlist() {
         ConsCell expectedList = new ConsCell(new Symbol("defun"));
         expectedList = expectedList.append(new Symbol("a"));
@@ -121,7 +124,7 @@ public class ReadTestCase {
         assertEquals(expectedList, Lisp.read("(defun a ())"));
     }
     
-    @Test
+    @Test  @DisplayName("'(first (list 1))' is function invocation")
     public void first_list_1() {
         
         ConsCell innerList = new ConsCell(new Symbol("list"));
