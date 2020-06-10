@@ -9,13 +9,8 @@ import org.junit.jupiter.api.Test;
 
 public class EvaluationTestCase {
 
-	private CommonLisp commonLisp = null;
-	
-	@BeforeEach
-	public void setup() {
-		commonLisp = new CommonLisp();
-	}
-	
+	private CommonLisp commonLisp = new CommonLisp();
+
 	@Test
     public void t() {
 		assertEvaluation(" t ", "T");
