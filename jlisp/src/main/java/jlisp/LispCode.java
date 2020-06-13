@@ -23,6 +23,7 @@ public class LispCode {
     }
     
     public LispCode(String text) {
+
         this.text = Objects.requireNonNull(text, "Lisp code is missing!");
     }
     

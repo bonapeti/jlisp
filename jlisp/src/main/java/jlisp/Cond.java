@@ -8,7 +8,7 @@ public class Cond implements SpecialForm {
         List next = expressions;
         
         while (!next.isEmpty()) {
-            List nextClause = Lisp.asList(next.head());
+            List nextClause = List.of(next.head());
             
             LispObject test = nextClause.first();
             if (test.evaluate(environment).isTrue()) {

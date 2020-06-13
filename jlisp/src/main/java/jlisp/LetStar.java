@@ -6,13 +6,13 @@ public class LetStar implements SpecialForm {
     
     @Override
     public LispObject evaluate(List expressions, final Environment environment) {
-        List valuePairs = Lisp.asList(expressions.first());
+        List valuePairs = List.of(expressions.first());
         
         valuePairs.foreach(new VoidFunction() {
             
             @Override
             public void apply(LispObject object) {
-                setf.evaluate(Lisp.asList(object), environment);
+                setf.evaluate(List.of(object), environment);
                 
             }
         });

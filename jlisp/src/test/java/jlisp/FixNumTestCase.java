@@ -11,14 +11,14 @@ public class FixNumTestCase {
 
 	@Test
 	public void evaluate() {
-		Fixnum fixNum = new Fixnum(5);
+		Fixnum fixNum = Fixnum.as(5);
 		assertSame(fixNum, fixNum.evaluate(mock(Environment.class)));
 	}
 	
 	@Test
 	public void equal() {
-		assertEquals(new Fixnum(5), new Fixnum(5));
-		assertNotEquals(new Fixnum(7), new Fixnum(5));
+		assertEquals(Fixnum.as(5), Fixnum.as(5));
+		assertNotEquals(Fixnum.as(7), Fixnum.as(5));
 	}
 
 }

@@ -19,14 +19,8 @@ public class Console {
             if (":quit".equals(line.trim())) {
                 return;
             }
-            
-            try {
-                StringBuilder reply = new StringBuilder();
-                commonLisp.evaluate(line).print(reply);
-                console.println(reply.toString());    
-            } catch (Exception pe) {
-                console.println(pe.getMessage());
-            }
+
+            console.println(commonLisp.evaluate(line));
             
             line = console.readLine();
         }

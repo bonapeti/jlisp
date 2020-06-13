@@ -29,7 +29,7 @@ public class FixnumParser implements Parser {
                 return Character.isDigit(c);
             }
         }, sb);
-        stack.push(new Fixnum(Integer.parseInt(sb.toString())));
+        stack.push(Fixnum.as(Integer.parseInt(sb.toString())));
     }
     
     @Override

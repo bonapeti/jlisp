@@ -2,11 +2,13 @@ package jlisp;
 
 import java.io.IOException;
 
-
+/**
+ * Lisp cons cell.
+ */
 public class ConsCell implements List {
 
-	private LispObject head = null;
-	private List tail = null;
+	private final LispObject head;
+	private final List tail;
 
 	public ConsCell(LispObject head) {
 		this(head, Lisp.NIL);
@@ -20,7 +22,7 @@ public class ConsCell implements List {
 	@Override
 	public LispObject evaluate(Environment environment){
 
-		Symbol functionName = Lisp.asSymbol(head());
+		Symbol functionName = Symbol.of(head());
 
 		return environment.getSpecialForm(functionName).evaluate(tail(),
 				environment);

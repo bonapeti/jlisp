@@ -26,7 +26,7 @@ public class DefineFunctionTestCase {
         Environment environment = mock(Environment.class);
         DefineFunction defun = new DefineFunction();
         
-        ConsCell arguments = new ConsCell(new Fixnum(1));
+        ConsCell arguments = new ConsCell(Fixnum.as(1));
         
         try {
             defun.evaluate(arguments, environment);
@@ -90,7 +90,7 @@ public class DefineFunctionTestCase {
         
         Symbol functionName = new Symbol("funcationName");
         ConsCell arguments = new ConsCell(functionName);
-        ConsCell parameter_list = new ConsCell(new Fixnum(23));
+        ConsCell parameter_list = new ConsCell(Fixnum.as(23));
         
         arguments = arguments.append(parameter_list);
         arguments = arguments.append(Lisp.NIL);

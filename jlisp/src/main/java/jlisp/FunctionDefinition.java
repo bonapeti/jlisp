@@ -75,12 +75,11 @@ public class FunctionDefinition implements Function {
 
     @Override
     public String toString() {
-        String builder = "FunctionDefinition [parameters=" +
+        return  "FunctionDefinition [parameters=" +
                 parameters +
                 ", bodies=" +
                 bodies +
                 "]";
-        return builder;
     }
 
 }

@@ -1,12 +1,12 @@
 package jlisp;
 
 import java.io.IOException;
-import static jlisp.Lisp.asFixnum;
+import static jlisp.Fixnum.of;
 
 /**
  * Main class to evaluate Lisp expressions
  *
- * Use #method(evaluate)
+ *
  */
 public class CommonLisp {
 
@@ -23,16 +23,8 @@ public class CommonLisp {
             return Lisp.NIL;
         }
     }
-	
-	public static LispObject listp(LispObject lispObject) {
-	    if (lispObject instanceof List) {
-            return Lisp.T;
-        } else {
-            return Lisp.NIL;
-        }
-	}
-	
-	public static LispObject isOdd(Number argument) {
+
+    public static LispObject isOdd(Number argument) {
         return argument.intValue() % 2 != 0 ? Lisp.T : Lisp.NIL;
     }
 	
@@ -41,7 +33,7 @@ public class CommonLisp {
     }
 	
 	public static List firstArgumentAsList(List arguments) {
-	    return Lisp.asList(arguments.head());
+	    return List.of(arguments.head());
 	}
 	
 	public static LispObject callFunction(FunctionCall function, List arguments, Environment environment) {
@@ -123,7 +115,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                return asFixnum(arguments.first()).smallerThan(asFixnum(arguments.second()));
+                return of(arguments.first()).smallerThan(of(arguments.second()));
             }
         });
 	    environment.defineFunction(">", new Function() {
@@ -131,7 +123,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                return asFixnum(arguments.first()).greaterThan(asFixnum(arguments.second()));
+                return of(arguments.first()).greaterThan(of(arguments.second()));
             }
         });
 	    environment.defineFunction("eval", new Function() {
@@ -179,7 +171,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                return listp(arguments.car());
+                return List.isList(arguments.car());
             }
         });
 	    environment.defineFunction("cons", new Function() {
@@ -187,8 +179,8 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                if (listp(arguments.second()).isTrue()) {
-                    return new ConsCell(arguments.head(),Lisp.asList(arguments.second()));    
+                if (List.isList(arguments.second()).isTrue()) {
+                    return new ConsCell(arguments.head(), List.of(arguments.second()));
                 } else {
                     return new ConsCell(arguments.head(),new NotNilListEnd(arguments.second()));
                 }
@@ -247,7 +239,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment) {
-                return Lisp.asList(arguments.head()).length();
+                return List.of(arguments.head()).length();
             }
         });
 	    environment.defineFunction("not", new Function() {
@@ -342,7 +334,7 @@ public class CommonLisp {
 
 					@Override
 					public LispObject apply(LispObject p1, LispObject p2) {
-						return new Fixnum( ((Number)p1).intValue() + ((Number) p2).intValue());
+						return Fixnum.as( ((Number)p1).intValue() + ((Number) p2).intValue());
 					}
 					
 				});
@@ -357,7 +349,7 @@ public class CommonLisp {
 
 					@Override
 					public LispObject apply(LispObject p1, LispObject p2) {
-						return new Fixnum( ((Number)p1).intValue() * ((Number) p2).intValue());
+						return Fixnum.as( ((Number)p1).intValue() * ((Number) p2).intValue());
 					}
 					
 				});
@@ -372,7 +364,7 @@ public class CommonLisp {
 
                     @Override
                     public LispObject apply(LispObject p1, LispObject p2) {
-                        return new Fixnum( ((Number)p1).intValue() / ((Number) p2).intValue());
+                        return Fixnum.as( ((Number)p1).intValue() / ((Number) p2).intValue());
                     }
                     
                 });
@@ -387,7 +379,7 @@ public class CommonLisp {
 
                     @Override
                     public LispObject apply(LispObject p1, LispObject p2) {
-                        return new Fixnum( ((Number)p1).intValue() - ((Number) p2).intValue());
+                        return Fixnum.as( ((Number)p1).intValue() - ((Number) p2).intValue());
                     }
                     
                 });
@@ -398,7 +390,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-            	return asFixnum(arguments.first()).absoluteValue();
+            	return of(arguments.first()).absoluteValue();
             }
         });
 		environment.defineFunction("append", new Function() {
@@ -410,11 +402,11 @@ public class CommonLisp {
 
                     @Override
                     public LispObject apply(LispObject p1, LispObject p2) {
-                        return Lisp.asList(p2).foldLeft(p1, new Function2<LispObject,LispObject,LispObject>() {
+                        return List.of(p2).foldLeft(p1, new Function2<LispObject,LispObject,LispObject>() {
 
                             @Override
                             public LispObject apply(LispObject p3, LispObject p4) {
-                                return Lisp.asList(p3).append(p4);
+                                return List.of(p3).append(p4);
                             }
                         });
                         
@@ -428,11 +420,11 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-                return Lisp.asList(arguments.first()).foldRight(Lisp.NIL, new Function2<LispObject,LispObject,LispObject>() {
+                return List.of(arguments.first()).foldRight(Lisp.NIL, new Function2<LispObject,LispObject,LispObject>() {
 
                     @Override
                     public LispObject apply(LispObject p1, LispObject p2) {
-                        return Lisp.asList(p2).append(p1);
+                        return List.of(p2).append(p1);
                     }
                     
                 });
@@ -443,7 +435,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-                return Lisp.asList(arguments.first()).findFirst(new Function1<List, Boolean>() {
+                return List.of(arguments.first()).findFirst(new Function1<List, Boolean>() {
                     
                     @Override
                     public Boolean apply(List p) {
@@ -463,12 +455,12 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-                final LispObject element = arguments.first();
-                return Lisp.asList(arguments.second()).filter(new Function1<LispObject, LispObject>() {
+                final LispObject firstArgument = arguments.first();
+                return List.of(arguments.second()).filter(new Function1<LispObject, LispObject>() {
                     
                     @Override
                     public LispObject apply(LispObject p) {
-                        return not(equal(element,p));
+                        return not(equal(firstArgument,p));
                     }
                 });
             }
@@ -478,7 +470,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-                return member(arguments.first(), Lisp.asList(arguments.second()));
+                return member(arguments.first(), List.of(arguments.second()));
             }
         });
 		environment.defineFunction("intersection", new Function() {
@@ -486,7 +478,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-                return intersection(Lisp.asList(arguments.first()), Lisp.asList(arguments.second()));
+                return intersection(List.of(arguments.first()), List.of(arguments.second()));
             }
         });
         environment.defineFunction("union", new Function() {
@@ -495,7 +487,7 @@ public class CommonLisp {
             public LispObject evaluate(List arguments,
                     Environment environment){
                 
-                return union(Lisp.asList(arguments.first()), Lisp.asList(arguments.second()));
+                return union(List.of(arguments.first()), List.of(arguments.second()));
             }
         });		
 		environment.defineFunction("set-difference", new Function() {
@@ -503,7 +495,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-                return difference(Lisp.asList(arguments.first()), Lisp.asList(arguments.second()));
+                return difference(List.of(arguments.first()), List.of(arguments.second()));
             }
         });
 		environment.defineFunction("subsetp", new Function() {
@@ -511,7 +503,7 @@ public class CommonLisp {
             @Override
             public LispObject evaluate(List arguments,
                     Environment environment){
-                return isSubset(Lisp.asList(arguments.first()), Lisp.asList(arguments.second()));
+                return isSubset(List.of(arguments.first()), List.of(arguments.second()));
             }
         });
 		environment.defineFunction("funcall", new Function() {
@@ -528,7 +520,7 @@ public class CommonLisp {
             public LispObject evaluate(List arguments,
                     final Environment environment){
                 final FunctionCall functionCall = Lisp.asFunction(arguments.car());
-                List list = Lisp.asList(arguments.second());
+                List list = List.of(arguments.second());
                 return list.map(new Function1<LispObject, LispObject>() {
                     
                     @Override
@@ -556,7 +548,13 @@ public class CommonLisp {
      * @param lispCode Lisp code
      * @return evaluated List object
      */
-	public LispObject evaluate(String lispCode) {
-		return Lisp.read(lispCode).evaluate(environment);
-	}
+	public String evaluate(String lispCode) {
+        StringBuilder reply = new StringBuilder();
+        try {
+            Lisp.read(lispCode).evaluate(environment).print(reply);
+            return  reply.toString();
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+    }
 }

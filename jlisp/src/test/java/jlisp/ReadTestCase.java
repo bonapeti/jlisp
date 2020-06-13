@@ -128,7 +128,7 @@ public class ReadTestCase {
     public void first_list_1() {
         
         ConsCell innerList = new ConsCell(new Symbol("list"));
-        innerList = innerList.append(new Fixnum(1));
+        innerList = innerList.append(Fixnum.as(1));
         
         ConsCell expectedList = new ConsCell(new Symbol("first"));
         expectedList = expectedList.append(innerList);

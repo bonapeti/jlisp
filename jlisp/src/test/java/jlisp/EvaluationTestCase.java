@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class EvaluationTestCase {
 
-	private CommonLisp commonLisp = new CommonLisp();
+	private final CommonLisp commonLisp = new CommonLisp();
 
 	@Test
     public void t() {
@@ -318,9 +318,7 @@ public class EvaluationTestCase {
 
 	void assertEvaluation(String line, String expectedReply) {
 	    try {
-            StringBuilder reply = new StringBuilder();
-            commonLisp.evaluate(line).print(reply);
-            String replyString = reply.toString().trim();
+            String replyString = commonLisp.evaluate(line).toString().trim();
             String expectedString = expectedReply.trim();
             assertTrue(expectedString.equalsIgnoreCase(replyString), "Expected: " + expectedString + " but was: " + replyString);
         } catch (Exception pe) {

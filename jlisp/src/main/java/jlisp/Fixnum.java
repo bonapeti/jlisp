@@ -1,6 +1,7 @@
 package jlisp;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Fixnum extends Number implements LispObject {
 
@@ -9,10 +10,21 @@ public class Fixnum extends Number implements LispObject {
     
     private Integer value = null;
     
-    public Fixnum(Integer value) {
+    private Fixnum(Integer value) {
         this.value = value;
     }
-    
+
+    public static Fixnum as(Integer value) {
+        return new Fixnum(Objects.requireNonNull(value, "Fixnum value is missing"));
+    }
+
+    static Fixnum of(LispObject object) {
+        if (!(object instanceof Fixnum)) {
+            throw new EvaluationException(object.toString() + " is not a number");
+        }
+        return (Fixnum)object;
+    }
+
     public Fixnum next() {
         return new Fixnum(value + 1);
     }

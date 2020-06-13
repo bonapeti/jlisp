@@ -13,6 +13,13 @@ public class Symbol implements LispObject {
         this.name = name;
     }
 
+    public static Symbol of(LispObject object) {
+        if (!(object instanceof Symbol)) {
+            throw new EvaluationException(object.toString() + " is not a SYMBOL");
+        }
+        return (Symbol)object;
+    }
+
     @Override
     public LispObject evaluate(Environment environment) {
     	return environment.getValue(this);

@@ -6,11 +6,13 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("List tests")
 public class ListTestCase {
 
-    @Test
+    @Test @DisplayName("Empty list should be evaluated as NIL")
     public void emptyList_evaluates_to_NIL() {
         Environment environment = mock(Environment.class);
         assertEquals(Lisp.NIL,Lisp.NIL.evaluate(environment));
@@ -22,7 +24,7 @@ public class ListTestCase {
         assertEquals(Lisp.NIL,Lisp.NIL);
     }
     
-    @Test
+    @Test @DisplayName("Evaluation should fail if first argument is not a symbol")
     public void first_expression_is_not_symbol() {
         
     	LispObject firstExpression = mock(LispObject.class);
@@ -65,12 +67,12 @@ public class ListTestCase {
         
         Symbol symbol = new Symbol("functionName");
         ConsCell list = new ConsCell(symbol);
-        list = list.append(new Fixnum(1));
+        list = list.append(Fixnum.as(1));
         
         Environment environment = mock(Environment.class);
         
         LispObject evaluationValue = mock(LispObject.class);
-        ConsCell arguments = new ConsCell(new Fixnum(1));
+        ConsCell arguments = new ConsCell(Fixnum.as(1));
         
         SpecialForm specialForm = mock(SpecialForm.class);
         

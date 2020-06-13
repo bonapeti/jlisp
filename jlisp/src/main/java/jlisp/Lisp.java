@@ -21,7 +21,7 @@ public class Lisp {
     
 
     public static Fixnum fixnum(int value) {
-        return new Fixnum(value);
+        return Fixnum.as(value);
     }
     
     public static LispString string(String value) {
@@ -56,32 +56,12 @@ public class Lisp {
         }
         return (LispObject)stack.pop();
     }
-    
-    public static List asList(LispObject lispObject) {
-        if (!(lispObject instanceof List)) {
-            throw new EvaluationException(lispObject.toString() + " is not a LIST");
-        }
-        return (List)lispObject;
-    }
-    
+
     public static FunctionCall asFunction(LispObject lispObject) {
         if (!(lispObject instanceof FunctionCall)) {
             throw new EvaluationException(lispObject.toString() + " is not a FUNCTION");
         }
         return (FunctionCall)lispObject;
     }
-    
-    public static Fixnum asFixnum(LispObject object) {
-        if (!(object instanceof Fixnum)) {
-            throw new EvaluationException(object.toString() + " is not a number");
-        }
-        return (Fixnum)object;
-    }
-    
-    public static Symbol asSymbol(LispObject object) {
-        if (!(object instanceof Symbol)) {
-            throw new EvaluationException(object.toString() + " is not a SYMBOL");
-        }
-        return (Symbol)object;
-    }
+
 }

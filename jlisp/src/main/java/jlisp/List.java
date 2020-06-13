@@ -1,6 +1,29 @@
 package jlisp;
 
+/**
+ * lisp's list
+ */
 public interface List extends LispObject {
+
+    /**
+     * Casts object to List if possible
+     * @param lispObject
+     * @return
+     */
+    static List of(LispObject lispObject) {
+        if (!(lispObject instanceof List)) {
+            throw new EvaluationException(lispObject.toString() + " is not a LIST");
+        }
+        return (List)lispObject;
+    }
+
+    static LispObject isList(LispObject lispObject) {
+        if (lispObject instanceof List) {
+            return Lisp.T;
+        } else {
+            return Lisp.NIL;
+        }
+    }
 
     boolean isEmpty();
     

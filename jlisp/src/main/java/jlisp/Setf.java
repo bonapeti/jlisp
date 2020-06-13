@@ -8,7 +8,7 @@ public class Setf implements SpecialForm {
         LispObject lastValue = Lisp.NIL;
         
         while (!next.isEmpty()) {
-            Symbol symbol = Lisp.asSymbol(next.head());
+            Symbol symbol = Symbol.of(next.head());
             next = next.tail();
             
             if (next.isEmpty()) {

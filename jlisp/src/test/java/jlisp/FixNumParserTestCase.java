@@ -19,7 +19,7 @@ public class FixNumParserTestCase {
         LispCode chars = new LispCode("1");
         parser.parse(chars, stack);
 
-        assertEquals(new Fixnum(1),stack.pop());
+        assertEquals(Fixnum.as(1),stack.pop());
         assertEquals(1, chars.getCurrentPosition());
     }
 	
@@ -29,7 +29,7 @@ public class FixNumParserTestCase {
         LispCode chars = new LispCode("-1");
         parser.parse(chars, stack);
 
-        assertEquals(new Fixnum(-1),stack.pop());
+        assertEquals(Fixnum.as(-1),stack.pop());
         assertEquals(2, chars.getCurrentPosition());
     }
 }
