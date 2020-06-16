@@ -23,11 +23,10 @@ public class LispCode {
     }
     
     public LispCode(String text) {
-
         this.text = Objects.requireNonNull(text, "Lisp code is missing!");
     }
     
-    private boolean hasMore() {
+    public boolean hasMore() {
         return index < text.length();
     }
     
@@ -42,7 +41,17 @@ public class LispCode {
     public void goTo(int position) {
         this.index = position;
     }
-    
+
+    public boolean isAtBeginning() { return this.index == 0; }
+
+    public void advanceToEnd() {
+        advanceUntil(new CharPredicate() {
+            @Override
+            public boolean assertCharacter(char c) throws ParseException {
+                return true;
+            }
+        }, CharacterProcessor.DO_NOTHING);
+    }
     /**
      * Advances in the character stream until the predicate returns true
      * @param charPredicate

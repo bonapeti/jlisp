@@ -41,6 +41,13 @@ public class Alteration implements Parser {
         parsers.add(parser);
     }
 
+    public void addParsers(Parser... parsers) {
+        for (Parser parser : parsers) {
+            addParser(parser);
+        }
+
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

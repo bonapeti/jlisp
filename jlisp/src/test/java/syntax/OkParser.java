@@ -18,5 +18,6 @@ public class OkParser implements Parser {
     @Override
     public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
         stack.push(lispElement);
+        lispCode.advanceToEnd();
     }
 }

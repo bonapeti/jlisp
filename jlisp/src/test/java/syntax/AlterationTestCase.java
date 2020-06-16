@@ -3,20 +3,12 @@ package syntax;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
 
 import java.util.Stack;
 
 import jlisp.LispCode;
 import jlisp.LispObject;
 import jlisp.ParseException;
-import jlisp.Parser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -25,18 +17,21 @@ import org.junit.jupiter.api.Test;
 public class AlterationTestCase {
 
     public static final String ERROR_MESSAGE = "ParseException";
+    public static final String DUMMY_TEXT = "DUMMY_TEXT";
+
     private final Alteration alteration = new Alteration();
+
+
+    private final Stack<LispObject> stack = new Stack<>();
+    private LispCode lispCode = new LispCode(DUMMY_TEXT);
+    private LispObject objectToParse = new MockLispObject();
+    private OkParser okParser = new OkParser(objectToParse);
+    private FailingParser failingParser = new FailingParser(ERROR_MESSAGE);
 
     @Test @DisplayName("First fails => FAILURE")
     public void one_parser_fails() {
-        FailingParser failingParser = new FailingParser(ERROR_MESSAGE);
 
-        Stack<LispObject> stack = new Stack<>();
-
-        LispCode lispCode = mock(LispCode.class);
-        when(lispCode.getCurrentPosition()).thenReturn(5);
-
-        alteration.addParser(failingParser);
+        alteration.addParsers(failingParser);
         
         try {
             alteration.parse(lispCode, stack);
@@ -44,47 +39,31 @@ public class AlterationTestCase {
         } catch (ParseException parsingError) {
             assertEquals(ERROR_MESSAGE, parsingError.getMessage());
             assertTrue(stack.isEmpty());
-            verify(lispCode).goTo(5);
+            assertTrue(lispCode.isAtBeginning());
         }
         
     }
-    
+
     @Test @DisplayName("First succeeds => OK")
     public void first_parses() {
-        LispObject lispObject = mock(LispObject.class);
 
-        OkParser okParser = new OkParser(lispObject);
-        FailingParser failingParser = new FailingParser(ERROR_MESSAGE);
-        
-        Stack<LispObject> stack = new Stack<>();
-        LispCode lispCode = mock(LispCode.class);
-        
-        when(lispCode.getCurrentPosition()).thenReturn(5);
-
-        alteration.addParser(okParser);
-        alteration.addParser(failingParser);
+        alteration.addParsers(okParser, failingParser);
         
         alteration.parse(lispCode, stack);
 
-        assertSame(lispObject, stack.pop());
+        assertSame(objectToParse, stack.pop());
+        assertFalse(lispCode.hasMore());
     }
     
     @Test @DisplayName("First fails, second succeeds => OK")
     public void first_fails() {
-        LispObject lispObject = mock(LispObject.class);
 
-        FailingParser failingParser = new FailingParser(ERROR_MESSAGE);
-        OkParser okParser = new OkParser(lispObject);
-        
-        Stack<LispObject> stack = new Stack<>();
-        LispCode lispCode = mock(LispCode.class);
+        alteration.addParsers(failingParser, okParser);
 
-        alteration.addParser(failingParser);
-        alteration.addParser(okParser);
-        
         alteration.parse(lispCode, stack);
 
-        assertSame(lispObject, stack.pop());
+        assertSame(objectToParse, stack.pop());
+        assertFalse(lispCode.hasMore());
     }
 
 }
