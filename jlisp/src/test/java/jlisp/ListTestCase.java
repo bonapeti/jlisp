@@ -36,7 +36,7 @@ public class ListTestCase {
             list.evaluate(environment);
             fail("Expected EvaluationException because expression is not a symbol");
         } catch (EvaluationException cce) {
-            
+            ;
         }
     }
     

@@ -1,8 +1,6 @@
 package syntax;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;

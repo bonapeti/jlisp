@@ -46,7 +46,7 @@ public class SequenceTestCase {
     public void two_parser_fails() {
         LispObject lispObject = mock(LispObject.class);
         
-        Parser parser1 = new MockParser(lispObject);
+        Parser parser1 = new OkParser(lispObject);
         Parser parser2 = mock(Parser.class);
         
         Stack<LispObject> stack = new Stack<>();
@@ -74,8 +74,8 @@ public class SequenceTestCase {
         LispObject expression1 = mock(LispObject.class);
         LispObject expression2 = mock(LispObject.class);
         
-        Parser parser1 = new MockParser(expression1);
-        Parser parser2 = new MockParser(expression2);
+        Parser parser1 = new OkParser(expression1);
+        Parser parser2 = new OkParser(expression2);
         
         Stack<LispObject> stack = new Stack<>();
         LispCode lispCode = mock(LispCode.class);
@@ -92,19 +92,4 @@ public class SequenceTestCase {
         
     }
 
-}
-
-class MockParser implements Parser {
-
-    private final LispObject lispObject;
-    
-    public MockParser(LispObject lispObject) {
-        this.lispObject = lispObject;
-    }
-    
-    @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
-        stack.push(lispObject);
-    }
-    
 }
