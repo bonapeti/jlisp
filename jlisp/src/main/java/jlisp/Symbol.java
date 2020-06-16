@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public class Symbol implements LispObject {
 
-    private String name = null;
+    private final String name;
     
     public Symbol(String name) {
         this.name = name;

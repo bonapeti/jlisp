@@ -8,7 +8,7 @@ public class Fixnum extends Number implements LispObject {
     public static Fixnum ZERO = new Fixnum(0);
     public static Fixnum ONE = new Fixnum(1);
     
-    private Integer value = null;
+    private final Integer value;
     
     private Fixnum(Integer value) {
         this.value = value;

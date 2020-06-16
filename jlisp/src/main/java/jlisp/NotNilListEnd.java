@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class NotNilListEnd implements List {
 
-    private LispObject lispObject = null;
+    private final LispObject lispObject;
     
     public NotNilListEnd(LispObject lispObject) {
         this.lispObject = lispObject;

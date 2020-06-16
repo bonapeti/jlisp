@@ -96,7 +96,7 @@ public class SequenceTestCase {
 
 class MockParser implements Parser {
 
-    private LispObject lispObject = null;
+    private final LispObject lispObject;
     
     public MockParser(LispObject lispObject) {
         this.lispObject = lispObject;

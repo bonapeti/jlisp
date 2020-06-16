@@ -3,8 +3,8 @@ package jlisp;
 
 public class FunctionDefinition implements Function {
 
-    private List parameters = null;
-    private List bodies = null;
+    private final List parameters;
+    private final List bodies;
     
     public FunctionDefinition(List parameters, List bodies) {
         this.parameters = parameters;

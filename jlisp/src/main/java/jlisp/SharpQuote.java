@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class SharpQuote implements LispObject {
 
-    private Symbol symbol = null;
+    private final Symbol symbol;
     private final FunctionForm functionForm = new FunctionForm();
     
     public SharpQuote(Symbol symbol) {

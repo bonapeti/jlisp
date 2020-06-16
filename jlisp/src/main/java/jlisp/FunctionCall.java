@@ -5,8 +5,8 @@ import java.io.IOException;
 
 public class FunctionCall implements SpecialForm, LispObject {
 
-    private Symbol name = null;
-    private Function function = null;
+    private final Symbol name;
+    private final Function function;
     
     public FunctionCall(Symbol name, Function function) {
         this.name = name;

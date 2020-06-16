@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class LispString implements LispObject {
 
-    private String value = null;
+    private final String value;
     
     public LispString(String value) {
         this.value = value;

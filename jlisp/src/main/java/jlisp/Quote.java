@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Quote implements LispObject {
 
-    private LispObject target = null;
+    private final LispObject target;
     private final QuoteFunction quoteFunction = new QuoteFunction();
     
     public Quote(LispObject target) {

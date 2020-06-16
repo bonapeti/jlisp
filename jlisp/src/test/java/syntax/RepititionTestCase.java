@@ -17,11 +17,13 @@ import jlisp.LispObject;
 import jlisp.ParseException;
 import jlisp.Parser;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Parsing repitition")
 public class RepititionTestCase {
 
-    @Test
+    @Test @DisplayName("First fails => FAILURE")
     public void one_parser_fails() {
         Parser parser = mock(Parser.class);
         Stack<LispObject> stack = new Stack<>();

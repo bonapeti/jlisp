@@ -10,7 +10,7 @@ import jlisp.Parser;
 
 public class Repitition implements Parser {
 
-    private Parser parser = null;
+    private final Parser parser;
     
     public Repitition(Parser parser) {
         this.parser = parser;

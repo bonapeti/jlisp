@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class CallEnvironment implements Environment {
 
-    private Environment parent = null;
+    private final Environment parent;
     
     Map<Symbol, LispObject> values = new HashMap<>();
     
