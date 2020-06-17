@@ -1,12 +1,7 @@
 package syntax;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
 
 import java.util.Stack;
 
@@ -21,39 +16,63 @@ import org.junit.jupiter.api.Test;
 @DisplayName("Parsing repitition")
 public class RepititionTestCase {
 
-    @Test @DisplayName("First fails => FAILURE")
+    public static final String ERROR_MESSAGE = "ParseException";
+    public static final String PARSABLE_TEXT = "DUMMY_TEXT";
+
+    private Stack<LispObject> stack = new Stack<>();
+    private LispCode lispCode = new LispCode(PARSABLE_TEXT);
+    private FailingParser failingParser = new FailingParser(ERROR_MESSAGE);
+
+    private Repitition repition = new Repitition(failingParser);
+
+    @Test @DisplayName("Parser fails first => OK")
     public void one_parser_fails() {
-        Parser parser = mock(Parser.class);
-        Stack<LispObject> stack = new Stack<>();
-        LispCode lispCode = mock(LispCode.class);
-        when(lispCode.getCurrentPosition()).thenReturn(5);
-        
-        ParseException pe = new ParseException("ParseException");
-        doThrow(pe).when(parser).parse(lispCode, stack);
-        
-        Repitition repition = new Repitition(parser);
-        
+
         repition.parse(lispCode, stack);
+
         assertTrue(stack.isEmpty());
-        verify(lispCode).goTo(5);
+        assertTrue(lispCode.isAtBeginning());
     }
     
-    @Test
+    @Test @DisplayName("Parser succeeds first, then fails => OK")
     public void two_parser_fails() {
-        Parser parser = mock(Parser.class);
-        
-        Stack<LispObject> stack = new Stack<>();
-        LispCode lispCode = mock(LispCode.class);
-        when(lispCode.getCurrentPosition()).thenReturn(5).thenReturn(10);
+        LispObject objectToParse = new MockLispObject();
+        Parser parser = new FirstFailsThenOkParser(objectToParse, PARSABLE_TEXT);
+        LispCode lispCode = new LispCode(PARSABLE_TEXT + "unparseableText");
 
-        ParseException pe = new ParseException("ParseException");
-        doNothing().doThrow(pe).when(parser).parse(lispCode, stack);
-        
         Repitition repition = new Repitition(parser);
-        
         repition.parse(lispCode, stack);
+
+        assertEquals(objectToParse, stack.pop());
         assertTrue(stack.isEmpty());
-        verify(lispCode).goTo(10);
+        assertEquals(PARSABLE_TEXT.length(), lispCode.getCurrentPosition());
     }
 
+}
+
+class FirstFailsThenOkParser implements  Parser {
+
+    private int round = 0;
+
+    private final LispObject lispObject;
+    private final String stringToAccept;
+
+    FirstFailsThenOkParser(LispObject lispObject, String stringToAccept) {
+        this.lispObject = lispObject;
+        this.stringToAccept = stringToAccept;
+    }
+
+    @Override
+    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+
+        switch (round) {
+            case 0:
+                lispCode.expect(stringToAccept);
+                stack.push(lispObject);
+                round++;
+                break;
+            default:
+                throw new ParseException("Unexpected characters");
+        }
+    }
 }
