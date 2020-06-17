@@ -18,6 +18,7 @@ public class FailingParser implements Parser {
 
     @Override
     public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+        lispCode.goTo(0);
         throw new ParseException(errorMessage);
     }
 }

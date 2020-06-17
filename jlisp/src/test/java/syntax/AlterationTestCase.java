@@ -31,7 +31,7 @@ public class AlterationTestCase {
     @Test @DisplayName("First fails => FAILURE")
     public void one_parser_fails() {
 
-        alteration.addParsers(failingParser);
+        alteration.addParser(failingParser);
         
         try {
             alteration.parse(lispCode, stack);
@@ -47,7 +47,7 @@ public class AlterationTestCase {
     @Test @DisplayName("First succeeds => OK")
     public void first_parses() {
 
-        alteration.addParsers(okParser, failingParser);
+        alteration.addParser(okParser, failingParser);
         
         alteration.parse(lispCode, stack);
 
@@ -58,7 +58,7 @@ public class AlterationTestCase {
     @Test @DisplayName("First fails, second succeeds => OK")
     public void first_fails() {
 
-        alteration.addParsers(failingParser, okParser);
+        alteration.addParser(failingParser, okParser);
 
         alteration.parse(lispCode, stack);
 

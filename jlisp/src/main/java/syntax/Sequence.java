@@ -23,8 +23,8 @@ public class Sequence implements Parser {
         stack.addAll(subStack);
     }
     
-    public void addParser(Parser parser) {
-        parsers.add(parser);
+    public void addParser(Parser... parser) {
+        parsers.addAll(java.util.Arrays.asList(parser));
     }
 
     @Override

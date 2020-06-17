@@ -36,14 +36,10 @@ public class Alteration implements Parser {
             throw lastError;
         }
     }
-    
-    public void addParser(Parser parser) {
-        parsers.add(parser);
-    }
 
-    public void addParsers(Parser... parsers) {
+    public void addParser(Parser... parsers) {
         for (Parser parser : parsers) {
-            addParser(parser);
+            this.parsers.add(parser);
         }
 
     }
