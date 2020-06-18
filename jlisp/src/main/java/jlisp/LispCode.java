@@ -45,23 +45,18 @@ public class LispCode {
     public boolean isAtBeginning() { return this.index == 0; }
 
     public void advanceToEnd() {
-        advanceUntil(new CharPredicate() {
-            @Override
-            public boolean assertCharacter(char c) throws ParseException {
-                return true;
-            }
-        }, CharacterProcessor.DO_NOTHING);
+        collectUntil(CharPredicate.TRUE, CharacterProcessor.DO_NOTHING);
     }
     /**
      * Advances in the character stream until the predicate returns true
      * @param charPredicate
      */
     public void advanceUntil(CharPredicate charPredicate) {
-        advanceUntil(charPredicate, CharacterProcessor.DO_NOTHING);
+        collectUntil(charPredicate, CharacterProcessor.DO_NOTHING);
     }
     
-    public void advanceUntil(CharPredicate charPredicate, final StringBuilder stringBuilder) {
-        advanceUntil(charPredicate, new CharacterProcessor() {
+    public void collectUntil(CharPredicate charPredicate, final StringBuilder stringBuilder) {
+        collectUntil(charPredicate, new CharacterProcessor() {
             
             @Override
             public void process(char c) {
@@ -70,7 +65,7 @@ public class LispCode {
         });
     }
     
-    public void advanceUntil(CharPredicate charPredicate, CharacterProcessor charProcessor) {
+    public void collectUntil(CharPredicate charPredicate, CharacterProcessor charProcessor) {
         while (hasMore()) {
             char c = text.charAt(index);
             if (charPredicate.assertCharacter(c)) {

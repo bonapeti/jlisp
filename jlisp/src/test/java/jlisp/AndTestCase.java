@@ -1,5 +1,6 @@
 package jlisp;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,14 +13,14 @@ public class AndTestCase {
 
     private final And and = new And();
     
-    @Test
+    @Test @DisplayName("(and nil) => nil")
     public void nil() {
-        assertEquals(Lisp.T,and.evaluate(Lisp.NIL, mock(Environment.class)));
+        assertEquals(Lisp.T,and.evaluate(Lisp.NIL, new GlobalEnvironment()));
     }
     
-    @Test
+    @Test @DisplayName("(and t) => t")
     public void t() {
-        assertEquals(Lisp.T,and.evaluate(new ConsCell(Lisp.T), mock(Environment.class)));
+        assertEquals(Lisp.T,and.evaluate(new ConsCell(Lisp.T), new GlobalEnvironment()));
     }
     
     @Test

@@ -12,13 +12,7 @@ public class StringTestCase {
 		LispString string = new LispString("a");
 		assertSame(string, string.evaluate(mock(Environment.class)));
 	}
-	
-	@Test
-    public void to_string() {
-        LispString string = new LispString("a");
-        assertEquals("\"a\"", string.toString());
-    }
-	
+
 	@Test
 	public void equal() {
 		assertEquals(new LispString("5"), new LispString("5"));

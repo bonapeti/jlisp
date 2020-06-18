@@ -8,7 +8,7 @@ public class StringParser implements Parser {
     public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
         StringBuilder sb = new StringBuilder();
         lispCode.expect('\"');
-        lispCode.advanceUntil(new CharPredicate() {
+        lispCode.collectUntil(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {

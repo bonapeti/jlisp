@@ -22,7 +22,7 @@ public class FixnumParser implements Parser {
                 }
             }
         }, sb);
-        lispCode.advanceUntil(new CharPredicate() {
+        lispCode.collectUntil(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {

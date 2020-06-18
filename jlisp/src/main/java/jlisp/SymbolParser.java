@@ -25,7 +25,7 @@ public class SymbolParser implements Parser {
                 return "SYMBOL";
             }
         }, sb);
-        lispCode.advanceUntil(new CharPredicate() {
+        lispCode.collectUntil(new CharPredicate() {
             
             @Override
             public boolean assertCharacter(char c) throws ParseException {
