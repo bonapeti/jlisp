@@ -15,13 +15,7 @@ public class FunctionCall implements SpecialForm, LispObject {
     
     @Override
     public LispObject evaluate(List expressions, final Environment environment) {
-        return function.evaluate(expressions.map(new Function1<LispObject, LispObject>() {
-			
-			@Override
-			public LispObject apply(LispObject p) {
-				return p.evaluate(environment);
-			}
-		}), environment);
+        return function.evaluate(expressions.map(p -> p.evaluate(environment)), environment);
     }
 
     @Override

@@ -17,30 +17,20 @@ public class FunctionDefinition implements Function {
         final CallEnvironment callEnvironment = new CallEnvironment(environment);
         
         
-        parameters.foldLeft(arguments, new Function2<LispObject, LispObject, LispObject>() {
-			
-			@Override
-			public LispObject apply(LispObject argumentsExpression, LispObject parameter) {
-				Symbol parameterSymbol = (Symbol)parameter;
+        parameters.foldLeft(arguments, (Function2<LispObject, LispObject, LispObject>) (argumentsExpression, parameter) -> {
+            Symbol parameterSymbol = (Symbol)parameter;
 
-				List arguments = (List)argumentsExpression;
-				
-				if (arguments.isEmpty()) {
-				    throw new EvaluationException("Too few arguments (0 instead of at least 1) given");
-				}
-				
-				callEnvironment.bindValue(parameterSymbol, arguments.head());
-				return arguments.tail();
-			}
-		});
+            List arguments1 = (List)argumentsExpression;
+
+            if (arguments1.isEmpty()) {
+                throw new EvaluationException("Too few arguments (0 instead of at least 1) given");
+            }
+
+            callEnvironment.bindValue(parameterSymbol, arguments1.head());
+            return arguments1.tail();
+        });
         
-        return bodies.foldLeft(Lisp.NIL, new Function2<LispObject, LispObject, LispObject>() {
-			
-			@Override
-			public LispObject apply(LispObject seed, LispObject body) {
-				return body.evaluate(callEnvironment);
-			}
-		});
+        return bodies.foldLeft(Lisp.NIL, (Function2<LispObject, LispObject, LispObject>) (seed, body) -> body.evaluate(callEnvironment));
     }
 
     

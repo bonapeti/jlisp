@@ -127,13 +127,7 @@ public class ConsCell implements List {
 
     @Override
     public Fixnum length() {
-        return foldLeft(Fixnum.ZERO, new Function2<Fixnum, Fixnum, LispObject>() {
-
-            @Override
-            public Fixnum apply(Fixnum p1, LispObject p2) {
-                return p1.next();
-            }
-        });
+        return foldLeft(Fixnum.ZERO, (p1, p2) -> p1.next());
     }
 
     @Override

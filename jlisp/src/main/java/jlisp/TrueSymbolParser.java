@@ -7,17 +7,13 @@ public class TrueSymbolParser implements Parser {
     @Override
     public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
         lispCode.expect('t');
-        lispCode.checkNext(new CharPredicate() {
-			
-			@Override
-			public boolean assertCharacter(char c) throws ParseException {
-				if (Character.isWhitespace(c) || c == ')') {
-                    return true;
-                } else {
-                    throw new ParseException("Expecting nothing after 't' but found " + c);
-                }
-			}
-		}, new CharacterProcessor() {
+        lispCode.checkNext(c -> {
+            if (Character.isWhitespace(c) || c == ')') {
+return true;
+} else {
+throw new ParseException("Expecting nothing after 't' but found " + c);
+}
+        }, new CharacterProcessor() {
             
             @Override
             protected void onEndOfFile(CharPredicate expected) throws ParseException {

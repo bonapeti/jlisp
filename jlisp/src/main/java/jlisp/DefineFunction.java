@@ -24,13 +24,7 @@ public class DefineFunction implements SpecialForm {
             LispObject second = remaining.head();
             assertList(second);
             parameterList = (List)second;
-            parameterList.foreach(new VoidFunction() {
-                
-                @Override
-                public void apply(LispObject e) {
-                    assertListOrSymbol(e);
-                }
-            });
+            parameterList.foreach(e -> assertListOrSymbol(e));
             
             
             remaining = remaining.tail();
