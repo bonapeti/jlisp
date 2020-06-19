@@ -1,14 +1,14 @@
 package syntax;
 
+import jlisp.LispCode;
+import jlisp.LispObject;
+import jlisp.ParseException;
+import jlisp.Parser;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Stack;
-
-import jlisp.LispCode;
-import jlisp.ParseException;
-import jlisp.Parser;
-import jlisp.LispObject;
 
 public class Sequence implements Parser {
 

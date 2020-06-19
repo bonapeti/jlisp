@@ -1,8 +1,8 @@
 package jlisp;
 
-import java.util.Stack;
-
 import syntax.Grammar;
+
+import java.util.Stack;
 
 /**
  * Lisp contains the semantic elements of Lisp language in Java, e.g: nil, t, etc

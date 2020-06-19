@@ -1,10 +1,8 @@
 package jlisp;
 
-import static syntax.Grammar.repititionOf;
-import static syntax.Grammar.sequenceOf;
-import static syntax.Grammar.whitespace;
-
 import java.util.Stack;
+
+import static syntax.Grammar.*;
 
 public class ListExpressionParser implements Parser {
 

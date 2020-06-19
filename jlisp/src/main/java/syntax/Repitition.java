@@ -1,12 +1,11 @@
 package syntax;
 
-import java.util.Stack;
-
-import jlisp.LispObject;
-
 import jlisp.LispCode;
+import jlisp.LispObject;
 import jlisp.ParseException;
 import jlisp.Parser;
+
+import java.util.Stack;
 
 public class Repitition implements Parser {
 

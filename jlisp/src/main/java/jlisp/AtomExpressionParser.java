@@ -1,8 +1,8 @@
 package jlisp;
 
-import java.util.Stack;
-
 import syntax.Grammar;
+
+import java.util.Stack;
 
 public class AtomExpressionParser implements Parser {
 

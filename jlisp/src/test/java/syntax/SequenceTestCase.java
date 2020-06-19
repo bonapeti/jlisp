@@ -1,16 +1,15 @@
 package syntax;
 
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Stack;
-
 import jlisp.LispCode;
 import jlisp.LispObject;
 import jlisp.ParseException;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Stack;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Parsing sequence of parsers")
 public class SequenceTestCase {
