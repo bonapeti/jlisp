@@ -2,10 +2,16 @@ package jlisp;
 
 import java.util.Stack;
 
-public class NilParser implements Parser {
+import syntax.CharPredicate;
+import syntax.CharacterProcessor;
+import syntax.Code;
+import syntax.ParseException;
+import syntax.Parser;
+
+public class NilParser implements Parser<LispObject> {
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+    public void parse(Code lispCode, Stack<LispObject> stack) throws ParseException {
         lispCode.expect("nil");
         lispCode.checkNext(c -> {
             if (Character.isWhitespace(c) || c == ')') {

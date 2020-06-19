@@ -2,10 +2,16 @@ package jlisp;
 
 import java.util.Stack;
 
-public class SymbolParser implements Parser {
+import syntax.CharPredicate;
+import syntax.CharacterProcessor;
+import syntax.Code;
+import syntax.ParseException;
+import syntax.Parser;
+
+public class SymbolParser implements Parser<LispObject> {
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+    public void parse(Code lispCode, Stack<LispObject> stack) throws ParseException {
         final StringBuilder sb = new StringBuilder();
         lispCode.expect(new CharPredicate() {
             

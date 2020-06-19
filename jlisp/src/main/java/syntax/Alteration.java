@@ -1,10 +1,5 @@
 package syntax;
 
-import jlisp.LispCode;
-import jlisp.LispObject;
-import jlisp.ParseException;
-import jlisp.Parser;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -13,15 +8,15 @@ import java.util.Stack;
 /**
  * Parser which lets each provided parser try evaluating the code until one succeeds
  */
-public class Alteration implements Parser {
+public class Alteration<T> implements Parser<T> {
 
-    private final Collection<Parser> parsers = new LinkedList<>();
+    private final Collection<Parser<T>> parsers = new LinkedList<>();
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+    public void parse(Code lispCode, Stack<T> stack) throws ParseException {
         ParseException lastError = null;
         int positionToStart = lispCode.getCurrentPosition();
-        for (Parser parser : parsers) {
+        for (Parser<T> parser : parsers) {
             try {
                 parser.parse(lispCode, stack);
                 lastError = null;
@@ -37,8 +32,8 @@ public class Alteration implements Parser {
         }
     }
 
-    public void addParser(Parser... parsers) {
-        for (Parser parser : parsers) {
+    public void addParser(Parser<T>... parsers) {
+        for (Parser<T> parser : parsers) {
             this.parsers.add(parser);
         }
 
@@ -48,7 +43,7 @@ public class Alteration implements Parser {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("(");
-        Iterator<Parser> iParser = parsers.iterator();
+        Iterator<Parser<T>> iParser = parsers.iterator();
         while (iParser.hasNext()) {
             sb.append(iParser.next().toString());
             if (iParser.hasNext()) {

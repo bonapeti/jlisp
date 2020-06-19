@@ -1,16 +1,12 @@
 package syntax;
 
-import jlisp.LispCode;
-import jlisp.LispObject;
-import jlisp.ParseException;
-import jlisp.Parser;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Stack;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @DisplayName("Parsing repitition")
 public class RepititionTestCase {
@@ -18,11 +14,11 @@ public class RepititionTestCase {
     public static final String ERROR_MESSAGE = "ParseException";
     public static final String PARSABLE_TEXT = "DUMMY_TEXT";
 
-    private Stack<LispObject> stack = new Stack<>();
-    private LispCode lispCode = new LispCode(PARSABLE_TEXT);
+    private Stack<MockLispObject> stack = new Stack<>();
+    private Code lispCode = new Code(PARSABLE_TEXT);
     private FailingParser failingParser = new FailingParser(ERROR_MESSAGE);
 
-    private Repitition repition = new Repitition(failingParser);
+    private Repitition<MockLispObject> repition = new Repitition<>(failingParser);
 
     @Test @DisplayName("Parser fails first => OK")
     public void one_parser_fails() {
@@ -35,11 +31,11 @@ public class RepititionTestCase {
     
     @Test @DisplayName("Parser succeeds first, then fails => OK")
     public void two_parser_fails() {
-        LispObject objectToParse = new MockLispObject();
-        Parser parser = new FirstFailsThenOkParser(objectToParse, PARSABLE_TEXT);
-        LispCode lispCode = new LispCode(PARSABLE_TEXT + "unparseableText");
+    	MockLispObject objectToParse = new MockLispObject();
+        FirstFailsThenOkParser parser = new FirstFailsThenOkParser(objectToParse, PARSABLE_TEXT);
+        Code lispCode = new Code(PARSABLE_TEXT + "unparseableText");
 
-        Repitition repition = new Repitition(parser);
+        Repitition<MockLispObject> repition = new Repitition<>(parser);
         repition.parse(lispCode, stack);
 
         assertEquals(objectToParse, stack.pop());
@@ -49,20 +45,20 @@ public class RepititionTestCase {
 
 }
 
-class FirstFailsThenOkParser implements  Parser {
+class FirstFailsThenOkParser implements  Parser<MockLispObject> {
 
     private int round = 0;
 
-    private final LispObject lispObject;
+    private final MockLispObject lispObject;
     private final String stringToAccept;
 
-    FirstFailsThenOkParser(LispObject lispObject, String stringToAccept) {
+    FirstFailsThenOkParser(MockLispObject lispObject, String stringToAccept) {
         this.lispObject = lispObject;
         this.stringToAccept = stringToAccept;
     }
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+    public void parse(Code lispCode, Stack<MockLispObject> stack) throws ParseException {
 
         switch (round) {
             case 0:

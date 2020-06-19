@@ -3,6 +3,8 @@ package jlisp;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import syntax.Code;
+
 import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +18,7 @@ public class FixNumParserTestCase {
 	@Test @DisplayName("Parsing \"1\" should result 1 as number")
     public void parse1() {
 
-        LispCode chars = new LispCode("1");
+        Code chars = new Code("1");
         parser.parse(chars, stack);
 
         assertEquals(Fixnum.as(1),stack.pop());
@@ -26,7 +28,7 @@ public class FixNumParserTestCase {
 	@Test @DisplayName("Parsing \"-1\" should result -1 as number")
     public void parseMinus1() {
 
-        LispCode chars = new LispCode("-1");
+        Code chars = new Code("-1");
         parser.parse(chars, stack);
 
         assertEquals(Fixnum.as(-1),stack.pop());

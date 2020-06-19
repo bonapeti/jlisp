@@ -2,14 +2,15 @@ package jlisp;
 
 import java.util.Stack;
 
-import static syntax.Grammar.*;
+import syntax.Code;
+import syntax.Parser;
 
-public class ListExpressionParser implements Parser {
+public class ListExpressionParser implements Parser<LispObject> {
 
-    private final Parser listParser = sequenceOf(repititionOf(sequenceOf(whitespace(), new AtomExpressionParser())), whitespace());
+    private final Parser<LispObject> listParser = Lisp.sequenceOf(Lisp.repititionOf(Lisp.sequenceOf(Lisp.whitespace(), new AtomExpressionParser())), Lisp.whitespace());
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) {
+    public void parse(Code lispCode, Stack<LispObject> stack) {
         lispCode.expect('(');
         
         Stack<LispObject> listStack = new Stack<>();

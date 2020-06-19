@@ -2,10 +2,14 @@ package jlisp;
 
 import java.util.Stack;
 
-public class StringParser implements Parser {
+import syntax.Code;
+import syntax.ParseException;
+import syntax.Parser;
+
+public class StringParser implements Parser<LispObject> {
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+    public void parse(Code lispCode, Stack<LispObject> stack) throws ParseException {
         StringBuilder sb = new StringBuilder();
         lispCode.expect('\"');
         lispCode.collectUntil(c -> c != '\"', sb);

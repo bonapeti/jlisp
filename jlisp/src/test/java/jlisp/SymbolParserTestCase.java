@@ -2,6 +2,9 @@ package jlisp;
 
 import org.junit.jupiter.api.Test;
 
+import syntax.Code;
+import syntax.ParseException;
+
 import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +17,7 @@ public class SymbolParserTestCase {
 
     @Test
     public void parseEmpty() {
-        LispCode chars = new LispCode("");
+        Code chars = new Code("");
         try {
             parser.parse(chars, stack);
             fail("Should have failed with '" + EXPECTED_SYMBOL_BUT_FOUND_END_OF_FILE + "'");
@@ -28,7 +31,7 @@ public class SymbolParserTestCase {
     @Test
     public void parseArg() {
 
-        LispCode chars = new LispCode("arg");
+        Code chars = new Code("arg");
         parser.parse(chars, stack);
         assertEquals(new Symbol("arg"),stack.pop());
         assertFalse(chars.hasMore());
@@ -36,23 +39,23 @@ public class SymbolParserTestCase {
 
     @Test
     public void space() {
-        assertThrows(ParseException.class, () -> parser.parse(new LispCode(" "), stack));
+        assertThrows(ParseException.class, () -> parser.parse(new Code(" "), stack));
     }
     
     @Test
     public void spaceA() {
-        assertThrows(ParseException.class, () -> parser.parse(new LispCode(" a"), stack));
+        assertThrows(ParseException.class, () -> parser.parse(new Code(" a"), stack));
     }
     
     @Test
     public void quoted() {
-        assertThrows(ParseException.class, () -> parser.parse(new LispCode("'a"), stack));
+        assertThrows(ParseException.class, () -> parser.parse(new Code("'a"), stack));
     }
 
     @Test
     public void aSpace() {
 
-        LispCode chars = new LispCode("a ");
+        Code chars = new Code("a ");
         parser.parse(chars, stack);
 
         assertEquals(new Symbol("a"), stack.pop());

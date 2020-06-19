@@ -2,17 +2,23 @@ package jlisp;
 
 import java.util.Stack;
 
-public class TrueSymbolParser implements Parser {
+import syntax.CharPredicate;
+import syntax.CharacterProcessor;
+import syntax.Code;
+import syntax.ParseException;
+import syntax.Parser;
+
+public class TrueSymbolParser implements Parser<LispObject> {
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+    public void parse(Code lispCode, Stack<LispObject> stack) throws ParseException {
         lispCode.expect('t');
         lispCode.checkNext(c -> {
             if (Character.isWhitespace(c) || c == ')') {
-return true;
-} else {
-throw new ParseException("Expecting nothing after 't' but found " + c);
-}
+				return true;
+				} else {
+				throw new ParseException("Expecting nothing after 't' but found " + c);
+				}
         }, new CharacterProcessor() {
             
             @Override

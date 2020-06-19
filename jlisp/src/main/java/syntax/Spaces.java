@@ -1,12 +1,12 @@
-package jlisp;
+package syntax;
 
 import java.util.Stack;
 
-public class Spaces implements Parser {
+public class Spaces<T> implements Parser<T> {
 
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException{
+    public void parse(Code lispCode, Stack<T> stack) throws ParseException{
         lispCode.advanceUntil(c -> Character.isWhitespace(c));
 
     }
