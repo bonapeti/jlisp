@@ -3,6 +3,8 @@ package jlisp;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import syntax.Code;
+
 import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +18,7 @@ public class NilParserTestCase {
     @Test @DisplayName("Parsing 'nil'")
     public void parseNil() {
 
-        LispCode chars = new LispCode("nil");
+        Code chars = new Code("nil");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.NIL,stack.pop());
         assertEquals(3, chars.getCurrentPosition());
@@ -25,7 +27,7 @@ public class NilParserTestCase {
     @Test @DisplayName("Parsing 'nil '")
     public void parseNilSpace() {
 
-        LispCode chars = new LispCode("nil ");
+        Code chars = new Code("nil ");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.NIL,stack.pop());
         assertEquals(3, chars.getCurrentPosition());
@@ -34,7 +36,7 @@ public class NilParserTestCase {
     @Test @DisplayName("Parsing 'nil) '")
     public void parseTSpaceWithClosingList() {
 
-        LispCode chars = new LispCode("nil) ");
+        Code chars = new Code("nil) ");
         symbolParser.parse(chars, stack);
         assertEquals(Lisp.NIL,stack.pop());
         assertEquals(3, chars.getCurrentPosition());

@@ -1,11 +1,13 @@
-package jlisp;
+package syntax;
 
 import java.util.Stack;
+
+import jlisp.LispObject;
 
 /**
  * Thing which can go through the characters of the Lisp code and place the evaluated Lisp object on the stack
  */
-public interface Parser {
+public interface Parser<T> {
 
     /**
      * Goes through the characters of the Lisp code and place the evaluated Lisp object on the stack
@@ -13,5 +15,5 @@ public interface Parser {
      * @param stack
      * @throws ParseException
      */
-    void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException;
+    void parse(Code lispCode, Stack<T> stack) throws ParseException;
 }

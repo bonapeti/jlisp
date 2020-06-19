@@ -1,8 +1,8 @@
-package jlisp;
+package syntax;
 
 import java.util.Objects;
 
-public class LispCode {
+public class Code {
 
     private final String text;
     private int index = 0;
@@ -22,8 +22,8 @@ public class LispCode {
         return sb.toString();
     }
     
-    public LispCode(String text) {
-        this.text = Objects.requireNonNull(text, "Lisp code is missing!");
+    public Code(String text) {
+        this.text = Objects.requireNonNull(text, "Code text is missing!");
     }
     
     public boolean hasMore() {

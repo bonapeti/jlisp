@@ -1,4 +1,4 @@
-package jlisp;
+package syntax;
 
 public class CharacterProcessor {
     

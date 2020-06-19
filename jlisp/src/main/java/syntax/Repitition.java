@@ -1,22 +1,17 @@
 package syntax;
 
-import jlisp.LispCode;
-import jlisp.LispObject;
-import jlisp.ParseException;
-import jlisp.Parser;
-
 import java.util.Stack;
 
-public class Repitition implements Parser {
+public class Repitition<T> implements Parser<T> {
 
-    private final Parser parser;
+    private final Parser<T> parser;
     
-    public Repitition(Parser parser) {
+    public Repitition(Parser<T> parser) {
         this.parser = parser;
     }
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+    public void parse(Code lispCode, Stack<T> stack) throws ParseException {
         
         while (true) {
             int position = lispCode.getCurrentPosition();

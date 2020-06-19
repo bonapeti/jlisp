@@ -1,15 +1,16 @@
 package syntax;
 
 
-import jlisp.LispCode;
-import jlisp.LispObject;
-import jlisp.ParseException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Stack;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @DisplayName("Parsing sequence of parsers")
 public class SequenceTestCase {
@@ -17,12 +18,12 @@ public class SequenceTestCase {
     public static final String ERROR_MESSAGE = "ParseException";
     public static final String DUMMY_TEXT = "DUMMY_TEXT";
 
-    private final Sequence sequence = new Sequence();
+    private final Sequence<MockLispObject> sequence = new Sequence<>();
 
     private final FailingParser failingParser = new FailingParser(ERROR_MESSAGE);
-    private final Stack<LispObject> stack = new Stack<>();
-    private LispCode lispCode = new LispCode(DUMMY_TEXT);
-    private final LispObject lispObject = new MockLispObject();
+    private final Stack<MockLispObject> stack = new Stack<>();
+    private Code lispCode = new Code(DUMMY_TEXT);
+    private final MockLispObject lispObject = new MockLispObject();
     private final OkParser okParser = new OkParser(lispObject);
 
     @Test @DisplayName("First parser fails => FAILURE")
@@ -59,7 +60,7 @@ public class SequenceTestCase {
     
     @Test @DisplayName("Both parsers succeeds => OK")
     public void parse() {
-        LispObject lispObject2 = new MockLispObject();
+    	MockLispObject lispObject2 = new MockLispObject();
 
         OkParser okParser2 = new OkParser(lispObject2);
 

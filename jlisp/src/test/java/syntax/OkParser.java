@@ -1,22 +1,17 @@
 package syntax;
 
-import jlisp.LispCode;
-import jlisp.LispObject;
-import jlisp.ParseException;
-import jlisp.Parser;
-
 import java.util.Stack;
 
-public class OkParser implements Parser {
+public class OkParser implements Parser<MockLispObject> {
 
-    private final LispObject lispElement;
+    private final MockLispObject lispElement;
 
-    public OkParser(LispObject lispElement) {
+    public OkParser(MockLispObject lispElement) {
         this.lispElement = lispElement;
     }
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
+    public void parse(Code lispCode, Stack<MockLispObject> stack) throws ParseException {
         stack.push(lispElement);
         lispCode.advanceToEnd();
     }

@@ -1,29 +1,24 @@
 package syntax;
 
-import jlisp.LispCode;
-import jlisp.LispObject;
-import jlisp.ParseException;
-import jlisp.Parser;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class Sequence implements Parser {
+public class Sequence<T> implements Parser<T> {
 
-    private final Collection<Parser> parsers = new LinkedList<>();
+    private final Collection<Parser<T>> parsers = new LinkedList<>();
 
     @Override
-    public void parse(LispCode lispCode, Stack<LispObject> stack) throws ParseException {
-        Stack<LispObject> subStack = new Stack<>();
-        for (Parser parser : parsers) {
+    public void parse(Code lispCode, Stack<T> stack) throws ParseException {
+        Stack<T> subStack = new Stack<>();
+        for (Parser<T> parser : parsers) {
             parser.parse(lispCode, subStack);
         }
         stack.addAll(subStack);
     }
     
-    public void addParser(Parser... parser) {
+    public void addParser(Parser<T>... parser) {
         parsers.addAll(java.util.Arrays.asList(parser));
     }
 
@@ -31,7 +26,7 @@ public class Sequence implements Parser {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("(");
-        Iterator<Parser> iParser = parsers.iterator();
+        Iterator<Parser<T>> iParser = parsers.iterator();
         while (iParser.hasNext()) {
             sb.append(iParser.next().toString());
             if (iParser.hasNext()) {
