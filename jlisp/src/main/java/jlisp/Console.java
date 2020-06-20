@@ -8,7 +8,7 @@ public class Console {
     public static void main(String[] args) throws Exception {
         
         CommonLisp commonLisp = new CommonLisp();
-        
+
         ConsoleReader console = new ConsoleReader();
         
         console.setPrompt("JLisp: ");
@@ -20,7 +20,7 @@ public class Console {
                 return;
             }
 
-            console.println(commonLisp.evaluate(line));
+            console.println(commonLisp.readAndEvaluate(line));
             
             line = console.readLine();
         }

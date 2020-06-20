@@ -185,7 +185,7 @@ throw new EvaluationException(e.getMessage());
      * @param lispCode Lisp code
      * @return evaluated List object
      */
-	public String evaluate(String lispCode) {
+	public String readAndEvaluate(String lispCode) {
         StringBuilder reply = new StringBuilder();
         try {
             Lisp.read(lispCode).evaluate(environment).print(reply);

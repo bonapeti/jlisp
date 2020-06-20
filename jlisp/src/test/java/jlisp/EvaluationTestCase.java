@@ -148,7 +148,7 @@ public class EvaluationTestCase {
     public void cond() {
 	    assertEvaluation(" (cond) ", "NIL");
 	    
-	    commonLisp.evaluate("(defun compare (x y) (cond " +
+	    commonLisp.readAndEvaluate("(defun compare (x y) (cond " +
 	    		"((equal x y) 'numbers-are-the-same)" +
 	    		"((< x y) 'first-is-smaller)" +
 	    		"((> x y) 'first-is-bigger)" +
@@ -188,14 +188,14 @@ public class EvaluationTestCase {
 	
 	@Test @Disabled
     public void letStar() {
-	    commonLisp.evaluate(" (defun average (x y)" +
+	    commonLisp.readAndEvaluate(" (defun average (x y)" +
         		            "  (let* ((sum (+ x y))) " +
         		            "  (list x y 'average 'is (/ sum 2))" +
         		            ")) ");
         
         assertEvaluation(" (average 3 7) ", " (3 7 AVERAGE IS 5) ");
         
-        commonLisp.evaluate(" (defun price-change (old new)" +
+        commonLisp.readAndEvaluate(" (defun price-change (old new)" +
                 "  (let* ( (diff (- new old)) " +
                 "         (propotion (/ diff old))" +
                 "         (percentage (* propotion 100))) " +
@@ -251,7 +251,7 @@ public class EvaluationTestCase {
     
     @Test
     public void member() {
-        commonLisp.evaluate("(setf ducks '(huey dewey louie))");
+        commonLisp.readAndEvaluate("(setf ducks '(huey dewey louie))");
         assertEvaluation("(member 'huey ducks)","(HUEY DEWEY LOUIE)");
         assertEvaluation("(member 'dewey ducks)","(DEWEY LOUIE)");
         assertEvaluation("(member 'louie ducks)","(LOUIE)");
@@ -305,7 +305,7 @@ public class EvaluationTestCase {
     
 	@Test
     public void defun_and_eval() {
-        commonLisp.evaluate("(defun a (b) (+ b 10) (+ b 34))");
+        commonLisp.readAndEvaluate("(defun a (b) (+ b 10) (+ b 34))");
 
         assertEvaluation("(a 3)", "37");
     }
@@ -317,7 +317,7 @@ public class EvaluationTestCase {
 
 	void assertEvaluation(String line, String expectedReply) {
 	    try {
-            String replyString = commonLisp.evaluate(line).toString().trim();
+            String replyString = commonLisp.readAndEvaluate(line).toString().trim();
             String expectedString = expectedReply.trim();
             assertTrue(expectedString.equalsIgnoreCase(replyString), "Expected: " + expectedString + " but was: " + replyString);
         } catch (Exception pe) {
