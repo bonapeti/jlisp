@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class Fixnum extends Number implements LispObject {
 
-    public static Fixnum ZERO = new Fixnum(0);
-    public static Fixnum ONE = new Fixnum(1);
+    public static final Fixnum ZERO = new Fixnum(0);
+    public static final Fixnum ONE = new Fixnum(1);
     
     private final Integer value;
     

@@ -24,13 +24,13 @@ public class DefineFunction implements SpecialForm {
             LispObject second = remaining.head();
             assertList(second);
             parameterList = (List)second;
-            parameterList.foreach(e -> assertListOrSymbol(e));
+            parameterList.foreach(this::assertListOrSymbol);
             
             
             remaining = remaining.tail();
             if (!remaining.isEmpty()) {
                 assertList(remaining);    
-                bodies = (List)remaining;
+                bodies = remaining;
             }
         }
         

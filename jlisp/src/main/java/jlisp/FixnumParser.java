@@ -2,6 +2,8 @@ package jlisp;
 
 import java.util.Stack;
 
+import jlisp.Fixnum;
+import jlisp.LispObject;
 import syntax.Code;
 import syntax.ParseException;
 import syntax.Parser;
@@ -22,7 +24,7 @@ public class FixnumParser implements Parser<LispObject>  {
                 return true;
             }
         }, sb);
-        lispCode.collectUntil(c -> Character.isDigit(c), sb);
+        lispCode.collectUntil(Character::isDigit, sb);
         stack.push(Fixnum.as(Integer.parseInt(sb.toString())));
     }
     

@@ -2,6 +2,10 @@ package jlisp;
 
 import java.util.Stack;
 
+import jlisp.Lisp;
+import jlisp.LispObject;
+import jlisp.List;
+import jlisp.AtomExpressionParser;
 import syntax.Code;
 import syntax.Parser;
 

@@ -7,7 +7,7 @@ public class Spaces<T> implements Parser<T> {
 
     @Override
     public void parse(Code lispCode, Stack<T> stack) throws ParseException{
-        lispCode.advanceUntil(c -> Character.isWhitespace(c));
+        lispCode.advanceUntil(Character::isWhitespace);
 
     }
 

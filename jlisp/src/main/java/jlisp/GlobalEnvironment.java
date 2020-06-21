@@ -8,8 +8,8 @@ import java.util.Map;
  */
 public class GlobalEnvironment implements Environment {
 
-    Map<Symbol,SpecialForm> specialForms = new HashMap<>();
-    Map<Symbol, LispObject> values = new HashMap<>();
+    final Map<Symbol,SpecialForm> specialForms = new HashMap<>();
+    final Map<Symbol, LispObject> values = new HashMap<>();
 
     @Override
     public SpecialForm getSpecialForm(Symbol name) {

@@ -2,6 +2,8 @@ package jlisp;
 
 import java.util.Stack;
 
+import jlisp.LispObject;
+import jlisp.Symbol;
 import syntax.CharPredicate;
 import syntax.CharacterProcessor;
 import syntax.Code;

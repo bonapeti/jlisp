@@ -143,13 +143,7 @@ throw new EvaluationException(e.getMessage());
 		environment.defineFunction("/", (arguments, environment) -> arguments.tail().foldLeft(arguments.car(), (p1, p2) -> Fixnum.as( ((Number)p1).intValue() / ((Number) p2).intValue())));
 		environment.defineFunction("-", (arguments, environment) -> arguments.tail().foldLeft(arguments.car(), (p1, p2) -> Fixnum.as( ((Number)p1).intValue() - ((Number) p2).intValue())));
 		environment.defineFunction("abs", (arguments, environment) -> of(arguments.first()).absoluteValue());
-		environment.defineFunction("append", (arguments, environment) -> arguments.foldLeft(Lisp.NIL, (Function2<LispObject, LispObject, LispObject>) (p1, p2) -> List.of(p2).foldLeft(p1, new Function2<LispObject,LispObject,LispObject>() {
-
-            @Override
-            public LispObject apply(LispObject p3, LispObject p4) {
-                return List.of(p3).append(p4);
-            }
-        })));
+		environment.defineFunction("append", (arguments, environment) -> arguments.foldLeft(Lisp.NIL, (Function2<LispObject, LispObject, LispObject>) (p1, p2) -> List.of(p2).foldLeft(p1, (Function2<LispObject, LispObject, LispObject>) (p3, p4) -> List.of(p3).append(p4))));
 		environment.defineFunction("reverse", (arguments, environment) -> List.of(arguments.first()).foldRight(Lisp.NIL, (Function2<LispObject, LispObject, LispObject>) (p1, p2) -> List.of(p2).append(p1)));
 		environment.defineFunction("last", (arguments, environment) -> List.of(arguments.first()).findFirst(p -> p.tail().isEmpty(), p -> p));
 		environment.defineFunction("remove", (arguments, environment) -> {

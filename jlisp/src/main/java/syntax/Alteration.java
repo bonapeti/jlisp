@@ -1,9 +1,6 @@
 package syntax;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Parser which lets each provided parser try evaluating the code until one succeeds
@@ -33,9 +30,7 @@ public class Alteration<T> implements Parser<T> {
     }
 
     public void addParser(Parser<T>... parsers) {
-        for (Parser<T> parser : parsers) {
-            this.parsers.add(parser);
-        }
+        this.parsers.addAll(Arrays.asList(parsers));
 
     }
 

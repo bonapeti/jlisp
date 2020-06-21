@@ -8,9 +8,11 @@ import syntax.Parser;
 
 public class AtomExpressionParser implements Parser<LispObject> {
 
+    private static final Parser<LispObject> parser = Lisp.alterationOf(new QuoteParser(), new SharpQuoteParser(), new FixnumParser(), new StringParser(), new NilParser(), new TrueSymbolParser(), new SymbolParser(), new ListExpressionParser());
+
     @Override
     public void parse(Code lispCode, Stack<LispObject> stack) throws ParseException {
-        Lisp.alterationOf(new QuoteParser(), new SharpQuoteParser(), new FixnumParser(), new StringParser(), new NilParser(), new TrueSymbolParser(), new SymbolParser(), new ListExpressionParser()).parse(lispCode, stack);
+        parser.parse(lispCode, stack);
     }
 
 }

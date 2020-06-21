@@ -2,8 +2,6 @@ package syntax;
 
 import java.util.Stack;
 
-import jlisp.LispObject;
-
 /**
  * Thing which can go through the characters of the Lisp code and place the evaluated Lisp object on the stack
  */

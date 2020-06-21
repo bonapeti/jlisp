@@ -2,6 +2,8 @@ package jlisp;
 
 import java.util.Stack;
 
+import jlisp.LispObject;
+import jlisp.Lisp;
 import syntax.Code;
 import syntax.ParseException;
 import syntax.Parser;

@@ -1,9 +1,9 @@
 package jlisp;
 
-
-
 import java.util.Stack;
 
+
+import jlisp.*;
 import syntax.Alteration;
 import syntax.Code;
 import syntax.ParseException;
@@ -25,7 +25,7 @@ public class Lisp {
     /**
      * The TRUTH object
      */
-    public static final T T = new T();
+    public static final jlisp.T T = new T();
     
 
     public static Fixnum fixnum(int value) {
@@ -69,11 +69,11 @@ public class Lisp {
         return new Repitition<>(parser);
     }
     
-    private static Parser<LispObject> lispParser = null;
+    private static final Parser<LispObject> lispParser;
     
     static {
     	Sequence<LispObject> sequence = new Sequence<>();
-    	sequence.addParser(new Spaces<LispObject>(), new AtomExpressionParser());
+    	sequence.addParser(new Spaces<>(), new AtomExpressionParser());
     	lispParser = sequence;
     }
     
@@ -93,7 +93,7 @@ public class Lisp {
         if (stack.isEmpty()) {
             throw new ParseException("Unknown expression '" + text + "'");
         }
-        return (LispObject)stack.pop();
+        return stack.pop();
     }
 
     public static FunctionCall asFunction(LispObject lispObject) {
